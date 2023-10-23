@@ -49,7 +49,7 @@ export const Navbar = () => {
             </ul>
           </div>
           <Link to={'/'}>
-            <img src={Logo} className="object-center w-1/5"></img>
+            <img src={Logo} className="object-center h-14"></img>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
