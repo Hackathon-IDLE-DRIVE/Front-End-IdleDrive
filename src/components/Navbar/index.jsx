@@ -5,16 +5,12 @@ import { navbarData } from './navbarData'
 export const Navbar = () => {
   return (
     <>
-    {navbarData.map((item,index) => {
-      return(
-          <li key={index}>
-              <Link to={item.path}>
-                  <span className="navtext">{item.title}</span>
-              </Link>
-          </li>
-      )
-  })}
-  </>
+        <div className='bg-white shadow-md w-full h-14 flex justify-center items-center'>
+
+          <h1>Helooooo</h1>
+
+        </div>
+    </>
   )
   
 }
