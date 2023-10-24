@@ -1,7 +1,11 @@
 import React from 'react'
+import CarlistCard from '../../components/Card/cardCarListUser'
 
 export const CarList = () => {
   return (
-    <div>CarList</div>
+    <>
+      <CarlistCard/>
+    </>
+    
   )
 }

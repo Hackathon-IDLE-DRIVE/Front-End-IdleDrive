@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/booking?checkin=2023-10-01&checkout=2023-12-02"
+            path="/booking"
             element={<CarList />}
           />
           <Route path="/motorhome/:id" element={<CarDetail />} />
