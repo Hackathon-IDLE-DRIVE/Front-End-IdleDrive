@@ -23,10 +23,10 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const handleBookingClick = () => {
-    const pickupDate = "2023-10-05";
-    const returnDate = "2023-12-15";
+    const pickupDate = `${format(date[0].startDate, "yyyy-MM-dd")}`;
+    const returnDate = `${format(date[0].endDate, "yyyy-MM-dd")}`;
 
-    navigate(`/booking?pick-up=${pickupDate}&return=${returnDate}`);
+    navigate(`/car-list?pick-up=${pickupDate}&return=${returnDate}`);
   };
 
   return (
@@ -75,6 +75,7 @@ export const Home = () => {
                 onChange={(item) => setDate([item.selection])}
                 moveRangeOnFirstSelection={false}
                 ranges={date}
+                minDate={new Date()}
                 className="absolute top-20 right-24 z-50"
               />
             )}
@@ -82,7 +83,8 @@ export const Home = () => {
 
           <button
             className="bg-[#1D4FB1] text-white text-2xl rounded-xl px-32 py-2 shadow-lg
-        absolute -bottom-6 z-10"
+        absolute -bottom-6 z-10 font-bold"
+              onClick={handleBookingClick}
           >
             Explore
           </button>
