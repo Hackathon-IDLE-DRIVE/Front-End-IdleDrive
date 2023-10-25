@@ -11,6 +11,7 @@ import logo from "../../images/idle-w-light.png";
 import backdrop from "../../images/motorhome.jpg";
 
 export const Home = () => {
+  const [location, setLocation] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
     {
@@ -26,46 +27,64 @@ export const Home = () => {
     const pickupDate = `${format(date[0].startDate, "yyyy-MM-dd")}`;
     const returnDate = `${format(date[0].endDate, "yyyy-MM-dd")}`;
 
-    navigate(`/car-list?pick-up=${pickupDate}&return=${returnDate}`);
+    navigate(
+      `/car-list?pick-up=${pickupDate}&return=${returnDate}&location=${location}`
+    );
   };
 
   return (
     <div className="flex flex-col items-center h-[800px]">
       <img src={logo} className="h-40" />
-      <h1 className="text-3xl font-bold">Roam,Relex, Rent : Your Road to Home on Wheels!</h1>
+      <h1 className="text-3xl font-bold text-center">
+        Roam,Relex, Rent : Your Road to Home on Wheels!
+      </h1>
       <div className="flex flex-col items-center h-fit relative z-30 w-full">
         <div
           className="flex flex-col justify-center items-center w-[1300px] shadow-2xl 
-          h-60 p-5 mt-4 rounded-3xl relative z-20 bg-white"
+          h-60 p-5 mt-4 rounded-3xl relative z-20 bg-white
+          sm:w-[640px]
+          md:w-[768px]
+          max-[640px]:w-full"
         >
           <input
             type="text"
             placeholder="Location"
             className="input input-bordered w-full max-w-xs my-4"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
-          <div className="flex rounded-lg border-2 border-stone-400 p-4 w-[600px] relative">
+          <div
+            className="flex flex-row rounded-lg border-2 border-stone-400 p-4 w-[600px] relative
+          max-[640px]:flex-col max-[640px]:w-full"
+          >
             <div
-              className="flex ml-5 pr-24 border-r-2 border-stone-400"
+              className="flex ml-5 pr-24 border-r-2 border-stone-400 max-[640px]:border-none"
               onClick={() => {
                 setOpenDate(!openDate);
               }}
             >
               <box-icon color="#1D4FB1" name="calendar" size="lg" />
               <div className="flex flex-col ml-5">
-                <span className="font-bold">{`${format(date[0].startDate, "dd/MM/yyyy")}`}</span>
+                <span className="font-bold">{`${format(
+                  date[0].startDate,
+                  "dd/MM/yyyy"
+                )}`}</span>
                 <span>{`${format(date[0].startDate, "eeee")}`}</span>
               </div>
             </div>
 
             <div
-              className="flex ml-5"
+              className="flex ml-5 max-[640px]:mt-2"
               onClick={() => {
                 setOpenDate(!openDate);
               }}
             >
               <box-icon color="#1D4FB1" name="calendar" size="lg" />
               <div className="flex flex-col ml-5">
-                <span className="font-bold">{`${format(date[0].endDate, "dd/MM/yyyy")}`}</span>
+                <span className="font-bold">{`${format(
+                  date[0].endDate,
+                  "dd/MM/yyyy"
+                )}`}</span>
                 <span>{`${format(date[0].endDate, "eeee")}`}</span>
               </div>
             </div>
@@ -76,7 +95,7 @@ export const Home = () => {
                 moveRangeOnFirstSelection={false}
                 ranges={date}
                 minDate={new Date()}
-                className="absolute top-20 right-24 z-50"
+                className="absolute top-20 right-24 z-50 max-[640px]:right-0"
               />
             )}
           </div>
@@ -84,7 +103,7 @@ export const Home = () => {
           <button
             className="bg-[#1D4FB1] text-white text-2xl rounded-xl px-32 py-2 shadow-lg
         absolute -bottom-6 z-10 font-bold"
-              onClick={handleBookingClick}
+            onClick={handleBookingClick}
           >
             Explore
           </button>
