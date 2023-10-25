@@ -2,9 +2,9 @@ import React from 'react';
 
 const ContentContainer = ({ children }) => {
   return (
-    <div style={{ padding: '16px' }}>
+    <main style={{ padding: '16px', height: 'fit-content' }}>
       {children}
-    </div>
+    </main>
   );
 };
 
