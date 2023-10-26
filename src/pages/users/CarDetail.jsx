@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ImageDetailShow from "../../components/ImageDetail";
 import Section from "../../components/Section";
+import CommentReviewCar from "../../components/Comment/commentCar";
 
 export const CarDetail = () => {
   return (
@@ -101,6 +102,8 @@ export const CarDetail = () => {
                 </div>
               </div>
             </div>
+            <CommentReviewCar/>
+            <CommentReviewCar/>
           </Section>
         </div>
         <div className="mt-24">
