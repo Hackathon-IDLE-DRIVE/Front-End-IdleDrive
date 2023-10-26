@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import CarlistCard from "../../components/Card/cardCarListUser"
 import { format } from "date-fns";
 
 export const CarList = () => {
@@ -91,7 +92,16 @@ export const CarList = () => {
       </div>
       <div className="p-5">
         <div className="text-gray-400">20 result</div>
-        <div className="flex flex-row justify-evenly flex-wrap w-full"></div>
+        <div className="flex flex-row justify-evenly flex-wrap w-full">
+          <CarlistCard/>
+          <CarlistCard/>
+          <CarlistCard/>
+          <CarlistCard/>
+          <CarlistCard/>
+          <CarlistCard/>
+          <CarlistCard/>
+          <CarlistCard/>
+        </div>
       </div>
     </>
   );
