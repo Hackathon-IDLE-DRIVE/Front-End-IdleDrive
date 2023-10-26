@@ -49,7 +49,7 @@ export const Home = () => {
           <input
             type="text"
             placeholder="Location"
-            className="input input-bordered w-full max-w-xs my-4"
+            className="input w-full max-w-xs my-4 bg-gray-100 border-none"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />

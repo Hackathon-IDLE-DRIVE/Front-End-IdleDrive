@@ -1,15 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function CarlistCard() {
-
+export default function CarlistCard({ queryParams }) {
+    const { pickupDate, returnDate, location } = queryParams;
     const navigate = useNavigate();
 
   return (
     <>
-        <div className="card w-96 bg-base-100 shadow-lg mt-5
+        <div className="card w-96 bg-base-100 shadow-lg mt-5 z-0
         hover:cursor-pointer hover:shadow-xl"
-        onClick={()=>navigate('/motorhome/1')}>
+        onClick={()=>navigate(`/motorhome/1?pick-up=${pickupDate}&return=${returnDate}&location=${location}`)}>
             <figure><img src="https://m.carryboycaravan.com/motor-home/rod-baan/motorhome-for-sale-rod-baan-recreational-vehicle-campers-for-pickup-truck-toyota-hilux-revo-4x4-4wd-camping-trips-holiday-travel-tours-rv-carryboy-1.png" alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title text-2xl font-semibold">Toyota CarryBoy</h2>

@@ -20,6 +20,11 @@ export const CarList = () => {
       key: "selection",
     },
   ]);
+  const queryParams = {
+    pickupDate,
+    returnDate,
+    location: locationInput,
+  };
 
   useEffect(() => {
     setDate([
@@ -33,7 +38,7 @@ export const CarList = () => {
 
   return (
     <>
-      <div className="flex w-full border-b-2 p-5 items-center">
+      <div className="flex flex-col w-full border-b-2 p-5 items-center md:flex-row">
         <div>
           Location
           <input
@@ -44,11 +49,11 @@ export const CarList = () => {
             onChange={(e)=>setLocationInput(e.target.value)}
           />
         </div>
-        <div className="ml-10">
+        <div className="md:ml-10">
           Date
           <div
             className="flex h-fit items-center border-2 relative
-         p-3 rounded-lg my-4 px-10"
+         p-3 rounded-lg my-4 px-16"
           >
             <div
               className="text-base"
@@ -68,12 +73,12 @@ export const CarList = () => {
                 moveRangeOnFirstSelection={false}
                 ranges={date}
                 minDate={new Date()}
-                className="absolute top-3/4"
+                className="absolute top-full left-0 z-20"
               />
             )}
           </div>
         </div>
-        <div className="ml-20 mt-6">
+        <div className="md:ml-20 md:mt-6">
           <button className="bg-[#1D4FB1] px-10 py-3 text-white rounded-2xl
           font-bold">
             Search
@@ -92,15 +97,12 @@ export const CarList = () => {
       </div>
       <div className="p-5">
         <div className="text-gray-400">20 result</div>
-        <div className="flex flex-row justify-evenly flex-wrap w-full">
-          <CarlistCard/>
-          <CarlistCard/>
-          <CarlistCard/>
-          <CarlistCard/>
-          <CarlistCard/>
-          <CarlistCard/>
-          <CarlistCard/>
-          <CarlistCard/>
+        <div className="flex flex-row flex-wrap justify-evenly">
+          <CarlistCard queryParams={queryParams}/>
+          <CarlistCard queryParams={queryParams}/>
+          <CarlistCard queryParams={queryParams}/>
+          <CarlistCard queryParams={queryParams}/>
+          <CarlistCard queryParams={queryParams}/>
         </div>
       </div>
     </>

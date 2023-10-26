@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import ImageDetailShow from "../../components/ImageDetail";
 import Section from "../../components/Section";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 
 export const CarDetail = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const pickupDate = searchParams.get("pick-up");
+  const returnDate = searchParams.get("return");
+  const location = searchParams.get("location");
+
   return (
     <>
       <div className="flex justify-evenly">
@@ -128,7 +136,8 @@ export const CarDetail = () => {
                 <div className="text-xs">฿3,000</div>
               </div>
             </div>
-            <button className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold">
+            <button className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold"
+            onClick={()=>navigate(`/motorhome/1/checkout?pick-up=${pickupDate}&return=${returnDate}&location=${location}`)}>
               {" "}
               SELECT{" "}
             </button>

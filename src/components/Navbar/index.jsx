@@ -6,7 +6,7 @@ import Logo from "../../images/idle-w-light.png";
 export const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-white shadow-md sticky top-0">
+      <div className="navbar bg-white shadow-md sticky top-0 z-50">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -27,7 +27,7 @@ export const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52"
             >
               <li>
                 <a>Item 1</a>
