@@ -13,8 +13,8 @@ export const CarDetail = () => {
 
   return (
     <>
-      <div className="flex justify-evenly">
-        <div className="w-3/6">
+      <div className="flex flex-col justify-evenly lg:flex-row">
+        <div className="w-full lg:w-3/6">
           <div className="mb-6 mt-3">
             <h1 className="font-bold text-3xl mb-2">Rolling Family Plus</h1>
             <div className="flex">
@@ -112,7 +112,7 @@ export const CarDetail = () => {
           </Section>
         </div>
         <div className="mt-24">
-          <div className="w-[350px] h-fit shadow-md p-5 flex flex-col justify-center rounded-xl sticky top-20">
+          <div className="w-full lg:w-[400px] h-fit shadow-md p-5 flex flex-col justify-center rounded-xl sticky top-20">
             <span className="font-bold text-2xl mb-10">Duration</span>
 
             <div className="pb-2 border-b-2">

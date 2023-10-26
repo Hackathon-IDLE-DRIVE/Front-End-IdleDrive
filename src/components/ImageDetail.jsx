@@ -22,7 +22,7 @@ function ImageDetailShow() {
         ))}
       </div>
 
-      <div className={`flex -mx-2 mb-4 items-center justify-center ${images.length > 3 ? 'md:flex-wrap' : ''}`}>
+      <div className={`flex -mx-2 mb-4 items-center justify-center ${images.length > 3 ? 'min-[300px]:flex-wrap' : ''}`}>
         {images.map((url, i) => (
           <div key={i} className="p-2 w-1/3">
             <button

@@ -58,12 +58,13 @@ export const Home = () => {
           max-[640px]:flex-col max-[640px]:w-full"
           >
             <div
-              className="flex ml-5 pr-24 border-r-2 border-stone-400 max-[640px]:border-none"
+              className="flex ml-5 pr-24 border-r-2 border-stone-400 max-[640px]:border-none max-[640px]:p-0"
               onClick={() => {
                 setOpenDate(!openDate);
               }}
             >
               <box-icon color="#1D4FB1" name="calendar" size="lg" />
+              
               <div className="flex flex-col ml-5">
                 <span className="font-bold">{`${format(
                   date[0].startDate,
@@ -74,7 +75,7 @@ export const Home = () => {
             </div>
 
             <div
-              className="flex ml-5 max-[640px]:mt-2"
+              className="flex ml-5 max-[640px]:mt-2 max-[640px]:w-full"
               onClick={() => {
                 setOpenDate(!openDate);
               }}
@@ -102,7 +103,7 @@ export const Home = () => {
 
           <button
             className="bg-[#1D4FB1] text-white text-2xl rounded-xl px-32 py-2 shadow-lg
-        absolute -bottom-6 z-10 font-bold"
+        absolute -bottom-6 z-10 font-bold max-[350px]:w-full max-[350px]:px-10"
             onClick={handleBookingClick}
           >
             Explore
