@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api/v1/idledrive/car-rental"; // แทนที่ BASE_URL ด้วย URL ของคุณ
+const BASE_URL = "http://localhost:3000/api/v1/idledrive/car-rental";
 
+//Service สำหรับลบ register
 export const registerUser = async (rental_name, username, email, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/register`, {
@@ -16,6 +17,7 @@ export const registerUser = async (rental_name, username, email, password) => {
   }
 };
 
+//Service สำหรับ login
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/login`, {
@@ -28,6 +30,7 @@ export const loginUser = async (email, password) => {
   }
 };
 
+//Service สำหรับแก้ไข user cars_rental
 export const editUserProfile = async (
   userId,
   rental_name,
@@ -48,6 +51,7 @@ export const editUserProfile = async (
   }
 };
 
+//Service สำหรับลบ user cars_rental
 export const deleteUser = async (userId) => {
   try {
     const response = await axios.delete(`${BASE_URL}/auth/delete/${userId}`);
