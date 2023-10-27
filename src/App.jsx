@@ -5,6 +5,7 @@ import { Home } from "./pages/users/Home";
 import { CarList } from "./pages/users/CarList";
 import { CarDetail } from "./pages/users/CarDetail";
 import { CarCheckout } from "./pages/users/CarCheckout"
+import { Tracking } from "./pages/users/Tracking";
 import Footer from "./components/Footer";
 import ContentContainer from "./components/ContentContainer";
 
@@ -21,6 +22,7 @@ function App() {
           />
           <Route path="/motorhome/:id/*" element={<CarDetail />} />
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
+          <Route path="/tracking/:id" element={<Tracking />} />
         </Routes>
       </ContentContainer>
       <Footer/>

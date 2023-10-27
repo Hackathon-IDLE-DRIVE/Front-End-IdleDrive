@@ -1,7 +1,21 @@
 import React from "react";
 import CollapseForm from "../../components/CollapseForm";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+
 
 export const CarCheckout = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const pickupDate = searchParams.get("pick-up");
+  const returnDate = searchParams.get("return");
+  const location = searchParams.get("location");
+
+  const onSubmit = ()=>{
+    console.log(pickupDate, returnDate, location)
+    console.log('Booking');
+    navigate('/tracking/1');
+  }
+
   return (
     <div className="mx-6 flex">
       <div className="w-3/6">
@@ -41,7 +55,8 @@ export const CarCheckout = () => {
           <span>Subtotal</span>
           <div>฿10,900</div>
         </div>
-        <button className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold mt-3">
+        <button className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold mt-3"
+        onClick={onSubmit}>
           Confirm Booking
         </button>
       </div>
