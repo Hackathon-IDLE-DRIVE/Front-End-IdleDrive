@@ -20,17 +20,9 @@ export const createUser = async (userData) => {
   }
 };
 
-export const loginUser = async (email, password) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/auth/login`, {
-      // Use BASE_URL here
-      email,
-      password,
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+export const loginUser = async (credentials) => {
+    const response = await axios.post(`${BASE_URL}/auth/login`,credentials);
+    return response;
 };
 
 export const updateUser = async (userId, userData) => {

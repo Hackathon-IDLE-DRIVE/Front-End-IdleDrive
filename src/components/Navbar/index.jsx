@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { navbarData } from "./navbarData";
 import Logo from "../../images/idle-w-light.png";
+import { AuthContext } from "../../service/context/AuthContext";
 
 export const Navbar = () => {
+  const { user, loading, error, dispatch } = useContext(AuthContext);
+
+  const isLoggedIn = user !== null;
+
   return (
     <>
       <div className="navbar bg-white shadow-md sticky top-0 z-50">
@@ -48,7 +53,7 @@ export const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link to={'/'}>
+          <Link to={"/"}>
             <img src={Logo} className="object-center h-14"></img>
           </Link>
         </div>
@@ -76,30 +81,36 @@ export const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://www.finearts.cmu.ac.th/wp-content/uploads/2021/07/blank-profile-picture-973460_1280-1.png" />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          {isLoggedIn ? (
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img src="https://www.finearts.cmu.ac.th/wp-content/uploads/2021/07/blank-profile-picture-973460_1280-1.png" />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a onClick={()=> dispatch({ type: "LOGOUT" })}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <Link to="/login" className="btn btn-primary">
+              Log In
+            </Link>
+          )}
         </div>
       </div>
     </>
