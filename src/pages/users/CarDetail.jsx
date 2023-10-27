@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageDetailShow from "../../components/ImageDetail";
 import Section from "../../components/Section";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import CommentReviewCar from "../../components/Comment/commentCar";
+import { getDetailCar } from '../../service/cars';
 
 export const CarDetail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { id } = useParams();
+  const [carDetail, setCarDetail] = useState();
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
   const location = searchParams.get("location");
+
+  useEffect(()=>{
+    const fetchDetailCar = async() =>{
+        const response = await getDetailCar(id);
+        console.log(response);
+        setCarDetail(response);
+    }
+
+    fetchDetailCar();
+},[id])
 
   return (
     <>

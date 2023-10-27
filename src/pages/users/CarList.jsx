@@ -5,9 +5,11 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import CarlistCard from "../../components/Card/cardCarListUser"
 import { format } from "date-fns";
+import { getCarListAvailability } from "../../service/rentals";
 
 export const CarList = () => {
   const [searchParams] = useSearchParams();
+  const [carList, setCarlist] = useState([]);
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
   const location = searchParams.get("location");
@@ -27,14 +29,15 @@ export const CarList = () => {
   };
 
   useEffect(() => {
-    setDate([
-      {
-        startDate: pickupDate ? new Date(pickupDate) : new Date(),
-        endDate: returnDate ? new Date(returnDate) : new Date(),
-        key: "selection",
-      },
-    ]);
-  }, [pickupDate, returnDate]);
+    const fetchCarList = async() =>{
+      const response = await getCarListAvailability(pickupDate,returnDate,location);
+      setCarlist(response);
+      console.log(response);
+    }
+
+    fetchCarList();
+
+  }, [pickupDate, returnDate, location]);
 
   return (
     <>
@@ -98,11 +101,14 @@ export const CarList = () => {
       <div className="p-5">
         <div className="text-gray-400">20 result</div>
         <div className="flex flex-row flex-wrap justify-evenly">
-          <CarlistCard queryParams={queryParams}/>
-          <CarlistCard queryParams={queryParams}/>
-          <CarlistCard queryParams={queryParams}/>
-          <CarlistCard queryParams={queryParams}/>
-          <CarlistCard queryParams={queryParams}/>
+          {carList && carList.length > 0 ? (
+            carList.map((carID, index)=>(
+              <CarlistCard key={index} queryParams={queryParams} carID={carID}/>
+            ))
+          ):(
+            <div>Load</div>
+          )}
+          
         </div>
       </div>
     </>
