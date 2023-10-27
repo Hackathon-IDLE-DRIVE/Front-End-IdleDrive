@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RecentCard from "../../components/Card/recentBookingCardListUser";
 import BG from "../../images/BG-Tracking.png";
 import Car from "../../images/MotorCar2.png";
 import Status from "../../components/Status";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { format, isValid  } from "date-fns";
+import socketIOClient from "socket.io-client";
 
 export const Tracking = () => {
+  const { id } = useParams();
+  const [status, setStatus] = useState('Confirm-Order');
+  const [statusTime, setStatusTime] = useState('Test');
+
+  useEffect(() => {
+    const socket = socketIOClient("http://localhost:3000");
+
+    socket.on("statusUpdated", (data) => {
+
+      if (isValid(new Date(data.rental.updatedAt))) {
+        setStatusTime(format(new Date(data.rental.updatedAt), "dd-MM-yyyy hh:mm a"));
+      }
+
+      if (data.id === id) {
+        setStatus(data.rental.RentalStatus);
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [id]);
+
+
   return (
     <div className="mx-10">
       <div className="container">
@@ -29,9 +56,9 @@ export const Tracking = () => {
           <div>
             <div className="text-gray-400 font-bold">STATUS:</div>
             <div>
-              <Status status={"During the rental"} />
+              <Status status={`${status}`} />
             </div>
-            <div className="font-bold text-sm mt-1">24-10-23 7.30 AM</div>
+            <div className="font-bold text-sm mt-1">{statusTime}</div>
           </div>
           <div>
             <div className="text-gray-400 font-bold mt-6">ADDRESS:</div>

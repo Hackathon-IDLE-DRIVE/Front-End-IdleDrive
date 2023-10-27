@@ -13,7 +13,7 @@ export const CarCheckout = () => {
   const onSubmit = ()=>{
     console.log(pickupDate, returnDate, location)
     console.log('Booking');
-    navigate('/tracking/1');
+    navigate('/tracking/2');
   }
 
   return (
