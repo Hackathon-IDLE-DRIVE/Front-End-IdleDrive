@@ -7,6 +7,7 @@ import { CarDetail } from "./pages/users/CarDetail";
 import { CarCheckout } from "./pages/users/CarCheckout"
 import Footer from "./components/Footer";
 import ContentContainer from "./components/ContentContainer";
+import Login from "./pages/users/Login";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           />
           <Route path="/motorhome/:id/*" element={<CarDetail />} />
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </ContentContainer>
       <Footer/>
