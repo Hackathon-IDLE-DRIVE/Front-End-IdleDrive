@@ -8,6 +8,7 @@ import { CarCheckout } from "./pages/users/CarCheckout"
 import { Tracking } from "./pages/users/Tracking";
 import Footer from "./components/Footer";
 import ContentContainer from "./components/ContentContainer";
+import Login from "./pages/users/Login";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/motorhome/:id/*" element={<CarDetail />} />
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
           <Route path="/tracking/:id" element={<Tracking />} />
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </ContentContainer>
       <Footer/>
