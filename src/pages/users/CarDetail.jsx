@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ImageDetailShow from "../../components/ImageDetail";
 import Section from "../../components/Section";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import CommentReviewCar from "../../components/Comment/commentCar";
 
 export const CarDetail = () => {
   const [searchParams] = useSearchParams();
@@ -109,6 +110,8 @@ export const CarDetail = () => {
                 </div>
               </div>
             </div>
+            <CommentReviewCar/>
+            <CommentReviewCar/>
           </Section>
         </div>
         <div className="mt-24">
