@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function UserRegister() {
+export default function BackOfficeRegister() {
   return (
     <>
       <div className="text-4xl font-medium text-center mt-5">
         สมัครสมาชิก | 
-        <span className="text-4xl font-medium text-blue-700"> ผู้ใช้งาน</span>
+        <span className="text-4xl font-medium text-blue-700"> ผู้ปล่อยเช่า</span>
       </div>
       <div className="w-full">
         <div className="w-1/2 mx-auto my-10 py-10 px-5 bg-white border-[#D9D9D9] border-2 shadow-xl flex flex-col items-center rounded-xl drop-shadow-lg">
@@ -92,16 +92,25 @@ export default function UserRegister() {
             </div>
           </div>
 
-          <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
+          <div className="mx-10 w-9/12">
+            <div className="w-full">
               <div className="mb-5">
-                <label for="idcard" className="mb-3 block text-base font-medium">ภาพถ่ายบัตรประชาชน</label>
-                <input type="file" className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer" />
+              <label for="deployCar" className="mb-3 block text-base font-medium">สถานที่ปล่อยเช่ารถ</label>
+                <input
+                  type="text"
+                  name="deployCar"
+                  id="deployCar"
+                  placeholder="สถานที่ปล่อยเช่ารถ"
+                  className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                />
               </div>
             </div>
-            <div className="w-full px-3 sm:w-1/2">
+            </div>
+
+          <div className="-mx-10 w-9/12">
+            <div className="w-full ">
               <div className="mb-5">
-                <label for="license" className="mb-3 block text-base font-medium">ภาพถ่ายใบขับขี่</label>
+                <label for="idcard" className="mb-3 block text-base font-medium">ภาพถ่ายบัตรประชาชน</label>
                 <input type="file" className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer" />
               </div>
             </div>

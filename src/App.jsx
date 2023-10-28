@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import ContentContainer from "./components/ContentContainer";
 import Login from "./pages/users/Login";
 import UserRegister from "./pages/register/userRegister";
+import BackOfficeRegister from "./pages/register/BackOfficeRegister";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/tracking/:id" element={<Tracking />} />
           <Route path="/login" element={<Login/>}/>
           <Route path='/register/user' element={<UserRegister/>}/>
+          <Route path='/register/backoffice' element={<BackOfficeRegister/>}/>
         </Routes>
       </ContentContainer>
       <Footer/>
