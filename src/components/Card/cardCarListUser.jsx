@@ -8,7 +8,7 @@ export default function CarlistCard({ carData, queryParams }) {
 
   return (
     <>
-        <div className="card w-96 bg-base-100 shadow-lg mt-5 z-0
+        <div className="card w-[350px] bg-base-100 shadow-lg mt-5 z-0
         hover:cursor-pointer hover:shadow-xl"
         onClick={()=>navigate(`/motorhome/${car_id}?pick-up=${pickupDate}&return=${returnDate}&location=${location}`)}>
             <figure><img className='h-[255px]' src={`http://localhost:3000/api/v1/idledrive/images/${CarImages[0].imageURL}`} alt="Car"/></figure>
