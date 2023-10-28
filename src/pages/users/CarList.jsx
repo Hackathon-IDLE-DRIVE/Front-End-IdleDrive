@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -9,11 +9,13 @@ import { getCarListAvailability } from "../../service/rentals";
 
 export const CarList = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [carList, setCarlist] = useState([]);
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
   const location = searchParams.get("location");
   const [locationInput , setLocationInput] = useState(location);
+  const [searchClicked, setSearchClicked] = useState(false);
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
     {
@@ -22,22 +24,42 @@ export const CarList = () => {
       key: "selection",
     },
   ]);
-  const queryParams = {
-    pickupDate,
-    returnDate,
+
+  let queryParams = {
+    pickupDate : format(date[0].startDate, "yyyy-MM-dd"),
+    returnDate : format(date[0].startDate, "yyyy-MM-dd"),
     location: locationInput,
   };
 
-  useEffect(() => {
-    const fetchCarList = async() =>{
-      const response = await getCarListAvailability(pickupDate,returnDate,location);
+  const fetchCarList = async () => {
+    try {
+      const response = await getCarListAvailability(
+        format(date[0].startDate, "yyyy-MM-dd"),
+        format(date[0].endDate, "yyyy-MM-dd"),
+        locationInput
+      );
       setCarlist(response);
       console.log(response);
+    } catch (error) {
+      console.error("Error fetching car list:", error);
     }
+  };
 
-    fetchCarList();
+  useEffect(() => {
+    if (!searchClicked || pickupDate !== null || returnDate !== null || location !== null) {
+      fetchCarList();
+      setSearchClicked(false);
+    }
+  }, [searchClicked, pickupDate, returnDate, location]);
 
-  }, [pickupDate, returnDate, location]);
+  const handleSearchClick = () => {
+    setSearchClicked(true);
+    searchParams.set("pick-up", format(date[0].startDate, "yyyy-MM-dd"));
+    searchParams.set("return", format(date[0].endDate, "yyyy-MM-dd"));
+    searchParams.set("location", locationInput);
+    
+    navigate(`?${searchParams.toString()}`);
+  };
 
   return (
     <>
@@ -83,7 +105,8 @@ export const CarList = () => {
         </div>
         <div className="md:ml-20 md:mt-6">
           <button className="bg-[#1D4FB1] px-10 py-3 text-white rounded-2xl
-          font-bold">
+          font-bold"
+          onClick={()=>handleSearchClick()}>
             Search
           </button>
         </div>
