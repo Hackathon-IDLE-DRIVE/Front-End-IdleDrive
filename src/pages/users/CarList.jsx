@@ -99,16 +99,17 @@ export const CarList = () => {
         </div>
       </div>
       <div className="p-5">
-        <div className="text-gray-400">20 result</div>
+        <div className="text-gray-400">{carList.length} result</div>
         <div className="flex flex-row flex-wrap justify-evenly">
           {carList && carList.length > 0 ? (
-            carList.map((carID, index)=>(
-              <CarlistCard key={index} queryParams={queryParams} carID={carID}/>
+            carList.map((carData, index)=>(
+              <CarlistCard key={index} queryParams={queryParams} carData={carData}/>
             ))
           ):(
-            <div>Load</div>
+            <div className="w-full h-[200px] flex justify-center items-center text-[#1D4FB1]">
+              <span className="loading loading-ring loading-lg"></span>
+            </div>
           )}
-          
         </div>
       </div>
     </>

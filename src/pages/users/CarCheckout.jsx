@@ -1,20 +1,41 @@
-import React from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import CollapseForm from "../../components/CollapseForm";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
-
+import {
+  useSearchParams,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
+import { bookRental } from "../../service/rentals";
+import { AuthContext } from "../../service/context/AuthContext";
 
 export const CarCheckout = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { id } = useParams();
+  const { user } = useContext(AuthContext);
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
   const location = searchParams.get("location");
+  const { rental_range, total_rate, rental_id } = useLocation().state;
+  const userID = user.data.user.id;
 
-  const onSubmit = ()=>{
-    console.log(pickupDate, returnDate, location)
-    console.log('Booking');
-    navigate('/tracking/2');
-  }
+  const onSubmit = async () => {
+    const Rentals = {
+      car_idcar: id,
+      RentalStartDate: pickupDate,
+      RentalEndDate: returnDate,
+      user_id: userID,
+      address: location,
+      TotalCost: total_rate + 5000,
+      carRental_id: rental_id,
+    };
+
+    const booking = await bookRental(Rentals);
+
+    console.log("[Booking System]-Booking !", booking);
+    navigate(`/tracking/${booking.rental.RentalID}`);
+  };
 
   return (
     <div className="mx-6 flex">
@@ -35,12 +56,14 @@ export const CarCheckout = () => {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center w-2/6 h-full bg-white shadow-md ml-20
-      p-6 sticky top-20 rounded-lg">
+      <div
+        className="flex flex-col justify-center items-center w-2/6 h-full bg-white shadow-md ml-20
+      p-6 sticky top-20 rounded-lg"
+      >
         <p className="font-bold text-lg">Cost Summary</p>
         <div className="flex w-full justify-between mb-2">
-          <span>ค่าเช่ารถ 2 วัน</span>
-          <div>฿10,900</div>
+          <span>ค่าเช่ารถ {rental_range} วัน</span>
+          <div>฿{total_rate}</div>
         </div>
         <div className="flex w-full justify-between mb-2">
           <span>ค่าจัดส่ง</span>
@@ -48,15 +71,17 @@ export const CarCheckout = () => {
         </div>
         <div className="flex w-full justify-between mb-2">
           <span>ค่ามัดจำในวันรับรถ (ได้คืนในวันคืนรถ)</span>
-          <div>฿10,000</div>
+          <div>฿5,000</div>
         </div>
         <div className="w-full border-2 my-4"></div>
         <div className="flex w-full justify-between font-bold text-xl mt-2">
           <span>Subtotal</span>
-          <div>฿10,900</div>
+          <div>฿{total_rate + 5000}</div>
         </div>
-        <button className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold mt-3"
-        onClick={onSubmit}>
+        <button
+          className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold mt-3"
+          onClick={onSubmit}
+        >
           Confirm Booking
         </button>
       </div>

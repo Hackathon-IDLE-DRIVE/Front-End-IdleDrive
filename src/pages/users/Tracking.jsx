@@ -7,14 +7,25 @@ import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 import { format, isValid  } from "date-fns";
 import socketIOClient from "socket.io-client";
+import { getBookingDetails } from "../../service/rentals";
 
 export const Tracking = () => {
   const { id } = useParams();
+  const [detailBooking, setDetailBooking] = useState();
   const [status, setStatus] = useState('Confirm-Order');
   const [statusTime, setStatusTime] = useState('Test');
 
   useEffect(() => {
     const socket = socketIOClient("http://localhost:3000");
+
+    const fetchDetailBooking = async() =>{
+      const res = await getBookingDetails(id);
+      setDetailBooking(res);
+      setStatus(res.rental.RentalStatus);
+      setStatusTime(format(new Date(res.rental.updatedAt), "dd-MM-yyyy hh:mm a"));
+    }
+
+    fetchDetailBooking();
 
     socket.on("statusUpdated", (data) => {
 
@@ -30,10 +41,14 @@ export const Tracking = () => {
     return () => {
       socket.disconnect();
     };
+
+
   }, [id]);
 
 
   return (
+    <>
+    {detailBooking &&
     <div className="mx-10">
       <div className="container">
         <div className="font-bold text-2xl">Track Booking</div>
@@ -46,12 +61,12 @@ export const Tracking = () => {
         <div>
           <div>
             <div className="text-gray-400 font-bold">ORDERS:</div>
-            <div className="font-bold text-[#1D4FB1] text-xl">#564683</div>
+            <div className="font-bold text-[#1D4FB1] text-xl"># {detailBooking.rental.RentalID}</div>
           </div>
           <div className="my-4">
             <div className="text-gray-400 font-bold">VEHICLE:</div>
-            <div className="text-xl font-bold">Toyota CarryBoy</div>
-            <div className="text-sm font-semibold">DII 4444 กรุงเทพมหานคร</div>
+            <div className="text-xl font-bold">{`${detailBooking.Car.make} ${detailBooking.Car.model}`}</div>
+            <div className="text-sm font-semibold">{detailBooking.Car.plate}</div>
           </div>
           <div>
             <div className="text-gray-400 font-bold">STATUS:</div>
@@ -90,5 +105,7 @@ export const Tracking = () => {
         <RecentCard />
       </div>
     </div>
+    }
+    </>
   );
 };
