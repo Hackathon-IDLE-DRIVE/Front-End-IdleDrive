@@ -11,6 +11,7 @@ import ContentContainer from "./components/ContentContainer";
 import Login from "./pages/users/Login";
 import UserRegister from "./pages/register/userRegister";
 import BackOfficeRegister from "./pages/register/BackOfficeRegister";
+import { Dashboard } from "./pages/car_rental/Dashboard";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path='/register/user' element={<UserRegister/>}/>
           <Route path='/register/backoffice' element={<BackOfficeRegister/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </ContentContainer>
       <Footer/>
