@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 export default function CarlistCard({ carData, queryParams }) {
     const { pickupDate, returnDate, location } = queryParams;
-    const { car_id, model, make, rentalRate, description, CarImages } = carData;
+    const { car_id, model, make, rentalRate, description, CarImages, CarRental, reviews } = carData;
+    const ratingAvgFloat = parseFloat(reviews.averageRating);
     const navigate = useNavigate();
 
   return (
@@ -17,14 +18,14 @@ export default function CarlistCard({ carData, queryParams }) {
                 <p className='text-gray-400 line-clamp-1'>{description}</p>
 
                 <div className='flex justify-between mt-5'>
-                    <div className='text-left flex'>
-                        <img className='h-6 w-6 rounded mr-2 ' src='https://img.freepik.com/premium-vector/car-logo-vector_25327-40.jpg' alt='idle'/>
-                        <span className='text-sm font-bold text-gray-400'>IDLEDrive</span>
+                    <div className='text-left flex items-center'>
+                        <img className='h-6 w-6 rounded mr-2 ' src={`http://localhost:3000/api/v1/idledrive/images/${CarRental.profileURL}`} alt='idle'/>
+                        <span className='text-sm font-bold text-gray-400'>{CarRental.rental_name}</span>
                     </div>
     
                     <div className='text-sm font-bold text-right'>⭐ 
-                        <span className='text-sm text-gray-700 font-bold text-right mx-1'>4.3</span>
-                        <span className='font-semibold text-gray-500'>( 12 review )</span>
+                        <span className='text-sm text-gray-700 font-bold text-right mx-1'>{ratingAvgFloat.toFixed(2)}</span>
+                        <span className='font-semibold text-gray-500'>({reviews.ratingCount} review )</span>
                     </div>
                 </div>
                 <div className='w-full border-b my-1.5'></div>

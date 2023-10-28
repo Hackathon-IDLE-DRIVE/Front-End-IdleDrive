@@ -15,6 +15,7 @@ export const CarDetail = () => {
   const returnDate = searchParams.get("return");
   const [dateRange, setDateRange] = useState([]);
   const location = searchParams.get("location");
+  
 
   useEffect(() => {
     const fetchDetailCar = async () => {
@@ -45,9 +46,9 @@ export const CarDetail = () => {
           <div className="mb-6 mt-3">
             <h1 className="font-bold text-3xl mb-2">{`${carDetail.car.make} ${carDetail.car.model}`}</h1>
             <div className="flex">
-              <span className="font-semibold">4.8</span>
+              <span className="font-semibold">{parseFloat(carDetail.carReview.averageRating.averageRating).toFixed(2)}</span>
               <box-icon type="solid" name="star" color="yellow" />
-              <div>(12 review)</div>
+              <div>({carDetail.carReview.averageRating.ratingCount} review)</div>
             </div>
           </div>
 
@@ -56,15 +57,15 @@ export const CarDetail = () => {
             <div className="flex items-center">
               <div className="avatar mr-4">
                 <div className=" w-20 rounded-full">
-                  <img src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg" />
+                  <img src={`http://localhost:3000/api/v1/idledrive/images/${carDetail.rental.rentalDetail.profileURL}`} />
                 </div>
               </div>
               <div>
-                <div className="font-semibold">Mr.lorem</div>
+                <div className="font-semibold">{carDetail.rental.rentalDetail.rental_name}</div>
                 <div>
-                  <span>4.8</span>
+                  <span>{carDetail.rental.rentalReview.averageRating}</span>
                   <box-icon size="xs" type="solid" name="star" color="yellow" />
-                  <span className="ml-2">(52 review)</span>
+                  <span className="ml-2">({carDetail.rental.rentalReview.reviewCountSum} review)</span>
                 </div>
               </div>
             </div>
@@ -100,7 +101,7 @@ export const CarDetail = () => {
                     </svg>
                   </div>
                   <div className="stat-title">Total Review</div>
-                  <div className="stat-value text-[#1D4FB1]">12</div>
+                  <div className="stat-value text-[#1D4FB1]">{carDetail.carReview.averageRating.ratingCount}</div>
                   <div className="stat-desc">Total Review in this year</div>
                 </div>
 
@@ -121,13 +122,14 @@ export const CarDetail = () => {
                     </svg>
                   </div>
                   <div className="stat-title">Average Rating</div>
-                  <div className="stat-value text-[#1D4FB1]">4.8</div>
+                  <div className="stat-value text-[#1D4FB1]">{parseFloat(carDetail.carReview.averageRating.averageRating).toFixed(2)}</div>
                   <div className="stat-desc">Average Rating in this year</div>
                 </div>
               </div>
             </div>
-            <CommentReviewCar />
-            <CommentReviewCar />
+            {carDetail.carReview.carReviews && carDetail.carReview.carReviews.map((review,index)=>(
+              <CommentReviewCar key={index} review={review}/>
+            ))}
           </Section>
         </div>
         <div className="mt-24">
