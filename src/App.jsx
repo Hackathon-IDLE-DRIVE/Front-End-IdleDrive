@@ -9,6 +9,8 @@ import { Tracking } from "./pages/users/Tracking";
 import Footer from "./components/Footer";
 import ContentContainer from "./components/ContentContainer";
 import Login from "./pages/users/Login";
+import UserRegister from "./pages/register/userRegister";
+import BackOfficeRegister from "./pages/register/BackOfficeRegister";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
           <Route path="/tracking/:id" element={<Tracking />} />
           <Route path="/login" element={<Login/>}/>
+          <Route path='/register/user' element={<UserRegister/>}/>
+          <Route path='/register/backoffice' element={<BackOfficeRegister/>}/>
         </Routes>
       </ContentContainer>
       <Footer/>
