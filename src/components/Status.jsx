@@ -4,6 +4,7 @@ const getStatusColor = (status) => {
   switch (status) {
     case "Confirm order":
     case "Return":
+    case "Complete":
       return "bg-green-500";
     case "On-delivery":
     case "Pick-up":

@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function CarlistCard({ carData, queryParams }) {
-    const { pickupDate, returnDate, location } = queryParams;
+    const { pickup_date, return_date, location_input } = queryParams;
     const { car_id, model, make, rentalRate, description, CarImages, CarRental, reviews } = carData;
     const ratingAvgFloat = parseFloat(reviews.averageRating);
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function CarlistCard({ carData, queryParams }) {
     <>
         <div className="card w-[350px] bg-base-100 shadow-lg mt-5 z-0
         hover:cursor-pointer hover:shadow-xl"
-        onClick={()=>navigate(`/motorhome/${car_id}?pick-up=${pickupDate}&return=${returnDate}&location=${location}`)}>
+        onClick={()=>navigate(`/motorhome/${car_id}?pick-up=${pickup_date}&return=${return_date}&location=${location_input}`)}>
             <figure><img className='h-[255px]' src={`http://localhost:3000/api/v1/idledrive/images/${CarImages[0].imageURL}`} alt="Car"/></figure>
             <div className="card-body">
                 <h2 className="card-title text-2xl font-semibold">{`${make} ${model}`}</h2>

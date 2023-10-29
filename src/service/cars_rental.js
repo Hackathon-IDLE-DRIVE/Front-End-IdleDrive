@@ -71,3 +71,13 @@ export const getTotalCost = async (carRentalId) => {
     throw error;
   }
 };
+
+export const getDetailCarRental = async (carRentalId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/${carRentalId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

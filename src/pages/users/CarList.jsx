@@ -26,9 +26,9 @@ export const CarList = () => {
   ]);
 
   let queryParams = {
-    pickupDate : format(date[0].startDate, "yyyy-MM-dd"),
-    returnDate : format(date[0].startDate, "yyyy-MM-dd"),
-    location: locationInput,
+    pickup_date : format(date[0].startDate, "yyyy-MM-dd"),
+    return_date : format(date[0].endDate, "yyyy-MM-dd"),
+    location_input: locationInput,
   };
 
   const fetchCarList = async () => {

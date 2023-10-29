@@ -25,7 +25,7 @@ function App() {
           />
           <Route path="/motorhome/:id/*" element={<CarDetail />} />
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
-          <Route path="/tracking/:id" element={<Tracking />} />
+          <Route path="/tracking/user/:userId/:bookingId" element={<Tracking />} />
           <Route path="/login" element={<Login/>}/>
           <Route path='/register' element={<UserRegister/>}/>
           <Route path='/register/backoffice' element={<BackOfficeRegister/>}/>
