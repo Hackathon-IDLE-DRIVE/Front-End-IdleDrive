@@ -18,18 +18,19 @@ export const CarCheckout = () => {
   const returnDate = searchParams.get("return");
   const location = searchParams.get("location");
   const { rental_range, total_rate, rental_id } = useLocation().state;
-  const userID = user.data.user.id;
+  const userID = user.id;
 
   const onSubmit = async () => {
     const Rentals = {
       car_idcar: id,
       RentalStartDate: pickupDate,
       RentalEndDate: returnDate,
-      user_id: userID,
+      user_id: user.id,
       address: location,
       TotalCost: total_rate + 5000,
       carRental_id: rental_id,
     };
+    console.log(Rentals);
 
     const booking = await bookRental(Rentals);
 

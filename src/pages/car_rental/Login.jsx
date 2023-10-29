@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../service/context/AuthContext";
-import { loginUser } from "../../service/users";
+import { loginUser } from "../../service/cars_rental";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function LoginOwner() {
   const [credentials, setCredentials] = useState({
     email: undefined,
     password: undefined,
@@ -20,8 +20,8 @@ export default function Login() {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await loginUser(credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.user });
-      navigate("/");
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.user });
+      navigate("/dashboard");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: error.response });
     }
@@ -31,7 +31,7 @@ export default function Login() {
     <>
       <div className="text-center mt-10 font-medium text-4xl">
         เข้าสู่ระบบ
-        <span className="font-medium text-4xl text-blue-700"> | ผู้ใช้งาน</span>
+        <span className="font-medium text-4xl text-blue-700"> | ผู้ให้บริการเช่ารถ</span>
       </div>
 
       <div className="login_Container my-5 flex justify-center content-center items-center flex-col w-full h-full">

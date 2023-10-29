@@ -18,12 +18,9 @@ export const registerUser = async (rental_name, username, email, password) => {
 };
 
 //Service สำหรับ login
-export const loginUser = async (email, password) => {
+export const loginUser = async (credentials) => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/login`, {
-      email,
-      password,
-    });
+    const response = await axios.post(`${BASE_URL}/auth/login`, credentials);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -75,6 +72,16 @@ export const getTotalCost = async (carRentalId) => {
 export const getDetailCarRental = async (carRentalId) => {
   try {
     const response = await axios.get(`${BASE_URL}/${carRentalId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getHistoryTransaction = async (carRentalId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/history/${carRentalId}`);
     return response.data;
   } catch (error) {
     console.error(error);
