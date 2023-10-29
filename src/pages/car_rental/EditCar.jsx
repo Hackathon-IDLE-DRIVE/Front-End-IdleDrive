@@ -86,6 +86,8 @@ export const EditCar = () => {
                 className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
             </div>
+
+            
             <div className="mb-5">
               <label
                 for="passager"
@@ -102,7 +104,22 @@ export const EditCar = () => {
               />
             </div>
 
-            <div className="mb-5 w-11/12">
+            <div className="mb-5 w-5/12">
+              <label
+                for="carType"
+                className="mb-3 block text-base font-medium"
+              >
+                ประเภทรถ
+              </label>
+              <select className="select select-sm w-full h-10 rounded-md border border-[#D9D9D9] bg-white px-6 text-base font-medium text-[#6B7280] outline-none focus:outline-none focus:border-[#6A64F1] focus:shadow-md">
+                <option disabled selected>ประเภทรถ</option>
+                <option>Campercar</option>
+                <option>Campervan</option>
+                <option>Caravan</option>
+                <option>Motorhome</option>
+              </select>
+            </div>
+            <div className="mb-5">
               <label
                 for="register"
                 className="mb-3 block text-base font-medium"
