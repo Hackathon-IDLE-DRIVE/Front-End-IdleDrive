@@ -11,6 +11,10 @@ import ContentContainer from "./components/ContentContainer";
 import Login from "./pages/users/Login";
 import UserRegister from "./pages/register/userRegister";
 import BackOfficeRegister from "./pages/register/BackOfficeRegister";
+import { CarRentalList } from "./pages/car_rental/CarRentalList";
+import { Dashboard } from "./pages/car_rental/Dashboard";
+import { AddCar } from "./pages/car_rental/AddCar";
+import { EditCar } from "./pages/car_rental/EditCar";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path='/register' element={<UserRegister/>}/>
           <Route path='/register/backoffice' element={<BackOfficeRegister/>}/>
+          <Route path="/mycar" element={<CarRentalList/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
+          <Route path="/addcar" element={<AddCar/>}/>
+          <Route path="/editcar" element={<EditCar/>}/>
         </Routes>
       </ContentContainer>
       <Footer/>
