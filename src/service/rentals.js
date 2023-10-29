@@ -39,3 +39,21 @@ export const getBookingDetails = async (bookingId) => {
     console.error(error);
   }
 };
+
+export const getBookingHistory = async (userID) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/booking/user/${userID}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCarListAvailability = async(pickup, returnDate, location)=>{
+  try {
+    const response = await axios.get(`${BASE_URL}/list-availability?pickupDate=${pickup}&returnDate=${returnDate}&location=${location}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

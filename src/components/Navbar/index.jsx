@@ -107,9 +107,15 @@ export const Navbar = () => {
               </ul>
             </div>
           ) : (
+            <>
+            <Link to="/register" className="btn btn-primary">
+              Sign up
+            </Link>
+
             <Link to="/login" className="btn btn-primary">
               Log In
             </Link>
+            </>
           )}
         </div>
       </div>

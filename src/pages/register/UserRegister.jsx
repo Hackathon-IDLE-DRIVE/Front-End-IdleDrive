@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function UserRegister() {
+
+  const [formData, setFormData] = useState({
+    fname: '',
+    lname: '',
+    phone: '',
+    email: '',
+    job: '',
+    age: '',
+    idcard: null,
+    license: null,
+    username: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'file' ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform registration logic using formData
+    console.log('Form submitted:', formData);
+  };
+
+
+
   return (
     <>
       <div className="text-4xl font-medium text-center mt-5">
@@ -8,31 +40,36 @@ export default function UserRegister() {
         <span className="text-4xl font-medium text-blue-700"> ผู้ใช้งาน</span>
       </div>
       <div className="w-full">
-        <div className="w-1/2 mx-auto my-10 py-10 px-5 bg-white border-[#D9D9D9] border-2 shadow-xl flex flex-col items-center rounded-xl drop-shadow-lg">
+        <form onSubmit={handleSubmit} 
+        className="w-1/2 mx-auto my-10 py-10 px-5 bg-white border-[#D9D9D9] border-2 shadow-xl flex flex-col items-center rounded-xl drop-shadow-lg">
 
 
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-                <label for="fName" className="mb-3 block text-base font-medium">ชื่อจริง</label>
+                <label htmlFor="fName" className="mb-3 block text-base font-medium">ชื่อจริง</label>
                 <input
                   type="text"
                   name="fname"
                   id="fname"
                   placeholder="First Name"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.fname}
+                  onChange={handleChange}
                 />
               </div>
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-                <label for="lName" className="mb-3 block text-base font-medium">นามสกุล</label>
+                <label htmlFor="lName" className="mb-3 block text-base font-medium">นามสกุล</label>
                 <input
                   type="text"
                   name="lname"
                   id="lname"
                   placeholder="Last Name"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.lname}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -41,25 +78,29 @@ export default function UserRegister() {
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label for="phone" className="mb-3 block text-base font-medium">Phone</label>
+              <label htmlFor="phone" className="mb-3 block text-base font-medium">Phone</label>
                 <input
                   type="text"
                   name="phone"
                   id="phone"
                   placeholder="phone"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.phone}
+                  onChange={handleChange}
                 />
               </div>
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label for="email" className="mb-3 block text-base font-medium">Email</label>
+              <label htmlFor="email" className="mb-3 block text-base font-medium">Email</label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   placeholder="email"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -68,25 +109,29 @@ export default function UserRegister() {
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label for="job" className="mb-3 block text-base font-medium">อาชีพ</label>
+              <label htmlFor="job" className="mb-3 block text-base font-medium">อาชีพ</label>
                 <input
                   type="text"
                   name="job"
                   id="job"
                   placeholder="อาชีพ"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.job}
+                  onChange={handleChange}
                 />
               </div>
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label for="age" className="mb-3 block text-base font-medium">อายุ</label>
+              <label htmlFor="age" className="mb-3 block text-base font-medium">อายุ</label>
                 <input
                   type="text"
                   name="age"
                   id="age"
                   placeholder="อายุ"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.age}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -95,13 +140,13 @@ export default function UserRegister() {
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-                <label for="idcard" className="mb-3 block text-base font-medium">ภาพถ่ายบัตรประชาชน</label>
+                <label htmlFor="idcard" className="mb-3 block text-base font-medium">ภาพถ่ายบัตรประชาชน</label>
                 <input type="file" className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer" />
               </div>
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-                <label for="license" className="mb-3 block text-base font-medium">ภาพถ่ายใบขับขี่</label>
+                <label htmlFor="license" className="mb-3 block text-base font-medium">ภาพถ่ายใบขับขี่</label>
                 <input type="file" className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer" />
               </div>
             </div>
@@ -110,25 +155,29 @@ export default function UserRegister() {
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label for="username" className="mb-3 block text-base font-medium">Username</label>
+              <label htmlFor="username" className="mb-3 block text-base font-medium">Username</label>
                 <input
                   type="text"
                   name="username"
                   id="username"
                   placeholder="Username"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.username}
+                  onChange={handleChange}
                 />
               </div>
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label for="password" className="mb-3 block text-base font-medium">Password</label>
+              <label htmlFor="password" className="mb-3 block text-base font-medium">Password</label>
                 <input
                   type="password"
                   name="password"
                   id="password"
                   placeholder="Password"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -138,19 +187,22 @@ export default function UserRegister() {
             <div className="w-1/2 px-3"></div>
             <div className="w-1/2 pl-3">
               <div className="mb-5">
-              <label for="Confirm-Password" className="mb-3 block text-base font-medium">Confirm-Password</label>
+              <label htmlFor="Confirm-Password" className="mb-3 block text-base font-medium">Confirm-Password</label>
                 <input
                   type="password"
-                  name="Confirm-Password"
-                  id="Confirm-Password"
+                  name="confirmPassword"
+                  id="confirmPassword"
                   placeholder="Confirm-Password"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                 />
               </div>
             </div>
           </div>
 
-          <button className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400">Sign Up</button>
+          <button type="submit"
+          className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400">Sign Up</button>
 
           <div className="flex justify-center items-center mt-10 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
@@ -168,9 +220,7 @@ export default function UserRegister() {
             Google
           </button>
 
-
-
-        </div>
+        </form>
       </div>
     </>
   );

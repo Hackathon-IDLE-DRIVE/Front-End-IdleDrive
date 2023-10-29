@@ -1,66 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageDetailShow from "../../components/ImageDetail";
 import Section from "../../components/Section";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import CommentReviewCar from "../../components/Comment/commentCar";
+import { getDetailCar } from "../../service/cars";
+import { format, eachDayOfInterval } from 'date-fns';
 
 export const CarDetail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { id } = useParams();
+  const [carDetail, setCarDetail] = useState();
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
+  const [dateRange, setDateRange] = useState([]);
   const location = searchParams.get("location");
+  
+
+  useEffect(() => {
+    const fetchDetailCar = async () => {
+      const response = await getDetailCar(id);
+      setCarDetail(response);
+      console.log(response);
+    };
+
+    const calculateDateRange = () => {
+      const start = new Date(pickupDate);
+      const end = new Date(returnDate);
+  
+      const range = eachDayOfInterval({ start, end });
+      const formattedRange = range.map(date => format(date, 'yyyy-MM-dd'));
+  
+      setDateRange(formattedRange);
+    };
+
+    calculateDateRange();
+    fetchDetailCar();
+  }, [id, pickupDate, returnDate]);
 
   return (
     <>
+    {carDetail &&
       <div className="flex flex-col justify-evenly lg:flex-row">
         <div className="w-full lg:w-3/6">
           <div className="mb-6 mt-3">
-            <h1 className="font-bold text-3xl mb-2">Rolling Family Plus</h1>
+            <h1 className="font-bold text-3xl mb-2">{`${carDetail.car.make} ${carDetail.car.model}`}</h1>
             <div className="flex">
-              <span className="font-semibold">4.8</span>
+              <span className="font-semibold">{parseFloat(carDetail.carReview.averageRating.averageRating).toFixed(2)}</span>
               <box-icon type="solid" name="star" color="yellow" />
-              <div>(12 review)</div>
+              <div>({carDetail.carReview.averageRating.ratingCount} review)</div>
             </div>
           </div>
 
-          <ImageDetailShow />
+          {carDetail.listImage && <ImageDetailShow imgList={carDetail.listImage} />}
           <Section title={"ผู้ให้เช่ารถ"}>
             <div className="flex items-center">
               <div className="avatar mr-4">
                 <div className=" w-20 rounded-full">
-                  <img src="https://img.freepik.com/premium-vector/car-rental-logo-template-design_316488-1614.jpg" />
+                  <img src={`http://localhost:3000/api/v1/idledrive/images/${carDetail.rental.rentalDetail.profileURL}`} />
                 </div>
               </div>
               <div>
-                <div className="font-semibold">Mr.lorem</div>
+                <div className="font-semibold">{carDetail.rental.rentalDetail.rental_name}</div>
                 <div>
-                  <span>4.8</span>
+                  <span>{carDetail.rental.rentalReview.averageRating}</span>
                   <box-icon size="xs" type="solid" name="star" color="yellow" />
-                  <span className="ml-2">(52 review)</span>
+                  <span className="ml-2">({carDetail.rental.rentalReview.reviewCountSum} review)</span>
                 </div>
               </div>
             </div>
           </Section>
           <Section title={"Description"}>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting,
+              {carDetail.car.description}
             </p>
           </Section>
           <Section title={"Feature"}>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting,
+            {carDetail.car.feature}
             </p>
           </Section>
           <div className="w-full border-2 my-4"></div>
@@ -84,7 +101,7 @@ export const CarDetail = () => {
                     </svg>
                   </div>
                   <div className="stat-title">Total Review</div>
-                  <div className="stat-value text-[#1D4FB1]">12</div>
+                  <div className="stat-value text-[#1D4FB1]">{carDetail.carReview.averageRating.ratingCount}</div>
                   <div className="stat-desc">Total Review in this year</div>
                 </div>
 
@@ -105,13 +122,14 @@ export const CarDetail = () => {
                     </svg>
                   </div>
                   <div className="stat-title">Average Rating</div>
-                  <div className="stat-value text-[#1D4FB1]">4.8</div>
+                  <div className="stat-value text-[#1D4FB1]">{parseFloat(carDetail.carReview.averageRating.averageRating).toFixed(2)}</div>
                   <div className="stat-desc">Average Rating in this year</div>
                 </div>
               </div>
             </div>
-            <CommentReviewCar/>
-            <CommentReviewCar/>
+            {carDetail.carReview.carReviews && carDetail.carReview.carReviews.map((review,index)=>(
+              <CommentReviewCar key={index} review={review}/>
+            ))}
           </Section>
         </div>
         <div className="mt-24">
@@ -120,33 +138,46 @@ export const CarDetail = () => {
 
             <div className="pb-2 border-b-2">
               <div className="flex justify-between">
-                <span>ค่าเช่ารถ 2 วัน</span>
-                <div>฿10,900</div>
+                <span>ค่าเช่ารถ {dateRange.length} วัน</span>
+                <div>฿{(carDetail.car.rentalRate * dateRange.length)}</div>
               </div>
               <span className="text-xs text-gray-600">
-                ราคาต่อวัน ฿5,450 x 2 วัน
+                ราคาต่อวัน ฿{carDetail.car.rentalRate} x {dateRange.length} วัน
               </span>
             </div>
             <div className="mt-4">
               <div className="flex justify-between">
                 <span className="font-bold">ราคารวมทั้งหมด</span>
-                <div className="font-bold text-2xl">฿10,900</div>
+                <div className="font-bold text-2xl">฿{(carDetail.car.rentalRate * dateRange.length) + 5000}</div>
               </div>
               <div className="flex justify-between mb-10">
                 <span className="text-xs text-gray-600">
                   ค่ามัดจำในวันรับรถ (ได้คืนในวันคืนรถ)
                 </span>
-                <div className="text-xs">฿3,000</div>
+                <div className="text-xs">฿5,000</div>
               </div>
             </div>
-            <button className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold"
-            onClick={()=>navigate(`/motorhome/1/checkout?pick-up=${pickupDate}&return=${returnDate}&location=${location}`)}>
+            <button
+              className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold"
+              onClick={() =>
+                navigate(
+                  `/motorhome/${id}/checkout?pick-up=${pickupDate}&return=${returnDate}&location=${location}`
+                ,{
+                  state:{
+                    rental_range : dateRange.length,
+                    total_rate : (carDetail.car.rentalRate * dateRange.length),
+                    rental_id : carDetail.car.car_rental_id_rental
+                  }
+                })
+              }
+            >
               {" "}
               SELECT{" "}
             </button>
           </div>
         </div>
       </div>
+      }
     </>
   );
 };

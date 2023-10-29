@@ -2,8 +2,9 @@ import React from "react";
 
 const getStatusColor = (status) => {
   switch (status) {
-    case "Order Confirm":
+    case "Confirm order":
     case "Return":
+    case "Complete":
       return "bg-green-500";
     case "On-delivery":
     case "Pick-up":
