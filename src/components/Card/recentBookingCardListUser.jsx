@@ -28,7 +28,7 @@ export default function RecentCard({ bookingData }) {
   return (
     <>
     {car && rental &&
-    <div className="card w-96 bg-base-100 shadow-xl mr-6">
+    <div className="card w-80 bg-base-100 shadow-xl mr-5">
           <div className="card-body">
             <h2 className="card-title uppercase font-bold">Order ID : 
                 <div className='text-xl font-bold text-blue-700'>#{bookingData.RentalID}</div>

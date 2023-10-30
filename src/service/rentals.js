@@ -42,7 +42,7 @@ export const getBookingDetails = async (bookingId) => {
 
 export const getBookingHistory = async (userID) => {
   try {
-    const response = await axios.get(`${BASE_URL}/booking/user/${userID}`);
+    const response = await axios.get(`${BASE_URL}/booking/user/${userID}?limit=4`);
     return response.data;
   } catch (error) {
     console.error(error);
