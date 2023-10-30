@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import CarlistCard from "../../components/Card/cardCarListUser"
+import CarlistCard from "../../components/Card/cardCarListUser";
 import { format } from "date-fns";
 import { getCarListAvailability } from "../../service/rentals";
 
@@ -14,7 +14,7 @@ export const CarList = () => {
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
   const location = searchParams.get("location");
-  const [locationInput , setLocationInput] = useState(location);
+  const [locationInput, setLocationInput] = useState(location);
   const [searchClicked, setSearchClicked] = useState(false);
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
@@ -24,10 +24,60 @@ export const CarList = () => {
       key: "selection",
     },
   ]);
+  const [sortByPriceAsc, setSortByPriceAsc] = useState(true);
+  const [sortByRatingAsc, setSortByRatingAsc] = useState(true);
+  const [selectedType, setSelectedType] = useState(null);
+
+  const handleSortByPrice = () => {
+    setSortByPriceAsc(!sortByPriceAsc);
+    const sortedCars = carList.slice().sort((a, b) => {
+      if (sortByPriceAsc) {
+        return a.rentalRate - b.rentalRate || a.car_id - b.car_id;
+      } else {
+        return b.rentalRate - a.rentalRate || b.car_id - a.car_id;
+      }
+    });
+
+    setCarlist(sortedCars);
+  };
+
+  const handleSortByRating = () => {
+    setSortByRatingAsc(!sortByRatingAsc);
+    const sortedCars = carList.slice().sort((a, b) => {
+      const ratingA = a.reviews.averageRating;
+      const ratingB = b.reviews.averageRating;
+
+      if (ratingA === null) return sortByRatingAsc ? 1 : -1;
+      if (ratingB === null) return sortByRatingAsc ? -1 : 1;
+
+      if (sortByRatingAsc) {
+        return ratingA - ratingB || a.car_id - b.car_id;
+      } else {
+        return ratingB - ratingA || b.car_id - a.car_id;
+      }
+    });
+
+    setCarlist(sortedCars);
+  };
+
+  const handleTypeChange = (type) => {
+    setSelectedType(type);
+  };
+
+  const filterCarsByType = (cars) => {
+    if (!selectedType) {
+      return cars;
+    }
+    return cars.filter((car) => car.type === selectedType);
+  };
+
+  const handleSortByType = (type) => {
+    handleTypeChange(type);
+  };
 
   let queryParams = {
-    pickup_date : format(date[0].startDate, "yyyy-MM-dd"),
-    return_date : format(date[0].endDate, "yyyy-MM-dd"),
+    pickup_date: format(date[0].startDate, "yyyy-MM-dd"),
+    return_date: format(date[0].endDate, "yyyy-MM-dd"),
     location_input: locationInput,
   };
 
@@ -38,26 +88,33 @@ export const CarList = () => {
         format(date[0].endDate, "yyyy-MM-dd"),
         locationInput
       );
-      setCarlist(response);
-      console.log(response);
+
+      const filteredCars = filterCarsByType(response);
+      setCarlist(filteredCars);
+      console.log(filteredCars);
     } catch (error) {
       console.error("Error fetching car list:", error);
     }
   };
 
   useEffect(() => {
-    if (!searchClicked || pickupDate !== null || returnDate !== null || location !== null) {
+    if (
+      !searchClicked ||
+      pickupDate !== null ||
+      returnDate !== null ||
+      location !== null
+    ) {
       fetchCarList();
       setSearchClicked(false);
     }
-  }, [searchClicked, pickupDate, returnDate, location]);
+  }, [searchClicked, pickupDate, returnDate, location, selectedType]);
 
   const handleSearchClick = () => {
     setSearchClicked(true);
     searchParams.set("pick-up", format(date[0].startDate, "yyyy-MM-dd"));
     searchParams.set("return", format(date[0].endDate, "yyyy-MM-dd"));
     searchParams.set("location", locationInput);
-    
+
     navigate(`?${searchParams.toString()}`);
   };
 
@@ -71,7 +128,7 @@ export const CarList = () => {
             placeholder="Location"
             className="input input-bordered w-full max-w-xs my-4"
             value={locationInput}
-            onChange={(e)=>setLocationInput(e.target.value)}
+            onChange={(e) => setLocationInput(e.target.value)}
           />
         </div>
         <div className="md:ml-10">
@@ -87,7 +144,7 @@ export const CarList = () => {
               }}
             >
               {`${format(date[0].startDate, "dd/MM/yyyy")} `}
-              <box-icon name="chevron-right" size='xs'/>
+              <box-icon name="chevron-right" size="xs" />
               {` ${format(date[0].endDate, "dd/MM/yyyy")}`}
             </div>
 
@@ -104,31 +161,65 @@ export const CarList = () => {
           </div>
         </div>
         <div className="md:ml-20 md:mt-6">
-          <button className="bg-[#1D4FB1] px-10 py-3 text-white rounded-2xl
+          <button
+            className="bg-[#1D4FB1] px-10 py-3 text-white rounded-2xl
           font-bold"
-          onClick={()=>handleSearchClick()}>
+            onClick={() => handleSearchClick()}
+          >
             Search
           </button>
         </div>
       </div>
       <div>
         <div className="flex w-full border-b-2 p-5">
-          <button className="mr-5 bg-white shadow-md py-2 px-4 rounded-lg hover:shadow-lg">
+          <button
+            className="mr-5 bg-white shadow-md py-2 px-4 rounded-lg hover:shadow-lg"
+            onClick={handleSortByPrice}
+          >
             Price
           </button>
-          <button className="mr-5 bg-white shadow-md py-2 px-4 rounded-lg hover:shadow-lg">
+          <button
+            className="mr-5 bg-white shadow-md py-2 px-4 rounded-lg hover:shadow-lg"
+            onClick={handleSortByRating}
+          >
             Rating
           </button>
+          <details className="dropdown">
+            <summary className="btn border-none shadow-md font-normal text-base">
+              type
+            </summary>
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
+              <li>
+                <a onClick={() => handleSortByType(null)}>All</a>
+              </li>
+              <li>
+                <a onClick={() => handleSortByType("Motorhome")}>Motorhome</a>
+              </li>
+              <li>
+                <a onClick={() => handleSortByType("Campervan")}>Campervan</a>
+              </li>
+              <li>
+                <a onClick={() => handleSortByType("Campercar")}>Campercar</a>
+              </li>
+              <li>
+                <a onClick={() => handleSortByType("Caravan")}>Caravan</a>
+              </li>
+            </ul>
+          </details>
         </div>
       </div>
       <div className="p-5">
         <div className="text-gray-400">{carList.length} result</div>
         <div className="flex flex-row flex-wrap justify-evenly">
           {carList && carList.length > 0 ? (
-            carList.map((carData, index)=>(
-              <CarlistCard key={index} queryParams={queryParams} carData={carData}/>
+            carList.map((carData, index) => (
+              <CarlistCard
+                key={index}
+                queryParams={queryParams}
+                carData={carData}
+              />
             ))
-          ):(
+          ) : (
             <div className="w-full h-[200px] flex justify-center items-center text-[#1D4FB1]">
               <span className="loading loading-ring loading-lg"></span>
             </div>

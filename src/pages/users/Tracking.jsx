@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RecentCard from "../../components/Card/recentBookingCardListUser";
 import BG from "../../images/BG-Tracking.png";
 import Car from "../../images/MotorCar2.png";
 import Status from "../../components/Status";
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { format, isValid } from "date-fns";
 import socketIOClient from "socket.io-client";
 import { getBookingDetails, getBookingHistory } from "../../service/rentals";
+import { AuthContext } from '../../service/context/AuthContext'
 
 export const Tracking = () => {
-  const { userId, bookingId } = useParams();
+  const { user } = useContext(AuthContext);
+  const { bookingId } = useParams();
   const [detailBooking, setDetailBooking] = useState();
   const [historyBooking, setHistoryBooking] = useState();
   const [status, setStatus] = useState("Confirm-Order");
   const [statusTime, setStatusTime] = useState("Test");
+  const navigate = useNavigate();
+  if(!user){
+    navigate('/')
+  }
+  
   const getStatusNext = (status) => {
     switch (status) {
       case "Confirm order":
@@ -49,7 +56,7 @@ export const Tracking = () => {
     };
 
     const fetchHistoryBooking = async () => {
-      const res = await getBookingHistory(userId);
+      const res = await getBookingHistory(user.id);
       setHistoryBooking(res);
       console.log(res);
     };

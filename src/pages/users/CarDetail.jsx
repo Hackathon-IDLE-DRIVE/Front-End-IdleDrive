@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ImageDetailShow from "../../components/ImageDetail";
 import Section from "../../components/Section";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate,Link } from "react-router-dom";
 import CommentReviewCar from "../../components/Comment/commentCar";
 import { getDetailCar } from "../../service/cars";
 import { format, eachDayOfInterval } from "date-fns";
@@ -45,7 +45,18 @@ export const CarDetail = () => {
         <div className="flex flex-col justify-evenly lg:flex-row">
           <div className="w-full lg:w-3/6">
             <div className="mb-6 mt-3">
-              <h1 className="font-bold text-3xl mb-2">{`${carDetail.car.make} ${carDetail.car.model}`}</h1>
+              <div className="text-sm breadcrumbs">
+                <ul>
+                  <li>
+                    <Link to={'/'}>Home</Link>
+                  </li>
+                  <li>
+                    <Link to={`/car-list?pick-up=${pickupDate}&return=${returnDate}&location=${location}`}>Explore</Link>
+                  </li>
+                  <li>{`${carDetail.car.make} ${carDetail.car.model}`}</li>
+                </ul>
+              </div>
+              <h1 className="font-bold text-3xl mb-2 mt-4">{`${carDetail.car.make} ${carDetail.car.model}`}</h1>
               <div className="flex">
                 <span className="font-semibold">
                   {parseFloat(
@@ -155,8 +166,8 @@ export const CarDetail = () => {
                 ))}
             </Section>
           </div>
-          <div className="mt-24">
-            <div className="w-full lg:w-[400px] h-fit shadow-md p-5 flex flex-col justify-center rounded-xl sticky top-20">
+          <div className="mt-36">
+            <div className="w-full lg:w-[400px] h-fit shadow-md p-5 flex flex-col justify-center rounded-xl sticky top-28">
               <span className="font-bold text-2xl mb-10">Duration</span>
 
               <div className="pb-2 border-b-2">

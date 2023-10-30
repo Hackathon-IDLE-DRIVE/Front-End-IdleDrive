@@ -24,6 +24,12 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const handleBookingClick = () => {
+
+    if (!location.trim()) {
+      alert("Please enter a location");
+      return;
+    }
+
     const pickupDate = `${format(date[0].startDate, "yyyy-MM-dd")}`;
     const returnDate = `${format(date[0].endDate, "yyyy-MM-dd")}`;
 

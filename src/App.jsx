@@ -29,7 +29,7 @@ function App() {
           <Route path="/motorhome/:id/*" element={<CarDetail />} />
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
           <Route
-            path="/tracking/user/:userId/:bookingId"
+            path="/tracking/user/:bookingId"
             element={<Tracking />}
           />
           <Route path="/login" element={<Login />} />

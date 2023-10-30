@@ -35,7 +35,7 @@ export const CarCheckout = () => {
     const booking = await bookRental(Rentals);
 
     console.log("[Booking System]-Booking !", booking);
-    navigate(`/tracking/user/${userID}/${booking.rental.RentalID}`);
+    navigate(`/tracking/user/${booking.rental.RentalID}`);
   };
 
   return (
