@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { format, isValid } from "date-fns";
 import socketIOClient from "socket.io-client";
 import { getBookingDetails, getBookingHistory } from "../../service/rentals";
+import ReviewComponent from "../../components/ReviewComponent";
 
 export const Tracking = () => {
   const { userId, bookingId } = useParams();
@@ -137,6 +138,10 @@ export const Tracking = () => {
               </motion.div>
             </div>
           </div>
+          <ReviewComponent/>
+          
+
+
           <div className="text-lg font-bold mt-10">Recent Booking</div>
           <div className="container flex flex-wrap justify-start">
             {historyBooking && historyBooking.map((booking, index)=>(
