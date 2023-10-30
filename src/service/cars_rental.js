@@ -19,12 +19,8 @@ export const registerUser = async (rental_name, username, email, password) => {
 
 //Service สำหรับ login
 export const loginUser = async (credentials) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/auth/login`, credentials);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await axios.post(`${BASE_URL}/auth/login`, credentials);
+  return response.data;
 };
 
 //Service สำหรับแก้ไข user cars_rental

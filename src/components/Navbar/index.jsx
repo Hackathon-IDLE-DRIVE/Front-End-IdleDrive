@@ -1,13 +1,18 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { navbarData } from "./navbarData";
+import { Link, NavLink } from "react-router-dom";
+import { navbarUserData, navbarRentalData } from "./navbarData";
 import Logo from "../../images/idle-w-light.png";
 import { AuthContext } from "../../service/context/AuthContext";
 
 export const Navbar = () => {
-  const { user, loading, error, dispatch } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
 
   const isLoggedIn = user !== null;
+  let userType;
+
+  if (isLoggedIn) {
+    userType = user.role;
+  }
 
   return (
     <>
@@ -34,32 +39,52 @@ export const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {isLoggedIn && userType === "carRentalOwner"
+                ? navbarRentalData.map((menu, index) => (
+                    <li key={index}>
+                      <NavLink to={menu.path}>{menu.title}</NavLink>
+                    </li>
+                  ))
+                : navbarUserData.map((menu, index) => (
+                    <li key={index}>
+                      <NavLink to={menu.path}>{menu.title}</NavLink>
+                    </li>
+                  ))}
             </ul>
           </div>
-          <Link to={"/"}>
-            <img src={Logo} className="object-center h-14"></img>
-          </Link>
+          {userType === "carRentalOwner" ? (
+            <Link to={"/merchant/dashboard"}>
+              <img src={Logo} className="object-center h-14"></img>
+            </Link>
+          ) : (
+            <Link to={"/"}>
+              <img src={Logo} className="object-center h-14"></img>
+            </Link>
+          )}
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
+            {isLoggedIn && userType === "carRentalOwner"
+              ? navbarRentalData.map((menu, index) => (
+                  <li key={index}>
+                    <NavLink to={menu.path}>{menu.title}</NavLink>
+                  </li>
+                ))
+              : navbarUserData.map((menu, index) => (
+                  <li key={index}>
+                    <NavLink
+                      to={menu.path}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "font-extrabold text-base text-[#1D4FB1] hover:text-[#1D4FB1]"
+                          : "font-extrabold text-base text-black"
+                      }
+                    >
+                      {menu.title}
+                    </NavLink>
+                  </li>
+                ))}
+            {/* <li>
               <a>Item 1</a>
             </li>
             <li tabIndex={0}>
@@ -77,7 +102,7 @@ export const Navbar = () => {
             </li>
             <li>
               <a>Item 3</a>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="navbar-end">
@@ -102,19 +127,19 @@ export const Navbar = () => {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a onClick={()=> dispatch({ type: "LOGOUT" })}>Logout</a>
+                  <a onClick={() => dispatch({ type: "LOGOUT" })}>Logout</a>
                 </li>
               </ul>
             </div>
           ) : (
             <>
-            <Link to="/register" className="btn btn-primary">
-              Sign up
-            </Link>
+              <Link to="/register" className="btn btn-primary">
+                Sign up
+              </Link>
 
-            <Link to="/login" className="btn btn-primary">
-              Log In
-            </Link>
+              <Link to="/login" className="btn btn-primary">
+                Log In
+              </Link>
             </>
           )}
         </div>

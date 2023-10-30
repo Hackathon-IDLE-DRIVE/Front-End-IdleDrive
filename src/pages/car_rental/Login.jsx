@@ -21,7 +21,7 @@ export default function LoginOwner() {
     try {
       const res = await loginUser(credentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.user });
-      navigate("/dashboard");
+      navigate("/merchant/dashboard");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: error.response });
     }

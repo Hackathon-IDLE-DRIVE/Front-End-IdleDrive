@@ -34,10 +34,10 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<UserRegister />} />
-          <Route path="/login/rental-owner" element={<LoginOwner />} />
-          <Route path="/register/rental-owner" element={<BackOfficeRegister />} />
+          <Route path="/merchant/" element={<LoginOwner />} />
+          <Route path="/merchant/register" element={<BackOfficeRegister />} />
           <Route
-            path="/mycar"
+            path="/merchant/mycar"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <CarRentalList />
@@ -45,7 +45,7 @@ function App() {
             }
           />
           <Route
-            path="/dashboard"
+            path="/merchant/dashboard"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <Dashboard />
@@ -53,7 +53,7 @@ function App() {
             }
           />
           <Route
-            path="/addcar"
+            path="/merchant/addcar"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <AddCar />
@@ -61,7 +61,7 @@ function App() {
             }
           />
           <Route
-            path="/editcar"
+            path="/merchant/editcar/:id"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <EditCar />

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const navbarData = [
+export const navbarUserData = [
     {
         title: 'Home',
         path: '/',
@@ -12,9 +12,20 @@ export const navbarData = [
     {
         title: 'Event',
         path: '/event',
+    }
+]
+
+export const navbarRentalData = [
+    {
+        title: 'Dashboard',
+        path: '/merchant/dashboard',
     },
     {
-        title: 'Search',
-        path: '/car-list/?pickup=2023-10-15&return=2023-10-16',
+        title: 'MyCar',
+        path: '/merchant/mycar',
     },
+    {
+        title: 'History',
+        path: '/merchant/history',
+    }
 ]
