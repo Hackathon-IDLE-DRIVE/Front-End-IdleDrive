@@ -12,7 +12,7 @@ export const getDetailCar = async (carID) => {
 };
 
 export const createCar = async (formData) => {
-  console.log('FormData content:', formData);
+  console.log("FormData content:", formData);
 
   try {
     const response = await axios.post(`${BASE_URL}/car`, formData, {
@@ -20,6 +20,19 @@ export const createCar = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateCar = async (carID, carDetails) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/car/${carID}`,
+      carDetails,
+      {}
+    );
     return response.data;
   } catch (error) {
     console.log(error);
