@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { createUser } from "../../service/users";
+import { useNavigate } from "react-router-dom";
 
 export default function UserRegister() {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fname: '',
@@ -25,10 +28,21 @@ export default function UserRegister() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Perform registration logic using formData
-    console.log('Form submitted:', formData);
+    const user = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      FirstName: formData.fname,
+      LastName: formData.lname,
+      Birth: formData.age,
+      phone: formData.phone
+    }
+    const res = await createUser(user);
+    console.log('Form submitted:', user);
+    console.log(res);
+    navigate('/');
   };
 
 
@@ -123,31 +137,16 @@ export default function UserRegister() {
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-              <label htmlFor="age" className="mb-3 block text-base font-medium">อายุ</label>
+              <label htmlFor="age" className="mb-3 block text-base font-medium">วันเกิด</label>
                 <input
-                  type="text"
+                  type="date"
                   name="age"
                   id="age"
-                  placeholder="อายุ"
+                  placeholder="วันเกิด"
                   className="w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                   value={formData.age}
                   onChange={handleChange}
                 />
-              </div>
-            </div>
-          </div>
-
-          <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label htmlFor="idcard" className="mb-3 block text-base font-medium">ภาพถ่ายบัตรประชาชน</label>
-                <input type="file" className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer" />
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label htmlFor="license" className="mb-3 block text-base font-medium">ภาพถ่ายใบขับขี่</label>
-                <input type="file" className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer" />
               </div>
             </div>
           </div>

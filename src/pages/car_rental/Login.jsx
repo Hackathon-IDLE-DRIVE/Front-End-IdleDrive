@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../service/context/AuthContext";
 import { loginUser } from "../../service/cars_rental";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginOwner() {
   const [credentials, setCredentials] = useState({
@@ -84,9 +84,9 @@ export default function LoginOwner() {
             <span className="text-xs text-gray-400 font-semibold">
               Don't have account?{" "}
             </span>
-            <a href="#" className="text-xs font-semibold text-blue-700">
+            <Link to={'/merchant/register'} className="text-xs font-semibold text-blue-700">
               Sign up
-            </a>
+            </Link>
           </div>
 
           <div className="flex justify-center items-center mt-10">

@@ -3,14 +3,9 @@ import axios from "axios";
 const BASE_URL = "http://localhost:3000/api/v1/idledrive/car-rental";
 
 //Service สำหรับลบ register
-export const registerUser = async (rental_name, username, email, password) => {
+export const registerUser = async (data) => {
   try {
-    const response = await axios.post(`${BASE_URL}/auth/register`, {
-      rental_name,
-      username,
-      email,
-      password,
-    });
+    const response = await axios.post(`${BASE_URL}/auth/register`,data);
     return response.data;
   } catch (error) {
     console.log(error);
