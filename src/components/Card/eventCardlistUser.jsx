@@ -3,21 +3,21 @@ import React from 'react'
 export default function EventListCard() {
   return (
     <>
-            <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card w-72 bg-base-100 shadow-xl mt-10">
         <figure><img src="https://www.sail.ca/blog/app/uploads/2021/09/fall-camping-tent-1200x628px.jpg" alt="view" /></figure>
         <div className="card-body">
             <h2 className="card-title text-2xl font-semibold">แคมป์ริมแม่น้ำ</h2>
 
             <div className='flex'>
-                <p className='font-semibold'>18 ต.ค. 2023
-                    <span className='font-semibold ml-2'>18:30</span>
-                    <span className='font-semibold'> น.</span>
+                <p className='text-sm font-semibold'>18 ต.ค. 2023
+                    <span className='text-sm font-semibold ml-2'>18:30</span>
+                    <span className='text-sm font-semibold'> น.</span>
                 </p>
             </div>
 
             <div className='Location flex mt-5 mb-3'>
                 <div className='text-xl'>🗺️</div>
-                <p className='font-medium pt-1'>แม่กวง จ.เชียงใหม่</p>
+                <p className='font-medium pt-1 text-sm'>แม่กวง จ.เชียงใหม่</p>
 
             </div>
 
