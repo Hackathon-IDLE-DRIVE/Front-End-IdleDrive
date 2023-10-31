@@ -30,7 +30,7 @@ export const AddCar = () => {
   const [carFileImages, setCarFileImages] = useState([]);
   const [carFileDocument, setCarFileDocument] = useState([]);
 
-  const handleFileUpload = (e, fileState, setFileState, fileUpload, setFileUpload) => {
+  const handleFileUpload = (e, fileState, setFileState, setFileUpload,maxSizeMB) => {
     const files = e.target.files;
 
     if (files.length === 0) return;
@@ -39,8 +39,9 @@ export const AddCar = () => {
       const isImage = files[i].type.split("/")[0] === "image";
 
       const isFileExist = fileState.some((e) => e.name === files[i].name);
+      const isSizeValid = files[i].size <= maxSizeMB * 1024 * 1024;
 
-      if (isImage && !isFileExist) {
+      if (isImage && !isFileExist && isSizeValid) {
         const fileUrl = URL.createObjectURL(files[i]);
         setFileState((prevFiles) => [
           ...prevFiles,
@@ -59,12 +60,12 @@ export const AddCar = () => {
   };
 
   const handleImageUpload = (e) => {
-    handleFileUpload(e, carImages, setCarImages,carFileImages,setCarFileImages);
+    handleFileUpload(e, carImages, setCarImages,setCarFileImages,8);
   };
 
   //------------------------------------handle img car doc
   const handleDocumentUpload = (e) => {
-    handleFileUpload(e, carDocuments, setCarDocuments,carFileDocument,setCarFileDocument);
+    handleFileUpload(e, carDocuments, setCarDocuments,setCarFileDocument,8);
   };
 
   const deleteCarImg = (index)=>{
