@@ -1,10 +1,12 @@
 import React,{useState} from "react";
 import Idle from '../../components/MyCarStatus/idle'
 import Activate from '../../components/MyCarStatus/activate'
+import { useNavigate } from "react-router-dom";
 
-export default function Back_myCarList(data) {
+export default function Back_myCarList({ data, carData }) {
 
-    const status = data.status;
+    const status = data;
+    const navigate = useNavigate();
 
     function showStatus(){
         if(status === 'idle'){
@@ -17,20 +19,22 @@ export default function Back_myCarList(data) {
 
   return (
     <>
-      <div className="w-3/4 flex flex-col mx-auto my-10">
+      <div className="w-3/4 flex flex-col mx-auto my-10
+      hover:cursor-pointer hover:shadow-xl"
+      onClick={()=>navigate(`/merchant/editcar/${carData.car_id}`)}>
         <div className="card lg:card-side bg-base-100 shadow-lg drop-shadow-lg h-52 border-[#D9D9D9] border-2">
           <figure className="w-1/3">
             <img
             className="h-52"
-              src="https://www.rsmotorhomes.com/wp-content/uploads/2022/10/Image_1.png"
+              src={`http://localhost:3000/api/v1/idledrive/images/${carData.CarImages[0].imageURL}`}
               alt="Album"
             />
           </figure>
           <div className="card-body w-full h-52 flex flex-row">
             <div className="w-3/4">
-                <h1 className="card-title w-11/12 font-bold text-2xl">Rolling Family Plus</h1>
-                <p className="w-11/12 text-lg font-semibold">Dii 444 ชายเหมียง</p>
-                <p className="w-11/12 font-semibold text-[#908D8D]">รถบ้านคนใหญ่ยาว สวยหรู หล่อเท่แบบมีสไตร์ มีห้องน้ำในตัว ระบบเครื่องเสียง HighEnd ฟังชั่นครบครัน</p>
+                <h1 className="card-title w-11/12 font-bold text-2xl">{carData.make} {carData.model}</h1>
+                <p className="w-11/12 text-lg font-semibold">{carData.plate}</p>
+                <p className="w-11/12 font-semibold text-[#908D8D] line-clamp-3">{carData.description}</p>
             </div>
         
             {showStatus()}

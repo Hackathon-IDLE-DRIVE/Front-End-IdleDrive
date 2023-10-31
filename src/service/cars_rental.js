@@ -67,7 +67,7 @@ export const getTotalCost = async (carRentalId) => {
 
 export const getDetailCarRental = async (carRentalId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${carRentalId}`);
+    const response = await axios.get(`http://localhost:3000/api/v1/idledrive/car/merchant/${carRentalId}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -78,6 +78,16 @@ export const getDetailCarRental = async (carRentalId) => {
 export const getHistoryTransaction = async (carRentalId) => {
   try {
     const response = await axios.get(`${BASE_URL}/history/${carRentalId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getCarListMerChant = async (carRentalId) => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/v1/idledrive/car/merchant/${carRentalId}`);
     return response.data;
   } catch (error) {
     console.error(error);
