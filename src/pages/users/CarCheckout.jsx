@@ -110,7 +110,8 @@ export const CarCheckout = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-20">
+            <div className="mt-14">
+              <p className="mb-4 font-bold text-xl ml-2"><span className="text-red-500">สำคัญ</span> กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span></p>
               <CollapseForm title={"Driver Information"}>
                 <DriverInfomationForm/>
               </CollapseForm>
