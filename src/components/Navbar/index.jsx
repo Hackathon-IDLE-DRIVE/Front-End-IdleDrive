@@ -133,11 +133,11 @@ export const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link to="/register" className="btn btn-primary">
+              <Link to="/register" className="btn btn-primary text-white">
                 Sign up
               </Link>
 
-              <Link to="/login" className="btn btn-primary">
+              <Link to="/login" className="btn btn-primary text-white">
                 Log In
               </Link>
             </>

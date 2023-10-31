@@ -4,7 +4,7 @@ import logo from '../../images/idle-w-light.png';
 const Footer = () => {
   return (
     <>
-      <footer className="footer p-10 bg-neutral text-neutral-content shadow-md">
+      <footer className="footer p-10 bg-white shadow-md">
         <aside>
           <img src={logo} className="w-60"></img>
           <p>

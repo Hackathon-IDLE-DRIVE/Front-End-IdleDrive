@@ -24,9 +24,8 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const handleBookingClick = () => {
-
     if (!location.trim()) {
-      alert("Please enter a location");
+      document.getElementById('my_modal_1').showModal();
       return;
     }
 
@@ -70,7 +69,7 @@ export const Home = () => {
               }}
             >
               <box-icon color="#1D4FB1" name="calendar" size="lg" />
-              
+
               <div className="flex flex-col ml-5">
                 <span className="font-bold">{`${format(
                   date[0].startDate,
@@ -123,6 +122,20 @@ export const Home = () => {
           />
         </div>
       </div>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-2xl">Alert!</h3>
+          <p className="pt-2 text-xl">
+            Please Enter Location
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

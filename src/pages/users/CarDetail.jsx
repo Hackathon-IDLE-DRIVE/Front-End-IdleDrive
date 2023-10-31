@@ -135,7 +135,7 @@ export const CarDetail = () => {
                   </div>
 
                   <div className="stat">
-                    <div className="stat-figure text-secondary">
+                    <div className="stat-figure text-primary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

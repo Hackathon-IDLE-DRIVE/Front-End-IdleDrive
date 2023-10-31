@@ -185,7 +185,7 @@ export const CarList = () => {
             Rating
           </button>
           <details className="dropdown">
-            <summary className="btn border-none shadow-md font-normal text-base">
+            <summary className="btn border-none shadow-md font-normal text-base bg-white">
               type
             </summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">

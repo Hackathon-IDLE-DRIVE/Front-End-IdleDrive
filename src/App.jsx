@@ -18,6 +18,7 @@ import { EditCar } from "./pages/car_rental/EditCar";
 import LoginOwner from './pages/car_rental/Login';
 import ProtectedRoute from "./components/ProtectedRoute";
 import EventList from "./pages/users/EventList";
+import TrackingBook from "./pages/car_rental/TrackingBook";
 
 function App() {
   return (
@@ -66,6 +67,14 @@ function App() {
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <EditCar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/merchant/tracking/:bookingId"
+            element={
+              <ProtectedRoute role={"carRentalOwner"}>
+                <TrackingBook/>
               </ProtectedRoute>
             }
           />
