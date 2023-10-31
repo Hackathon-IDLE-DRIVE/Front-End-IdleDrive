@@ -17,6 +17,7 @@ import { AddCar } from "./pages/car_rental/AddCar";
 import { EditCar } from "./pages/car_rental/EditCar";
 import LoginOwner from './pages/car_rental/Login';
 import ProtectedRoute from "./components/ProtectedRoute";
+import EventList from "./pages/users/EventList";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="event" element={<EventList/>}/>
         </Routes>
       </ContentContainer>
       <Footer />
