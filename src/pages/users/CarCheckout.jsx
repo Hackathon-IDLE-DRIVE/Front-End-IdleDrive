@@ -11,6 +11,8 @@ import { AuthContext } from "../../service/context/AuthContext";
 import { getDetailCar } from "../../service/cars";
 import { format, eachDayOfInterval } from "date-fns";
 
+import DriverInfomationForm from "../../components/Form/DriverInfomation";
+
 export const CarCheckout = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -110,7 +112,7 @@ export const CarCheckout = () => {
             </div>
             <div className="mt-20">
               <CollapseForm title={"Driver Information"}>
-                <p>Form for driver</p>
+                <DriverInfomationForm/>
               </CollapseForm>
               <CollapseForm title={"Payment Information"}>
                 <p>Form for driver</p>
