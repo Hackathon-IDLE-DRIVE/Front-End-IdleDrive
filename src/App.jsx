@@ -19,6 +19,7 @@ import LoginOwner from './pages/car_rental/Login';
 import ProtectedRoute from "./components/ProtectedRoute";
 import EventList from "./pages/users/EventList";
 import TrackingBook from "./pages/car_rental/TrackingBook";
+import { History } from './pages/car_rental/History'
 
 function App() {
   return (
