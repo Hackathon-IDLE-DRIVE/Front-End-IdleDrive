@@ -17,6 +17,7 @@ import { AddCar } from "./pages/car_rental/AddCar";
 import { EditCar } from "./pages/car_rental/EditCar";
 import LoginOwner from './pages/car_rental/Login';
 import ProtectedRoute from "./components/ProtectedRoute";
+import { History } from './pages/car_rental/History'
 
 function App() {
   return (
@@ -65,6 +66,14 @@ function App() {
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <EditCar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/merchant/history"
+            element={
+              <ProtectedRoute role={"carRentalOwner"}>
+                <History />
               </ProtectedRoute>
             }
           />
