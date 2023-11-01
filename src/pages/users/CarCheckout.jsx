@@ -10,8 +10,8 @@ import { bookRental } from "../../service/rentals";
 import { AuthContext } from "../../service/context/AuthContext";
 import { getDetailCar } from "../../service/cars";
 import { format, eachDayOfInterval } from "date-fns";
-
 import DriverInfomationForm from "../../components/Form/DriverInfomation";
+import { updateDriverInformation } from "../../service/users";
 
 export const CarCheckout = () => {
   const navigate = useNavigate();
@@ -25,6 +25,24 @@ export const CarCheckout = () => {
   const [carDetail, setCarDetail] = useState();
   const { rental_range, total_rate, rental_id } = useLocation().state;
 
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    idcardFile: null,
+    licenseFile: null,
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+
   const onSubmit = async () => {
     const Rentals = {
       car_idcar: id,
@@ -36,6 +54,17 @@ export const CarCheckout = () => {
       carRental_id: rental_id,
     };
     console.log(Rentals);
+
+    const formPost = new FormData();
+    formPost.append("email", formData.email);
+    formPost.append("FirstName", formData.fname);
+    formPost.append("LastName", formData.lname);
+    formPost.append("phone", formData.phone);
+    formPost.append("Document", formData.idcardFile);
+    formPost.append("Document", formData.licenseFile);
+    
+    const Driver = await updateDriverInformation(user.id,formPost);
+    console.log('Driver',Driver);
 
     const booking = await bookRental(Rentals);
 
@@ -49,6 +78,7 @@ export const CarCheckout = () => {
       console.log(res);
       setCarDetail(res);
     };
+
     const calculateDateRange = () => {
       const start = new Date(pickupDate);
       const end = new Date(returnDate);
@@ -113,7 +143,7 @@ export const CarCheckout = () => {
             <div className="mt-14">
               <p className="mb-4 font-bold text-xl ml-2"><span className="text-red-500">สำคัญ</span> กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span></p>
               <CollapseForm title={"Driver Information"}>
-                <DriverInfomationForm/>
+                <DriverInfomationForm form={formData} handleChange={handleInputChange} setForm={setFormData} userID={user.id}/>
               </CollapseForm>
               <CollapseForm title={"Payment Information"}>
                 <p>Form for driver</p>

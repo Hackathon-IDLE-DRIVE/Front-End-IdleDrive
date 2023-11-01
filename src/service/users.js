@@ -47,10 +47,18 @@ export const deleteUser = async (userId) => {
   }
 };
 
-//Service สำหรับ getdriver doc by id
-export const getDriverDocuments = async (userId) => {
+export const getDriverInformation = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${userId}/driver-documents`);
+    const response = await axios.get(`${BASE_URL}/driver/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateDriverInformation = async (userId,formData) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/driver/${userId}`,formData);
     return response.data;
   } catch (error) {
     console.log(error);

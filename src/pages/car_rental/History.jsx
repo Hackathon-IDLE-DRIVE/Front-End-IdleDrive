@@ -26,11 +26,6 @@ export const History = () => {
         </div> 
         </div>
 
-       
-      
-        <history_BackOffice status='complet'/>
-        <history_BackOffice status='progress'/>
-        <history_BackOffice status='cancel'/>
       </div>
 
       <div className="w-3/4 flex flex-col mx-auto my-10">
