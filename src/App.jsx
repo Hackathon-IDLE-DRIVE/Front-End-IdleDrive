@@ -20,6 +20,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import EventList from "./pages/users/EventList";
 import TrackingBook from "./pages/car_rental/TrackingBook";
 import { History } from './pages/car_rental/History'
+import { BookHistory } from './pages/users/BookingHistory'
+import { TrackingHistory } from './pages/users/TrackingHistory'
 
 function App() {
   return (
@@ -35,6 +37,11 @@ function App() {
             path="/tracking/user/:bookingId"
             element={<Tracking />}
           />
+          <Route
+            path="/history/:bookingId"
+            element={<TrackingHistory />}
+          />
+          <Route path="/history" element={<BookHistory/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<UserRegister />} />
           <Route path="/merchant/" element={<LoginOwner />} />

@@ -124,6 +124,9 @@ export const Navbar = () => {
                   </a>
                 </li>
                 <li>
+                  <Link to={"/history"}>History</Link>
+                </li>
+                <li>
                   <a>Settings</a>
                 </li>
                 <li>
