@@ -22,3 +22,15 @@ export const createCarReview = async (carId, reviewData) => {
     console.error(error);
   }
 };
+
+export const setRentalReview = async (rentalID, reviewData) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/booking/review/${rentalID}`,
+      reviewData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
