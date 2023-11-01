@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createUser } from "../../service/users";
 import { useNavigate } from "react-router-dom";
 
-export default function UserRegister() {
+export default function UserEdit() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -47,9 +47,9 @@ export default function UserRegister() {
 
   return (
     <>
+    
       <div className="text-4xl font-medium text-center mt-5">
-        สมัครสมาชิก |
-        <span className="text-4xl font-medium text-blue-700"> ผู้ใช้งาน</span>
+        ข้อมูล | คุณ <span className="text-4xl font-medium text-blue-700 underline underline-offset-8">DinnyS</span>
       </div>
       <div className="w-full">
         <form
@@ -138,7 +138,7 @@ export default function UserRegister() {
                     htmlFor="phone"
                     className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
                   >
-                    phone
+                    Phone
                   </label>
                 </div>
               </div>
@@ -332,24 +332,10 @@ export default function UserRegister() {
             type="submit"
             className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400"
           >
-            Sign Up
+            Confirm
           </button>
 
-          <div className="flex justify-center items-center mt-10 max-w-lg">
-            <span className="w-44 border border-gray-400"></span>
-            <span className="px-4 w-44 bg-white text-center">
-              or sign up with
-            </span>
-            <span className="w-44 border border-gray-400"></span>
-          </div>
-
-          <button className="flex flex-wrap justify-center w-full max-w-lg mx-auto mt-10 border border-blue-700 text-blue-700 font-bold hover:border-gray-500 px-2 py-1.5 rounded-md">
-            <img
-              className="w-5 mr-2"
-              src="https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA"
-            />
-            Google
-          </button>
+          
         </form>
       </div>
     </>
