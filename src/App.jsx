@@ -39,6 +39,8 @@ function App() {
           <Route path="/register" element={<UserRegister />} />
           <Route path="/merchant/" element={<LoginOwner />} />
           <Route path="/merchant/register" element={<BackOfficeRegister />} />
+                    
+          <Route path="event" element={<EventList/>}/>
           <Route
             path="/merchant/mycar"
             element={
@@ -79,7 +81,16 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="event" element={<EventList/>}/>
+          <Route
+            path="/merchant/history"
+            element={
+              <ProtectedRoute role={"carRentalOwner"}>
+                <History/>
+              </ProtectedRoute>
+            }
+          />
+
+
         </Routes>
       </ContentContainer>
       <Footer />
