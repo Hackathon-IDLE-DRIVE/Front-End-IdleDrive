@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getBookingDetails } from "../../service/rentals";
+import { getBookingDetails, updateBookingStatus } from "../../service/rentals";
 import { format, isValid } from "date-fns";
 import Car from "../../images/MotorCar2.png";
 import BG from "../../images/BG-Tracking.png";
@@ -10,20 +10,32 @@ import Status from "../../components/Status";
 const TrackingBook = () => {
   const { bookingId } = useParams();
   const [detailBooking, setDetailBooking] = useState();
+
   const getStatusNext = (status) => {
     switch (status) {
+      case "Wait for Confirm":
+        return [
+          "ยืนยันออเดอร์ของคุณ",
+          "เตรียมเช็ครถและเอกสารของลูกค้า!",
+          "Confirm order",
+          "Cancel",
+        ];
       case "Confirm order":
-        return ["จัดส่งรถ", "กรุณาคอยรับโทรศัพท์จากร้าน"];
+        return ["จัดส่งรถ", "กรุณาติดต่อกับลูกค้า", "On-delivery"];
       case "On-delivery":
-        return ["รับรถและ เซ็นสัญญา", "เตรียมเอกสารให้พร้อม!"];
+        return ["ส่งมอบและ เซ็นสัญญา", "เตรียมเอกสารให้พร้อม!", "Pick-up"];
       case "Pick-up":
-        return ["ดื่มดำกับรถบ้านของคุณ", "ขอให้สนุก !"];
+        return [
+          "รอลูกค้าส่งมอบรถคืน",
+          "อยู่ในระหว่างเช่ารถ",
+          "During the rental",
+        ];
       case "During the rental":
-        return ["รอคืนรถ", "ขอให้สนุก !"];
+        return ["รอลูกค้าส่งมอบรถคืน", "อยู่ในระหว่างเช่ารถ !", "Return"];
       case "Return":
-        return ["รอทางร้านตรวจสอบ"];
+        return ["ตรวจสอบรถของคุณ", "เช็คสภาพรถ!", "Complete"];
       case "Complete":
-        return ["ขอบคุณที่ใช้บริการ", "หวังว่าจะกลับมาใหม่ !"];
+        return ["เสร็จสมบูรณ์", "ได้รับรายได้แล้ว !"];
       case "Cancel":
         return ["ออเดอร์ถูกยกเลิก"];
       default:
@@ -31,13 +43,19 @@ const TrackingBook = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchDetailBooking = async () => {
-      const res = await getBookingDetails(bookingId);
-      setDetailBooking(res);
-      console.log(res);
-    };
+  const fetchDetailBooking = async () => {
+    const res = await getBookingDetails(bookingId);
+    setDetailBooking(res);
+    console.log(res);
+  };
 
+  const updateStatus = async (bookingId, status) => {
+    const res = await updateBookingStatus(bookingId, status);
+    fetchDetailBooking();
+    console.log(res);
+  };
+
+  useEffect(() => {
     fetchDetailBooking();
   }, [bookingId]);
 
@@ -107,19 +125,109 @@ const TrackingBook = () => {
               </motion.div>
             </div>
           </div>
+          <div className="flex flex-col justify-center items-center">
+            <div className="mt-10 w-full flex justify-center">
+              <ul className="steps steps-vertical lg:steps-horizontal">
+                <li
+                  className={`step ${
+                    detailBooking.rental.RentalStatus === "Confirm order" ||
+                    detailBooking.rental.RentalStatus === "On-delivery" ||
+                    detailBooking.rental.RentalStatus === "Pick-up" ||
+                    detailBooking.rental.RentalStatus === "During the rental" ||
+                    detailBooking.rental.RentalStatus === "Return" ||
+                    detailBooking.rental.RentalStatus === "Complete"
+                      ? "step-primary"
+                      : ""
+                  }`}
+                >
+                  Confirm Order
+                </li>
+                <li
+                  className={`step ${
+                    detailBooking.rental.RentalStatus === "On-delivery" ||
+                    detailBooking.rental.RentalStatus === "Pick-up" ||
+                    detailBooking.rental.RentalStatus === "During the rental" ||
+                    detailBooking.rental.RentalStatus === "Return" ||
+                    detailBooking.rental.RentalStatus === "Complete"
+                      ? "step-primary"
+                      : ""
+                  }`}
+                >
+                  On-delivery
+                </li>
+                <li
+                  className={`step ${
+                    detailBooking.rental.RentalStatus === "Pick-up" ||
+                    detailBooking.rental.RentalStatus === "During the rental" ||
+                    detailBooking.rental.RentalStatus === "Return" ||
+                    detailBooking.rental.RentalStatus === "Complete"
+                      ? "step-primary"
+                      : ""
+                  }`}
+                >
+                  Pickup
+                </li>
+                <li
+                  className={`step ${
+                    detailBooking.rental.RentalStatus === "Return" ||
+                    detailBooking.rental.RentalStatus === "Complete"
+                      ? "step-primary"
+                      : ""
+                  }`}
+                >
+                  Return
+                </li>
+                <li
+                  className={`step ${
+                    detailBooking.rental.RentalStatus === "Complete"
+                      ? "step-primary"
+                      : ""
+                  }`}
+                >
+                  Complete
+                </li>
+              </ul>
+            </div>
 
-          <div className="mt-10 w-full flex justify-center">
-            <ul className="steps steps-vertical lg:steps-horizontal">
-              <li className="step step-primary">Confirm Order</li>
-              <li className="step step-primary">On-delivery</li>
-              <li className="step step-primary">Pickup</li>
-              <li className="step">Return</li>
-              <li className="step">Complete</li>
-            </ul>
-          </div>
+            <div className="container bg-white shadow-lg mt-10 w-3/4 flex flex-col items-center justify-center p-10">
+              <div className="text-center text-xl font-bold">ข้อมูลลูกค้า</div>
+              <div>
+                <span>NAME : </span>Somchai Kankathok
+              </div>
+              <div>
+                <span>Phone : </span>099999999
+              </div>
+              <div>Document</div>
+              <div className="flex justify-center items-center w-2/4">
+                {getStatusNext(detailBooking.rental.RentalStatus)[2] && (
+                  <button
+                    className="btn btn-primary text-white w-2/4"
+                    onClick={() => {
+                      updateStatus(
+                        bookingId,
+                        getStatusNext(detailBooking.rental.RentalStatus)[2]
+                      );
+                    }}
+                  >
+                    {getStatusNext(detailBooking.rental.RentalStatus)[2]}
+                  </button>
+                )}
 
-          <div>
-            
+                {getStatusNext(detailBooking.rental.RentalStatus)[3] && (
+                  <button
+                    className="btn btn-error text-white w-2/4 ml-2"
+                    onClick={() => {
+                      updateStatus(
+                        bookingId,
+                        getStatusNext(detailBooking.rental.RentalStatus)[3]
+                      );
+                    }}
+                  >
+                    {getStatusNext(detailBooking.rental.RentalStatus)[3]}
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

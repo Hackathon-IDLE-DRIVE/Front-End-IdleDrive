@@ -24,6 +24,8 @@ export const Tracking = () => {
   
   const getStatusNext = (status) => {
     switch (status) {
+      case "Wait for Confirm":
+        return ["รอร้านยืนยันออเดอร์ของคุณ","เตรียมตัวกับการเดินทางครั้งใหม่!"];
       case "Confirm order":
         return ["จัดส่งรถ","กรุณาคอยรับโทรศัพท์จากร้าน"];
       case "On-delivery":

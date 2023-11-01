@@ -3,7 +3,6 @@ import { getDetailCar } from '../../service/cars';
 import {getDetailCarRental} from '../../service/cars_rental';
 
 export default function RecentCard({ bookingData }) {
-    const [rental, setRental] = useState();
     const [car, setCar] = useState();
 
 
@@ -13,21 +12,13 @@ export default function RecentCard({ bookingData }) {
             console.log('Car',res);
             setCar(res);
         }
-
-        const fetchRental = async() =>{
-            const res = await getDetailCarRental(bookingData.carRental_id);
-            console.log('Rental',res);
-            setRental(res);
-        }
-
         fetchCarData();
-        fetchRental();
 
     },[bookingData.RentalID])
 
   return (
     <>
-    {car && rental &&
+    {car &&
     <div className="card w-80 bg-base-100 shadow-xl mr-5">
           <div className="card-body">
             <h2 className="card-title uppercase font-bold">Order ID : 
@@ -50,13 +41,13 @@ export default function RecentCard({ bookingData }) {
             <div className='w-full border-b my-1.5'/>
             <div className='flex justify-start'>
                 <div className='flex'>
-                    <img className='h-12 w-12 rounded mr-2 ' src={`http://localhost:3000/api/v1/idledrive/images/${rental.rentalDetail.profileURL}`} alt='idle'/>
+                    <img className='h-12 w-12 rounded mr-2 ' src={`http://localhost:3000/api/v1/idledrive/images/${car.rental.rentalDetail.profileURL}`} alt='idle'/>
                     
                     <div className='flex-col'>
-                        <p className='text-sm font-bold text-black'>{rental.rentalDetail.rental_name}</p>
+                        <p className='text-sm font-bold text-black'>{car.rental.rentalDetail.rental_name}</p>
                         <div className='text-sm font-bold'>⭐ 
-                            <span className='text-sm text-gray-700 font-bold text-right mx-1'>{rental.rentalReview.averageRating}</span>
-                            <span className='font-semibold text-gray-500'>( {rental.rentalReview.reviewCountSum} review )</span>
+                            <span className='text-sm text-gray-700 font-bold text-right mx-1'>{car.rental.rentalReview.averageRating}</span>
+                            <span className='font-semibold text-gray-500'>( {car.rental.rentalReview.reviewCountSum} review )</span>
                         </div>
                     </div>
                 </div> 
