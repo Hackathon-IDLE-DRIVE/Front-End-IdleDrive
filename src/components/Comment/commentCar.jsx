@@ -12,8 +12,6 @@ export default function CommentReviewCar({ review }) {
 
             <div className='mx-5'>
                 <div className='text-lg font-bold text-black'>{review.user.username}</div>
-                <span className='text-sm font-bold text-gray-500'>Total Route : </span>
-                <span className='text-sm font-bold text-gray-800'>5</span>
             </div>
 
             <div className='mx-5'>
