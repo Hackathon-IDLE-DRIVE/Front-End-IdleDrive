@@ -6,10 +6,13 @@ import BG from "../../images/BG-Tracking.png";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 import Status from "../../components/Status";
+import { getDetailDriver } from "../../service/cars_rental";
 
 const TrackingBook = () => {
   const { bookingId } = useParams();
   const [detailBooking, setDetailBooking] = useState();
+  const [userDetail, setUserDetail] = useState();
+  const imageURL = "http://localhost:3000/api/v1/idledrive/images";
 
   const getStatusNext = (status) => {
     switch (status) {
@@ -46,7 +49,7 @@ const TrackingBook = () => {
   const fetchDetailBooking = async () => {
     const res = await getBookingDetails(bookingId);
     setDetailBooking(res);
-    console.log(res);
+    console.log(res.rental);
   };
 
   const updateStatus = async (bookingId, status) => {
@@ -55,13 +58,37 @@ const TrackingBook = () => {
     console.log(res);
   };
 
+  const fetchUser = async () => {
+    if (detailBooking && detailBooking.rental) {
+      try {
+        const res = await getDetailDriver(detailBooking.rental.user_id);
+        setUserDetail(res);
+        console.log("user", res, detailBooking);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    }
+  };
+
   useEffect(() => {
-    fetchDetailBooking();
+    const fetchData = async () => {
+      await fetchDetailBooking();
+    };
+    fetchData();
   }, [bookingId]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (detailBooking) {
+        await fetchUser();
+      }
+    };
+    fetchUserData();
+  }, [detailBooking]);
 
   return (
     <>
-      {detailBooking && (
+      {detailBooking && userDetail && (
         <div>
           <div className="container shadow-lg bg-white py-10 px-16 rounded-2xl flex justify-between">
             <div>
@@ -192,12 +219,28 @@ const TrackingBook = () => {
             <div className="container bg-white shadow-lg mt-10 w-3/4 flex flex-col items-center justify-center p-10">
               <div className="text-center text-xl font-bold">ข้อมูลลูกค้า</div>
               <div>
-                <span>NAME : </span>Somchai Kankathok
+                <span>NAME : </span>
+                {userDetail.user.FirstName} {userDetail.user.LastName}
               </div>
               <div>
-                <span>Phone : </span>099999999
+                <span>Phone : </span>
+                {userDetail.user.phone}
               </div>
-              <div>Document</div>
+              <div className="text-center text-xl font-bold mt-4">Document</div>
+              <div className="flex my-3">
+                <div className="mr-4">
+                  <img
+                    className="h-32"
+                    src={`${imageURL}/${userDetail.driverDocuments[0].ImageURL}`}
+                  ></img>
+                </div>
+                <div>
+                  <img
+                    className="h-32"
+                    src={`${imageURL}/${userDetail.driverDocuments[1].ImageURL}`}
+                  ></img>
+                </div>
+              </div>
               <div className="flex justify-center items-center w-2/4">
                 {getStatusNext(detailBooking.rental.RentalStatus)[2] && (
                   <button

@@ -89,3 +89,13 @@ export const getCarListMerChant = async (carRentalId) => {
     throw error;
   }
 };
+
+export const getDetailDriver = async (driverID) => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/v1/idledrive/users/driver/${driverID}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
