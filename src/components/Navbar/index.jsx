@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { navbarUserData, navbarRentalData } from "./navbarData";
 import Logo from "../../images/idle-w-light.png";
 import { AuthContext } from "../../service/context/AuthContext";
 
 export const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const isLoggedIn = user !== null;
   let userType;
@@ -130,7 +131,14 @@ export const Navbar = () => {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a onClick={() => dispatch({ type: "LOGOUT" })}>Logout</a>
+                  <a
+                    onClick={() => {
+                      dispatch({ type: "LOGOUT" });
+                      navigate(`/`);
+                    }}
+                  >
+                    Logout
+                  </a>
                 </li>
               </ul>
             </div>
