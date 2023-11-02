@@ -4,7 +4,8 @@ import logo from '../../images/idle-w-light.png';
 const Footer = () => {
   return (
     <>
-      <footer className="footer p-10 bg-white shadow-md">
+      <footer className="footer p-10 bg-white border-t-[#D9D9D9] border-t-2"
+      style={{boxShadow: "0px -1px 3px 0px rgba(0, 0, 0, 0.05), 0px -6px 6px 0px rgba(0, 0, 0, 0.04), 0px -12px 7px 0px rgba(0, 0, 0, 0.03), 0px -22px 9px 0px rgba(0, 0, 0, 0.01), 0px -34px 10px 0px rgba(0, 0, 0, 0.00)"}}>
         <aside>
           <img src={logo} className="w-60"></img>
           <p>

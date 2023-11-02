@@ -215,6 +215,14 @@ export default function BackOfficeRegister() {
             </div>
           </div>
 
+          <div className="flex justify-center items-center my-5 max-w-lg">
+            <span className="w-44 border border-gray-400"></span>
+            <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
+            User & password
+            </span>
+            <span className="w-44 border border-gray-400"></span>
+          </div>
+
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">

@@ -23,6 +23,7 @@ import { History } from './pages/car_rental/History';
 import { BookHistory } from './pages/users/BookingHistory';
 import { TrackingHistory } from './pages/users/TrackingHistory';
 import RouteList from './pages/users/RouteList';
+import UserEdit from "./pages/edit_Profile/UserEdit";
 
 function App() {
   return (
@@ -98,8 +99,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-
+          <Route path="editprofile/:id" element={<UserEdit/>}/>
+          <Route path="event" element={<EventList/>}/>
         </Routes>
       </ContentContainer>
       <Footer />
