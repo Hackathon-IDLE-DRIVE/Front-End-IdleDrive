@@ -226,6 +226,14 @@ const TrackingBook = () => {
                 <span>Phone : </span>
                 {userDetail.user.phone}
               </div>
+              <div>
+                <span>START DATE : </span>
+                {detailBooking.rental.RentalStartDate}
+              </div>
+              <div>
+                <span>END DATE : </span>
+                {detailBooking.rental.RentalEndDate}
+              </div>
               <div className="text-center text-xl font-bold mt-4">Document</div>
               <div className="flex my-3">
                 <div className="mr-4">

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { createUser, getUserById, updateUser } from "../../service/users";
 import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from '../../service/context/AuthContext'
 
 export default function UserEdit() {
   const navigate = useNavigate();
   const [userDetail, setUserDetail] = useState();
   const { id } = useParams();
   const [profileImg, setProfileImg] = useState();
+  const { dispatch } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -51,13 +53,20 @@ export default function UserEdit() {
     formPost.append("email", formData.email);
     formPost.append("FirstName", formData.fname);
     formPost.append("LastName", formData.lname);
-    formPost.append("Birth", formData.email);
+    formPost.append("Birth", formData.age);
     formPost.append("phone", formData.phone);
     formPost.append("profileImage", profileImg);
 
     const res = await updateUser(id, formPost);
     console.log("Form submitted:", formData);
-    console.log(res);
+
+    const updatedUser = res.user;
+
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: updatedUser,
+    });
+
     navigate("/");
   };
 
@@ -133,6 +142,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="fname"
                     id="fname"
@@ -160,6 +170,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="lname"
                     id="lname"
@@ -190,6 +201,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     maxLength={10}
                     minLength={10}
@@ -219,6 +231,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="email"
                     name="email"
                     id="email"
@@ -252,6 +265,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="date"
                     name="age"
                     id="age"
@@ -279,7 +293,7 @@ export default function UserEdit() {
             <span className="w-44 border border-gray-400"></span>
           </div>
 
-          <div className="-mx-3 flex flex-wrap">
+          {/* <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
                 <label
@@ -334,7 +348,7 @@ export default function UserEdit() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <button
             type="submit"

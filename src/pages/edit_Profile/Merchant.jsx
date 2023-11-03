@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { createUser } from "../../service/users";
-import { useNavigate } from "react-router-dom";
-
-export default function UserEdit() {
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../service/context/AuthContext";
+import { updateCarRental } from "../../service/cars_rental";
+export default function MerChantUserEdit() {
   const navigate = useNavigate();
+  const [userDetail, setUserDetail] = useState();
+  const { id } = useParams();
+  const [profileImg, setProfileImg] = useState();
+  const { user, dispatch } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
     phone: "",
     email: "",
-    job: "",
-    age: "",
-    idcard: null,
-    license: null,
-    username: "",
-    password: "",
-    confirmPassword: "",
+    rental_name: "",
+    location: "",
+    profileImage: null,
   });
 
   const handleChange = (e) => {
@@ -26,41 +26,97 @@ export default function UserEdit() {
       ...prevData,
       [name]: type === "file" ? files[0] : value,
     }));
+
+    if (type === "file" && name === "profileImage") {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevData) => ({
+          ...prevData,
+          profileImage: reader.result,
+        }));
+      };
+
+      if (files[0]) {
+        setProfileImg(files[0]);
+        reader.readAsDataURL(files[0]);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-      FirstName: formData.fname,
-      LastName: formData.lname,
-      Birth: formData.age,
-      phone: formData.phone,
-    };
-    const res = await createUser(user);
-    console.log("Form submitted:", user);
+    const formPost = new FormData();
+    formPost.append("email", formData.email);
+    formPost.append("FirstName", formData.fname);
+    formPost.append("LastName", formData.lname);
+    formPost.append("rental_name", formData.rental_name);
+    formPost.append("phone", formData.phone);
+    formPost.append("location", formData.location);
+    formPost.append("profileImage", profileImg);
+
+    const res = await updateCarRental(id, formPost);
+    console.log("Form submitted:", formData);
     console.log(res);
+
+    const updatedUser = res.carRental;
+
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: updatedUser,
+    });
+
     navigate("/");
   };
 
+  useEffect(() => {
+    setFormData({
+      fname: user.FirstName || "",
+      lname: user.LastName || "",
+      phone: user.phone || "",
+      email: user.email || "",
+      age: user.Birth || "",
+      profileImage: null,
+      rental_name: user.rental_name || "",
+      location: user.location || "",
+    });
+  }, [id]);
+
   return (
     <>
-    
       <div className="text-4xl font-medium text-center mt-5">
-        ข้อมูล | คุณ <span className="text-4xl font-medium text-blue-700 underline underline-offset-8">DinnyS</span>
+        ข้อมูล |{" "}
+        {user && (
+          <span className="text-4xl font-medium text-blue-700 underline underline-offset-8">
+            {user.rental_name}
+          </span>
+        )}
       </div>
-      <div className="w-full my-10">
-        <div className="mx-auto flex justify-center  indicator relative "  >
-        <label htmlFor="drop-file">
-          <img className=" rounded-full h-60 w-60 object-cover border-4  shadow-xl hover:border-blue-700 hover:shadow-lg" 
-          src="https://files.gqthailand.com/uploads/90626404e051b05f7b1f22bb2fad07b3.jpg" alt="profile" />
-           <div className="absolute file-input-ghost mb-9 mr-9 w-8 h-8 indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end badge bg-primary hover:bg-blue-700"/>
-          <input type="file" id="drop-file" className="absolute hidden file-input-ghost mb-9 mr-9 w-8 h-8 indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end badge bg-primary hover:bg-blue-700"/>
-        </label>
+      {user && (
+        <div className="w-full my-10">
+          <div className="mx-auto flex justify-center  indicator relative ">
+            <label htmlFor="drop-file">
+              <img
+                className=" rounded-full h-60 w-60 object-cover border-4  shadow-xl hover:border-blue-700 hover:shadow-lg"
+                src={
+                  formData.profileImage ||
+                  `http://localhost:3000/api/v1/idledrive/images/${user.profileURL}`
+                }
+                alt="profile"
+              />
+              <div className="absolute file-input-ghost mb-9 mr-9 w-8 h-8 indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end badge bg-primary hover:bg-blue-700" />
+              <input
+                required
+                type="file"
+                id="drop-file"
+                name="profileImage"
+                onChange={handleChange}
+                className="absolute hidden file-input-ghost mb-9 mr-9 w-8 h-8 indicator-item indicator-start sm:indicator-middle md:indicator-bottom lg:indicator-center xl:indicator-end badge bg-primary hover:bg-blue-700"
+              />
+            </label>
+          </div>
         </div>
-      </div>
+      )}
+
       <div className="w-full">
         <form
           onSubmit={handleSubmit}
@@ -77,6 +133,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="fname"
                     id="fname"
@@ -104,6 +161,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="lname"
                     id="lname"
@@ -134,6 +192,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     maxLength={10}
                     minLength={10}
@@ -163,6 +222,7 @@ export default function UserEdit() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="email"
                     name="email"
                     id="email"
@@ -182,60 +242,59 @@ export default function UserEdit() {
             </div>
           </div>
 
-          
-
-
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
-                <label
-                  htmlFor="job"
-                  className="mb-3 block text-base font-medium"
-                >
-                  อาชีพ
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="job"
-                    id="job"
-                    placeholder=""
-                    className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    value={formData.job}
-                    onChange={handleChange}
-                  />
+                <div className="mb-5">
                   <label
-                    htmlFor="job"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
+                    htmlFor="age"
+                    className="mb-3 block text-base font-medium"
                   >
-                    อาชีพ
+                    ชื่อร้านของคุณ
                   </label>
+                  <div className="relative">
+                    <input
+                      required
+                      type="rental_name"
+                      name="rental_name"
+                      id="rental_name"
+                      className="peer w-64 h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                      value={formData.rental_name}
+                      onChange={handleChange}
+                    />
+                    <label
+                      for="age"
+                      className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
+                    >
+                      ชื่อร้านของคุณ
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
                 <label
-                  htmlFor="age"
+                  htmlFor="location"
                   className="mb-3 block text-base font-medium"
                 >
-                  วันเกิด
+                  สถานที่ปล่อยเช่า
                 </label>
                 <div className="relative">
                   <input
-                    type="date"
-                    name="age"
-                    id="age"
-                    placeholder="วันเกิด"
+                    required
+                    type="text"
+                    name="location"
+                    id="location"
                     className="peer w-64 h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    value={formData.age}
+                    value={formData.location}
                     onChange={handleChange}
                   />
                   <label
                     for="age"
                     className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
                   >
-                    วันเกิด
+                    สถานที่ปล่อยเช่า
                   </label>
                 </div>
               </div>
@@ -245,39 +304,12 @@ export default function UserEdit() {
           <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
             <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
-            User & password
+              User & password
             </span>
             <span className="w-44 border border-gray-400"></span>
           </div>
 
           <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  htmlFor="username"
-                  className="mb-3 block text-base font-medium"
-                >
-                  Username
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    placeholder=""
-                    className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    value={formData.username}
-                    onChange={handleChange}
-                  />
-                  <label
-                    htmlFor="username"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Username
-                  </label>
-                </div>
-              </div>
-            </div>
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
                 <label
@@ -305,11 +337,7 @@ export default function UserEdit() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="mx-10 w-9/12 flex">
-            <div className="w-1/2 px-3"></div>
-            <div className="w-1/2 pl-3">
+            <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
                 <label
                   htmlFor="Confirm-Password"
@@ -344,8 +372,6 @@ export default function UserEdit() {
           >
             Confirm
           </button>
-
-          
         </form>
       </div>
     </>

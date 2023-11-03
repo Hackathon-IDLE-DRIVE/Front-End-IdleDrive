@@ -24,6 +24,7 @@ import { BookHistory } from './pages/users/BookingHistory';
 import { TrackingHistory } from './pages/users/TrackingHistory';
 import RouteList from './pages/users/RouteList';
 import UserEdit from "./pages/edit_Profile/UserEdit";
+import MerChantUserEdit from "./pages/edit_Profile/Merchant";
 
 function App() {
   return (
@@ -96,6 +97,15 @@ function App() {
             element={
               <ProtectedRoute role={"carRentalOwner"}>
                 <History/>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/merchant/editprofile/:id"
+            element={
+              <ProtectedRoute role={"carRentalOwner"}>
+                <MerChantUserEdit/>
               </ProtectedRoute>
             }
           />

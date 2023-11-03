@@ -99,3 +99,12 @@ export const getDetailDriver = async (driverID) => {
     throw error;
   }
 };
+
+export const updateCarRental = async (userId, userData) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/${userId}`, userData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

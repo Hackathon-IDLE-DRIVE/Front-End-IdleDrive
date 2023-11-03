@@ -119,7 +119,7 @@ export const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link to={`/editprofile/${user.id}`} className="justify-between">
+                  <Link to={`${user.id ? `/editprofile/${user.id}` : `/merchant/editprofile/${user.id_rental}`}`} className="justify-between">
                     Profile
                     <span className="badge">New</span>
                   </Link>
