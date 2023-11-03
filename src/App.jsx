@@ -25,6 +25,7 @@ import { TrackingHistory } from './pages/users/TrackingHistory';
 import RouteList from './pages/users/RouteList';
 import UserEdit from "./pages/edit_Profile/UserEdit";
 import MerChantUserEdit from "./pages/edit_Profile/Merchant";
+import RouteDetail from "./pages/users/RouteDetail";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/register" element={<UserRegister />} />
           <Route path="/event" element={<EventList/>}/>
           <Route path="/route" element={<RouteList/>}/>
+          <Route path="/route/:id" element={<RouteDetail/>}/>
           
           <Route path="/merchant/" element={<LoginOwner />} />
           <Route path="/merchant/register" element={<BackOfficeRegister />} />

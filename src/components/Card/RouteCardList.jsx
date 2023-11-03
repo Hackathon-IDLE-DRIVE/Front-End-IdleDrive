@@ -1,10 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const RouteCardList = () => {
+  const navigate = useNavigate();
   return (
     <>
         <div className='container w-64 shadow-lg rounded-md mt-3 mr-6
-        hover:cursor-pointer hover:shadow-xl'>
+        hover:cursor-pointer hover:shadow-xl'
+        onClick={()=>navigate('/route/1')}>
             <div>
                 <img src='https://i.ytimg.com/vi/Xk21728RrtY/maxresdefault.jpg'></img>
             </div>
