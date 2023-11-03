@@ -93,20 +93,20 @@ const TrackingBook = () => {
           <div className="container shadow-lg bg-white py-10 px-16 rounded-2xl flex justify-between">
             <div>
               <div>
-                <div className="text-gray-400 font-bold">ORDERS:</div>
+                <div className="text-gray-400 font-bold">รายการ :</div>
                 <div className="font-bold text-[#1D4FB1] text-xl">
                   # {detailBooking.rental.RentalID}
                 </div>
               </div>
               <div className="my-4">
-                <div className="text-gray-400 font-bold">VEHICLE:</div>
+                <div className="text-gray-400 font-bold">ยานพาหนะ :</div>
                 <div className="text-xl font-bold">{`${detailBooking.Car.make} ${detailBooking.Car.model}`}</div>
                 <div className="text-sm font-semibold">
                   {detailBooking.Car.plate}
                 </div>
               </div>
               <div>
-                <div className="text-gray-400 font-bold">STATUS:</div>
+                <div className="text-gray-400 font-bold">สถานะ :</div>
                 <div>
                   <Status status={`${detailBooking.rental.RentalStatus}`} />
                 </div>
@@ -115,7 +115,7 @@ const TrackingBook = () => {
                 </div>
               </div>
               <div>
-                <div className="text-gray-400 font-bold mt-6">ADDRESS:</div>
+                <div className="text-gray-400 font-bold mt-6">ที่อยู่ :</div>
                 <div className="font-bold">
                   168, 24th Bangkhen Bangkok 10220
                 </div>

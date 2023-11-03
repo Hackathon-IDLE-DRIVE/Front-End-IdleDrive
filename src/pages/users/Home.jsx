@@ -53,7 +53,7 @@ export const Home = () => {
         >
           <input
             type="text"
-            placeholder="Location"
+            placeholder="สถานที่"
             className="input w-full max-w-xs my-4 bg-gray-100 border-none"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -111,7 +111,7 @@ export const Home = () => {
         absolute -bottom-6 z-10 font-bold max-[350px]:w-full max-[350px]:px-10"
             onClick={handleBookingClick}
           >
-            Explore
+            ค้นหา
           </button>
         </div>
         <div className="absolute z-0 top-1/2">
@@ -125,13 +125,13 @@ export const Home = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-2xl">Alert!</h3>
+          <h3 className="font-bold text-2xl">เกิดข้อผิดพลาด!</h3>
           <p className="pt-2 text-xl">
-            Please Enter Location
+            กรุณาใส่สถานที่ . . .
           </p>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn">รับทราบ</button>
             </form>
           </div>
         </div>

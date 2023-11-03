@@ -122,12 +122,12 @@ export const CarCheckout = () => {
                 <h2 className="card-title text-2xl font-bold">
                   {carDetail.car.make} {carDetail.car.model}
                 </h2>
-                <span className="font-semibold">{dateRange.length} DAYS</span>
+                <span className="font-semibold">{dateRange.length} วัน</span>
                 <span className="font-semibold text-lg mt-2">
-                  PICKUP : {pickupDate}
+                  รับรถ : {pickupDate}
                 </span>
                 <span className="font-semibold text-lg">
-                  RETURN : {returnDate}
+                  ส่งคืน : {returnDate}
                 </span>
                 <div className="flex items-center mt-3">
                   <div className="avatar">
@@ -153,22 +153,14 @@ export const CarCheckout = () => {
               </div>
             </div>
             <div className="mt-14">
-              <p className="mb-4 font-bold text-xl ml-2">
-                <span className="text-red-500">สำคัญ</span>{" "}
-                กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span>
-              </p>
-              <CollapseForm title={"Driver Information"}>
-                <DriverInfomationForm
-                  form={formData}
-                  handleChange={handleInputChange}
-                  setForm={setFormData}
-                  userID={user.id}
-                />
+              <p className="mb-4 font-bold text-xl ml-2"><span className="text-red-500">สำคัญ</span> กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span></p>
+              <CollapseForm title={"Driver Information ( ข้อมูลผู้ขับขี่ )"}>
+                <DriverInfomationForm form={formData} handleChange={handleInputChange} setForm={setFormData} userID={user.id}/>
               </CollapseForm>
-              <CollapseForm title={"Payment Information"}>
+              <CollapseForm title={"Payment Information ( ช่องทางการชำระเงิน )"}>
                 <p>Form for driver</p>
               </CollapseForm>
-              <CollapseForm title={"Protection options"}>
+              <CollapseForm title={"Protection options ( เอกสารที่ต้องเตรียม )"}>
                 <p>Form for driver</p>
               </CollapseForm>
             </div>
@@ -178,7 +170,7 @@ export const CarCheckout = () => {
             className="flex flex-col justify-center items-center w-2/6 h-full bg-white shadow-md ml-20
       p-6 sticky top-20 rounded-lg"
           >
-            <p className="font-bold text-lg">Cost Summary</p>
+            <p className="font-bold text-lg">ราคาโดยรวม</p>
             <div className="flex w-full justify-between mb-2">
               <span>ค่าเช่ารถ {rental_range} วัน</span>
               <div>฿{total_rate}</div>
@@ -193,14 +185,14 @@ export const CarCheckout = () => {
             </div>
             <div className="w-full border-2 my-4"></div>
             <div className="flex w-full justify-between font-bold text-xl mt-2">
-              <span>Subtotal</span>
+              <span>ยอดรวม</span>
               <div>฿{total_rate + 5000}</div>
             </div>
             <button
               className="bg-[#1D4FB1] w-full py-2 rounded-lg text-white font-bold mt-3"
               onClick={onSubmit}
             >
-              Confirm Booking
+              ยืนยันการจอง
             </button>
           </div>
         </div>

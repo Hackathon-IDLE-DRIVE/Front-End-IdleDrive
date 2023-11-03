@@ -35,7 +35,7 @@ export default function HistoryCard(data) {
         className="card lg:card-side bg-base-100 shadow-lg drop-shadow-lg h-65 border-[#D9D9D9] border-2 mt-5">
         <div className="card-body w-full h-70 flex flex-row">
           <img
-            className="h-52 border-2 rounded-[20px]"
+            className="h-52 w-80 border-2 rounded-[20px] object-cover"
             src={`http://localhost:3000/api/v1/idledrive/images/${car.listImage[0].imageURL}`}
             alt="Album"
           />
@@ -43,22 +43,22 @@ export default function HistoryCard(data) {
             <h1 className="card-title w-11/12 font-bold text-2xl">
               {car.car.make} {car.car.model}
             </h1>
-            <p className="w-11/12 text-s font-semibold mb-35">24 hours</p>
+            <p className="w-11/12 text-s font-semibold mb-35">1 วัน</p>  {/* แก้ตรงนี้เด้อ */}
 
             <div className="mt-20">
               <p className="w-11/12 text-m font-semibold">
-                PICKUP : {bookData.RentalStartDate}
+                รับรถ : {bookData.RentalStartDate}
               </p>
               <p className="w-11/12 text-m font-semibold">
-                RETURN : {bookData.RentalEndDate}
+                ส่งคืน : {bookData.RentalEndDate}
               </p>
             </div>
-            <p className="text-2xl font-semibold text-right mr-[-180px] mt-[-30px]">
-              {bookData.TotalCost} BAHT
+            <p className="text-3xl font-bold text-right mr-[-180px] mt-[-30px]">
+              {bookData.TotalCost} บาท
             </p>
           </div>
           <div
-            className="w-1/4 h-12 py-2 text-xl text-center font-bold rounded-full 
+            className="w-80 h-12 py-2 text-xl text-center font-bold rounded-full 
                      uppercase text-white border-[#D9D9D9] border-2 bg-[#06de9d] "
           >
             {bookData.RentalStatus}

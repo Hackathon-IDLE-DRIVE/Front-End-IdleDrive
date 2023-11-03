@@ -25,14 +25,14 @@ export default function CarlistCard({ carData, queryParams }) {
     
                     <div className='text-sm font-bold text-right'>⭐ 
                         <span className='text-sm text-gray-700 font-bold text-right mx-1'>{ratingAvgFloat.toFixed(2)}</span>
-                        <span className='font-semibold text-gray-500'>({reviews.ratingCount} review )</span>
+                        <span className='font-semibold text-gray-500'>({reviews.ratingCount} รีวิว )</span>
                     </div>
                 </div>
                 <div className='w-full border-b my-1.5'></div>
                 <div className="card-actions justify-end">
                     <p className="text-2xl font-bold text-right">{rentalRate}
                         <span className="text-2xl text-gray-500 font-bold text-right"> ฿</span>
-                        <span className='text-xs font-bold text-gray-500 pt-3'>/Day</span>
+                        <span className='text-xs font-bold text-gray-500 pt-3'>/วัน</span>
                     </p>
                 </div>
             </div>

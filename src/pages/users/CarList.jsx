@@ -122,17 +122,17 @@ export const CarList = () => {
     <>
       <div className="flex flex-col w-full border-b-2 p-5 items-center md:flex-row">
         <div>
-          Location
+          สถานที่
           <input
             type="text"
-            placeholder="Location"
+            placeholder="โปรดระบุสถานที่ของท่าน"
             className="input input-bordered w-full max-w-xs my-4"
             value={locationInput}
             onChange={(e) => setLocationInput(e.target.value)}
           />
         </div>
         <div className="md:ml-10">
-          Date
+          วันเดือนปี
           <div
             className="flex h-fit items-center border-2 relative
          p-3 rounded-lg my-4 px-16"
@@ -166,7 +166,7 @@ export const CarList = () => {
           font-bold"
             onClick={() => handleSearchClick()}
           >
-            Search
+            ค้นหา
           </button>
         </div>
       </div>
@@ -176,17 +176,17 @@ export const CarList = () => {
             className="mr-5 bg-white shadow-md py-2 px-4 rounded-lg hover:shadow-lg"
             onClick={handleSortByPrice}
           >
-            Price
+            ราคา
           </button>
           <button
             className="mr-5 bg-white shadow-md py-2 px-4 rounded-lg hover:shadow-lg"
             onClick={handleSortByRating}
           >
-            Rating
+            ความนิยม
           </button>
           <details className="dropdown">
             <summary className="btn border-none shadow-md font-normal text-base bg-white">
-              type
+              ประเภท
             </summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
               <li>
@@ -209,7 +209,7 @@ export const CarList = () => {
         </div>
       </div>
       <div className="p-5">
-        <div className="text-gray-400">{carList.length} result</div>
+        <div className="text-gray-400">{carList.length} ผลลัพธ์</div>
         <div className="flex flex-row flex-wrap justify-evenly">
           {carList && carList.length > 0 ? (
             carList.map((carData, index) => (

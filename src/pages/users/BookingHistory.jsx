@@ -20,9 +20,9 @@ export const BookHistory = () => {
   return (
     <>
       <div className="flex justify-around my-10 flex-col">
-        <div className="text-center font-bold text-5xl mt-30">History</div>
+        <div className="text-center font-bold text-5xl mt-30 text-primary">ประวัติ</div>
 
-        <div className="mt-[-80px] mr-20">
+        {/* <div className="mt-[-80px] mr-20">
           <div className="flex items-center justify-end m-5 mb-5">
             <div className="w-7 h-7 bg-[#06de9d]"></div>
             <div className="ml-5 font-bold ">Complete</div>
@@ -37,7 +37,7 @@ export const BookHistory = () => {
             <div className="w-7 h-7 bg-[#e84e40]"></div>
             <div className="ml-5 font-bold ">Cancel</div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="w-3/4 flex flex-col mx-auto my-10">

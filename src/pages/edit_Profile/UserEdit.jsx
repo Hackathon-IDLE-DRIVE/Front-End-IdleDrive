@@ -160,17 +160,12 @@ export default function UserEdit() {
                     type="text"
                     name="fname"
                     id="fname"
-                    placeholder=""
+                    placeholder="ชื่อจริง"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.fname}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="fname"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    First Name
-                  </label>
+    
                 </div>
               </div>
             </div>
@@ -188,17 +183,12 @@ export default function UserEdit() {
                     type="text"
                     name="lname"
                     id="lname"
-                    placeholder=""
+                    placeholder="นามสกุล"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.lname}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="lname"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Last Name
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -221,17 +211,12 @@ export default function UserEdit() {
                     minLength={10}
                     name="phone"
                     id="phone"
-                    placeholder=""
+                    placeholder="Phone"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.phone}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="phone"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Phone
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -249,17 +234,12 @@ export default function UserEdit() {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder=""
+                    placeholder="Email"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="email"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Email
-                  </label>
+  
                 </div>
               </div>
             </div>
@@ -288,24 +268,19 @@ export default function UserEdit() {
                     value={formData.age}
                     onChange={handleChange}
                   />
-                  <label
-                    for="age"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    วันเกิด
-                  </label>
+     
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-center items-center my-5 max-w-lg">
+          {/* <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
             <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
               User & password
             </span>
             <span className="w-44 border border-gray-400"></span>
-          </div>
+          </div> */}
 
           {/* <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
@@ -368,7 +343,7 @@ export default function UserEdit() {
             type="submit"
             className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400"
           >
-            Confirm
+            ยืนยันการแก้ไข
           </button>
         </form>
       </div>
