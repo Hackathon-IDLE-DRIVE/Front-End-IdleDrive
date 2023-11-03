@@ -16,19 +16,19 @@ export const CarList = () => {
   const location = searchParams.get("location");
   const [locationInput, setLocationInput] = useState(location);
   const [searchClicked, setSearchClicked] = useState(false);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
     {
-      startDate: pickupDate ? new Date(pickupDate) : new Date(),
-      endDate: returnDate ? new Date(returnDate) : new Date(),
+      startDate: pickupDate ? new Date(pickupDate) : tomorrow,
+      endDate: returnDate ? new Date(returnDate) : tomorrow,
       key: "selection",
     },
   ]);
   const [sortByPriceAsc, setSortByPriceAsc] = useState(true);
   const [sortByRatingAsc, setSortByRatingAsc] = useState(true);
   const [selectedType, setSelectedType] = useState(null);
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const handleSortByPrice = () => {
     setSortByPriceAsc(!sortByPriceAsc);
@@ -112,6 +112,10 @@ export const CarList = () => {
   }, [searchClicked, pickupDate, returnDate, location, selectedType]);
 
   const handleSearchClick = () => {
+    if (locationInput === "") {
+      document.getElementById('my_modal_1').showModal();
+      return;
+    }
     setSearchClicked(true);
     searchParams.set("pick-up", format(date[0].startDate, "yyyy-MM-dd"));
     searchParams.set("return", format(date[0].endDate, "yyyy-MM-dd"));
@@ -228,6 +232,17 @@ export const CarList = () => {
           )}
         </div>
       </div>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-2xl">เกิดข้อผิดพลาด!</h3>
+          <p className="pt-2 text-xl">กรุณาใส่สถานที่ . . .</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">รับทราบ</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

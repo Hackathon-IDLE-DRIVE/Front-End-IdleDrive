@@ -12,17 +12,16 @@ import backdrop from "../../images/motorhome.jpg";
 
 export const Home = () => {
   const [location, setLocation] = useState("");
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
     {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: tomorrow,
+      endDate: tomorrow,
       key: "selection",
     },
   ]);
-
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const navigate = useNavigate();
 
