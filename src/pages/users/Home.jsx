@@ -21,6 +21,9 @@ export const Home = () => {
     },
   ]);
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const navigate = useNavigate();
 
   const handleBookingClick = () => {
@@ -100,7 +103,7 @@ export const Home = () => {
                 onChange={(item) => setDate([item.selection])}
                 moveRangeOnFirstSelection={false}
                 ranges={date}
-                minDate={new Date()}
+                minDate={tomorrow}
                 className="absolute top-20 right-24 z-50 max-[640px]:right-0"
               />
             )}

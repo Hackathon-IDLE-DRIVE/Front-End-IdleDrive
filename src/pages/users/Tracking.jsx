@@ -46,7 +46,6 @@ export const Tracking = () => {
   };
 
   useEffect(() => {
-    const socket = socketIOClient("http://localhost:3000");
 
     const fetchDetailBooking = async () => {
       const res = await getBookingDetails(bookingId);
@@ -66,21 +65,6 @@ export const Tracking = () => {
     fetchDetailBooking();
     fetchHistoryBooking();
 
-    socket.on("statusUpdated", (data) => {
-      if (isValid(new Date(data.rental.updatedAt))) {
-        setStatusTime(
-          format(new Date(data.rental.updatedAt), "dd-MM-yyyy hh:mm a")
-        );
-      }
-
-      if (data.id === bookingId) {
-        setStatus(data.rental.RentalStatus);
-      }
-    });
-
-    return () => {
-      socket.disconnect();
-    };
   }, [bookingId]);
 
   return (

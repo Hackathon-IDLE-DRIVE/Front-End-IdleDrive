@@ -27,6 +27,8 @@ export const CarList = () => {
   const [sortByPriceAsc, setSortByPriceAsc] = useState(true);
   const [sortByRatingAsc, setSortByRatingAsc] = useState(true);
   const [selectedType, setSelectedType] = useState(null);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const handleSortByPrice = () => {
     setSortByPriceAsc(!sortByPriceAsc);
@@ -154,7 +156,7 @@ export const CarList = () => {
                 onChange={(item) => setDate([item.selection])}
                 moveRangeOnFirstSelection={false}
                 ranges={date}
-                minDate={new Date()}
+                minDate={tomorrow}
                 className="absolute top-full left-0 z-20"
               />
             )}
