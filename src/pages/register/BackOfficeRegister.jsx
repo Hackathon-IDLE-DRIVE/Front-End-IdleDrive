@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { registerUser } from "../../service/cars_rental";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ export default function BackOfficeRegister() {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       rental_name: formData.rentalname,
@@ -36,13 +36,12 @@ export default function BackOfficeRegister() {
       location: formData.deployCar,
       username: formData.username,
       password: formData.password,
-    }
+    };
     const res = await registerUser(user);
     console.log("Form Data:", formData);
     console.log(res);
-    navigate('/merchant/login');
+    navigate("/merchant");
   };
-
 
   return (
     <>
@@ -65,8 +64,9 @@ export default function BackOfficeRegister() {
                   ชื่อร้านของคุณ
                 </label>
                 <input
-                value={formData.rentalname}
-                onChange={handleInputChange}
+                  required
+                  value={formData.rentalname}
+                  onChange={handleInputChange}
                   type="text"
                   name="rentalname"
                   id="rentalname"
@@ -87,8 +87,9 @@ export default function BackOfficeRegister() {
                   ชื่อจริง
                 </label>
                 <input
-                value={formData.fname}
-                onChange={handleInputChange}
+                  required
+                  value={formData.fname}
+                  onChange={handleInputChange}
                   type="text"
                   name="fname"
                   id="fname"
@@ -106,8 +107,9 @@ export default function BackOfficeRegister() {
                   นามสกุล
                 </label>
                 <input
-                value={formData.lname}
-                onChange={handleInputChange}
+                  required
+                  value={formData.lname}
+                  onChange={handleInputChange}
                   type="text"
                   name="lname"
                   id="lname"
@@ -128,8 +130,9 @@ export default function BackOfficeRegister() {
                   Phone
                 </label>
                 <input
-                value={formData.phone}
-                onChange={handleInputChange}
+                  required
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   type="text"
                   name="phone"
                   id="phone"
@@ -147,8 +150,9 @@ export default function BackOfficeRegister() {
                   Email
                 </label>
                 <input
-                value={formData.email}
-                onChange={handleInputChange}
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
                   type="email"
                   name="email"
                   id="email"
@@ -169,8 +173,9 @@ export default function BackOfficeRegister() {
                   สถานที่ปล่อยเช่ารถ
                 </label>
                 <input
-                value={formData.deployCar}
-                onChange={handleInputChange}
+                  required
+                  value={formData.deployCar}
+                  onChange={handleInputChange}
                   type="text"
                   name="deployCar"
                   id="deployCar"
@@ -218,7 +223,7 @@ export default function BackOfficeRegister() {
           <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
             <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
-            User & password
+              User & password
             </span>
             <span className="w-44 border border-gray-400"></span>
           </div>
@@ -233,8 +238,9 @@ export default function BackOfficeRegister() {
                   Username
                 </label>
                 <input
-                value={formData.username}
-                onChange={handleInputChange}
+                  required
+                  value={formData.username}
+                  onChange={handleInputChange}
                   type="text"
                   name="username"
                   id="username"
@@ -252,8 +258,9 @@ export default function BackOfficeRegister() {
                   Password
                 </label>
                 <input
-                value={formData.password}
-                onChange={handleInputChange}
+                  required
+                  value={formData.password}
+                  onChange={handleInputChange}
                   type="password"
                   name="password"
                   id="password"
@@ -275,8 +282,9 @@ export default function BackOfficeRegister() {
                   Confirm-Password
                 </label>
                 <input
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
+                  required
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
                   type="password"
                   name="confirmPassword"
                   id="Confirm-Password"
@@ -287,9 +295,10 @@ export default function BackOfficeRegister() {
             </div>
           </div>
 
-          <button 
-          type="submit"
-          className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400">
+          <button
+            type="submit"
+            className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400"
+          >
             Sign Up
           </button>
         </div>

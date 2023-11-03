@@ -67,6 +67,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="fname"
                     id="fname"
@@ -94,6 +95,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="lname"
                     id="lname"
@@ -124,6 +126,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     maxLength={10}
                     minLength={10}
@@ -153,6 +156,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="email"
                     name="email"
                     id="email"
@@ -186,6 +190,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="job"
                     id="job"
@@ -213,6 +218,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="date"
                     name="age"
                     id="age"
@@ -251,6 +257,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="text"
                     name="username"
                     id="username"
@@ -278,6 +285,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="password"
                     name="password"
                     id="password"
@@ -309,6 +317,7 @@ export default function UserRegister() {
                 </label>
                 <div className="relative">
                   <input
+                    required
                     type="password"
                     name="confirmPassword"
                     id="confirmPassword"
