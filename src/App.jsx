@@ -26,6 +26,7 @@ import RouteList from './pages/users/RouteList';
 import UserEdit from "./pages/edit_Profile/UserEdit";
 import MerChantUserEdit from "./pages/edit_Profile/Merchant";
 import RouteDetail from "./pages/users/RouteDetail";
+import EventDetail from "./pages/users/EventDetail";
 
 function App() {
   return (
@@ -111,6 +112,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="eventdetail" element={<EventDetail/>} />
           <Route path="editprofile/:id" element={<UserEdit/>}/>
           <Route path="event" element={<EventList/>}/>
         </Routes>
