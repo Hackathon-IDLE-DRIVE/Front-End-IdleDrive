@@ -15,7 +15,6 @@ const RouteCardList = () => {
                 <span className='text-primary font-bold text-lg'>เมืองเชียงใหม่ - ลานกางเต็นท์ป้าต้อย</span>
                 <span className='text-sm font-bold'>ระยะเวลา : 2 วัน</span>
                 <span className='text-sm font-bold'>ระยะทาง : ~90 KM</span>
-                <span className='text-sm font-bold text-right'>4.2/5 ⭐</span>
             </div>
         </div>
     </>
