@@ -119,25 +119,24 @@ export const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link to={`${user.id ? `/editprofile/${user.id}` : `/merchant/editprofile/${user.id_rental}`}`} className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
+                  <Link to={`${user.id ? `/editprofile/${user.id}` : `/merchant/editprofile/${user.id_rental}`}`} className="justify-between ">
+                  โปรไฟล์
+                    <span className="badge">ใหม่</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/history"}>History</Link>
+                  <Link to={"/history"}>ประวัติ</Link>
                 </li>
-                <li>
-                  <a>Settings</a>
-                </li>
+           
                 <li>
                   <a
+                    className="bg-red-500 text-white hover:bg-red-400 hover:text-white"
                     onClick={() => {
                       dispatch({ type: "LOGOUT" });
                       navigate(`/`);
                     }}
                   >
-                    Logout
+                    ออกจากระบบ
                   </a>
                 </li>
               </ul>

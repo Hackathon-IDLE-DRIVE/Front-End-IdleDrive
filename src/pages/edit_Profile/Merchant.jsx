@@ -137,17 +137,12 @@ export default function MerChantUserEdit() {
                     type="text"
                     name="fname"
                     id="fname"
-                    placeholder=""
+                    placeholder="ชื่อจริง"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.fname}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="fname"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    First Name
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -165,17 +160,12 @@ export default function MerChantUserEdit() {
                     type="text"
                     name="lname"
                     id="lname"
-                    placeholder=""
+                    placeholder="นามสกุล"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.lname}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="lname"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Last Name
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -198,17 +188,12 @@ export default function MerChantUserEdit() {
                     minLength={10}
                     name="phone"
                     id="phone"
-                    placeholder=""
+                    placeholder="Phone"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.phone}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="phone"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Phone
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -226,17 +211,12 @@ export default function MerChantUserEdit() {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder=""
+                    placeholder="Email"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="email"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Email
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -258,16 +238,12 @@ export default function MerChantUserEdit() {
                       type="rental_name"
                       name="rental_name"
                       id="rental_name"
+                      placeholder="ชื่อร้านของคุณ"
                       className="peer w-64 h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                       value={formData.rental_name}
                       onChange={handleChange}
                     />
-                    <label
-                      for="age"
-                      className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                    >
-                      ชื่อร้านของคุณ
-                    </label>
+      
                   </div>
                 </div>
               </div>
@@ -286,16 +262,12 @@ export default function MerChantUserEdit() {
                     type="text"
                     name="location"
                     id="location"
+                    placeholder="สถานที่ปล่อยเช่า"
                     className="peer w-64 h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.location}
                     onChange={handleChange}
                   />
-                  <label
-                    for="age"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    สถานที่ปล่อยเช่า
-                  </label>
+        
                 </div>
               </div>
             </div>
@@ -323,17 +295,12 @@ export default function MerChantUserEdit() {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder=""
+                    placeholder="Password"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="password"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Password
-                  </label>
+           
                 </div>
               </div>
             </div>
@@ -350,17 +317,12 @@ export default function MerChantUserEdit() {
                     type="password"
                     name="confirmPassword"
                     id="confirmPassword"
-                    placeholder=""
+                    placeholder="Confirm-Password"
                     className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="confirmPassword"
-                    className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transform -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
-                  >
-                    Confirm-Password
-                  </label>
+
                 </div>
               </div>
             </div>
@@ -370,7 +332,7 @@ export default function MerChantUserEdit() {
             type="submit"
             className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400"
           >
-            Confirm
+            ยืนยันการแก้ไขข้อมูล
           </button>
         </form>
       </div>

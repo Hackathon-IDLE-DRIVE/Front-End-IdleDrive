@@ -36,7 +36,7 @@ export default function LoginOwner() {
 
       <div className="login_Container my-5 flex justify-center content-center items-center flex-col w-full h-full">
         <div className="my-10 py-16 bg-white w-1/2 h-full flex flex-col items-center drop-shadow-lg shadow-lg rounded-lg">
-          <div className="text-2xl font-bold mb-5 text-blue-700">LOGIN</div>
+          <div className="text-2xl font-bold mb-5 text-blue-700">ล็อกอิน</div>
 
           <div className="form-control w-full">
             {error && (
@@ -77,7 +77,7 @@ export default function LoginOwner() {
             {loading ? (
               <span className="loading loading-ring loading-xs"></span>
             ) : (
-              <span>Sign IN</span>
+              <span>เข้าสู่ระบบ</span>
             )}
           </button>
           <div className="text-center mt-5">

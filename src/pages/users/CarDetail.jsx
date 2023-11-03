@@ -51,7 +51,7 @@ export const CarDetail = () => {
                     <Link to={'/'}>Home</Link>
                   </li>
                   <li>
-                    <Link to={`/car-list?pick-up=${pickupDate}&return=${returnDate}&location=${location}`}>Explore</Link>
+                    <Link to={`/car-list?pick-up=${pickupDate}&return=${returnDate}&location=${location}`}>ค้นหา</Link>
                   </li>
                   <li>{`${carDetail.car.make} ${carDetail.car.model}`}</li>
                 </ul>
@@ -65,7 +65,7 @@ export const CarDetail = () => {
                 </span>
                 <box-icon type="solid" name="star" color="yellow" />
                 <div>
-                  ({carDetail.carReview.averageRating.ratingCount} review)
+                  ({carDetail.carReview.averageRating.ratingCount} รีวิว)
                 </div>
               </div>
             </div>
@@ -95,16 +95,16 @@ export const CarDetail = () => {
                       color="yellow"
                     />
                     <span className="ml-2">
-                      ({carDetail.rental.rentalReview.reviewCountSum} review)
+                      ({carDetail.rental.rentalReview.reviewCountSum} รีวิว)
                     </span>
                   </div>
                 </div>
               </div>
             </Section>
-            <Section title={"Description"}>
+            <Section title={"คำอธิบาย"}>
               <p>{carDetail.car.description}</p>
             </Section>
-            <Section title={"Feature"}>
+            <Section title={"คุณสมบัติ"}>
               <p>{carDetail.car.feature}</p>
             </Section>
             <div className="w-full border-2 my-4"></div>
@@ -168,7 +168,7 @@ export const CarDetail = () => {
           </div>
           <div className="mt-36">
             <div className="w-full lg:w-[400px] h-fit shadow-md p-5 flex flex-col justify-center rounded-xl sticky top-28">
-              <span className="font-bold text-2xl mb-10">Duration</span>
+              <span className="font-bold text-2xl mb-10">ระยะเวลา</span>
 
               <div className="pb-2 border-b-2">
                 <div className="flex justify-between">
@@ -213,7 +213,7 @@ export const CarDetail = () => {
                 }}
               >
                 {" "}
-                SELECT{" "}
+                ยืนยัน{" "}
               </button>
             </div>
           </div>

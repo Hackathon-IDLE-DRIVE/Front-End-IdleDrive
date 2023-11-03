@@ -24,7 +24,7 @@ export default function EventListCard() {
             <div className="card-actions justify-center">
                 <button className="btn btn-primary bg-blue-800 text-white w-40 h-7 rounded-3xl font-bold text-xl duration-300
                 hover:bg-sky-500 hover:cursor-pointer hover:duration-300
-                ">More</button>
+                ">เพิ่มเติม</button>
             </div>
         </div>
         </div>

@@ -21,12 +21,12 @@ export default function RecentCard({ bookingData }) {
     {car &&
     <div className="card w-80 bg-base-100 shadow-xl mr-5">
           <div className="card-body">
-            <h2 className="card-title uppercase font-bold">Order ID : 
+            <h2 className="card-title uppercase font-bold">เลขที่รายการ : 
                 <div className='text-xl font-bold text-blue-700'>#{bookingData.RentalID}</div>
             </h2>
 
             <div className='flex justify-between mt-3'>
-                <img className='w-32 h-28 bg-cover bg-center rounded-xl object-cover' src={`http://localhost:3000/api/v1/idledrive/images/${car.listImage[0].imageURL}`} alt='motorhome' />
+                <img className='w-32 h-28 object-cover bg-center rounded-xl' src={`http://localhost:3000/api/v1/idledrive/images/${car.listImage[0].imageURL}`} alt='motorhome' />
                 
                 <div className='flex-col ml-2'>
                     <p className='font-bold text-xl line-clamp-1'>{car.car.make} {car.car.model}</p>
@@ -47,7 +47,7 @@ export default function RecentCard({ bookingData }) {
                         <p className='text-sm font-bold text-black'>{car.rental.rentalDetail.rental_name}</p>
                         <div className='text-sm font-bold'>⭐ 
                             <span className='text-sm text-gray-700 font-bold text-right mx-1'>{car.rental.rentalReview.averageRating}</span>
-                            <span className='font-semibold text-gray-500'>( {car.rental.rentalReview.reviewCountSum} review )</span>
+                            <span className='font-semibold text-gray-500'>( {car.rental.rentalReview.reviewCountSum} รีวิว )</span>
                         </div>
                     </div>
                 </div> 

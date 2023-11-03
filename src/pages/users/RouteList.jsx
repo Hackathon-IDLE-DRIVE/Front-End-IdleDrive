@@ -19,7 +19,7 @@ const RouteList = () => {
             <RouteCardList/>
           </div>
         </div>
-        <div className="font-bold mt-10 text-xl">Community Camping Area</div>
+        <div className="font-bold mt-16 text-2xl text-primary">พื้นที่ตั้งแคมป์ชุมชน</div>
         <iframe
           className="mt-3"
           src="https://www.google.com/maps/d/embed?mid=1rhNqCUE-iLDwcxtRIrKsXa-jMqVgSXIs&ehbc=2E312F"

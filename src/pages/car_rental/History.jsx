@@ -34,10 +34,10 @@ export const History = () => {
   return (
     <>
       <div className='flex justify-around my-10 flex-col'>
-        <div className='text-center font-bold text-5xl mt-30'>Order List</div>
+        <div className='text-center font-bold text-5xl mt-30'>รายการทั้งหมด</div>
         <details className="dropdown">
             <summary className="btn border-none shadow-md font-normal text-base bg-white">
-              type
+              ประเภท
             </summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-white rounded-box w-52">
               <li>
