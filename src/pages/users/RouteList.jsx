@@ -21,10 +21,10 @@ const RouteList = () => {
         </div>
         <div className="font-bold mt-10 text-xl">Community Camping Area</div>
         <iframe
-          className="mt-3"
+          className="mt-3 border-none"
           src="https://www.google.com/maps/d/embed?mid=1rhNqCUE-iLDwcxtRIrKsXa-jMqVgSXIs&ehbc=2E312F"
-          width="640"
-          height="480"
+          width="820"
+          height="550"
         ></iframe>
       </div>
     </>

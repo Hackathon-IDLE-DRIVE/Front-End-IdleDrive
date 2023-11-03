@@ -24,13 +24,22 @@ export default function UserEdit() {
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "file" ? files[0] : value,
-    }));
-
+  
     if (type === "file" && name === "profileImage") {
+      const file = files[0];
+  
+      if (!file.type.startsWith('image/')) {
+        console.error('Invalid file type. Please select an image.');
+        document.getElementById('my_modal_1').showModal()
+        return;
+      }
+  
+      if (file.size > 3 * 1024 * 1024) {
+        console.error('File size exceeds 3MB limit.');
+        document.getElementById('my_modal_2').showModal()
+        return;
+      }
+  
       const reader = new FileReader();
       reader.onloadend = () => {
         setFormData((prevData) => ({
@@ -38,14 +47,19 @@ export default function UserEdit() {
           profileImage: reader.result,
         }));
       };
-
-      if (files[0]) {
-        setProfileImg(files[0]);
-        console.log(profileImg);
-        reader.readAsDataURL(files[0]);
+  
+      if (file) {
+        setProfileImg(file);
+        reader.readAsDataURL(file);
       }
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: type === "file" ? files[0] : value,
+      }));
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -358,6 +372,33 @@ export default function UserEdit() {
           </button>
         </form>
       </div>
+
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            ประเภทไฟล์ไม่ถูกต้อง กรุณาเลือกรูปภาพใหม่อีกครั้ง
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">ขนาดไฟล์เกินขีดจำกัด 3MB</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }

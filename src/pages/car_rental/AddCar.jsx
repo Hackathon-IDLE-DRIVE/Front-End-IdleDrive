@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
 import { createCar } from "../../service/cars";
-import { AuthContext } from "../../service/context/AuthContext"
+import { AuthContext } from "../../service/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
 
 export const AddCar = () => {
   const { user } = useContext(AuthContext);
@@ -30,7 +29,13 @@ export const AddCar = () => {
   const [carFileImages, setCarFileImages] = useState([]);
   const [carFileDocument, setCarFileDocument] = useState([]);
 
-  const handleFileUpload = (e, fileState, setFileState, setFileUpload,maxSizeMB) => {
+  const handleFileUpload = (
+    e,
+    fileState,
+    setFileState,
+    setFileUpload,
+    maxSizeMB
+  ) => {
     const files = e.target.files;
 
     if (files.length === 0) return;
@@ -51,41 +56,31 @@ export const AddCar = () => {
           },
         ]);
 
-        setFileUpload((prevFile)=>[
-          ...prevFile,
-          files[i]
-        ]);
+        setFileUpload((prevFile) => [...prevFile, files[i]]);
       }
     }
   };
 
   const handleImageUpload = (e) => {
-    handleFileUpload(e, carImages, setCarImages,setCarFileImages,8);
+    handleFileUpload(e, carImages, setCarImages, setCarFileImages, 8);
   };
 
-  //------------------------------------handle img car doc
   const handleDocumentUpload = (e) => {
-    handleFileUpload(e, carDocuments, setCarDocuments,setCarFileDocument,8);
+    handleFileUpload(e, carDocuments, setCarDocuments, setCarFileDocument, 8);
   };
 
-  const deleteCarImg = (index)=>{
+  const deleteCarImg = (index) => {
     URL.revokeObjectURL(carImages[index].url);
-    setCarImages((prevImages)=>
-      prevImages.filter((_,i)=> i !== index)
-    );
-    setCarFileImages((prevImages)=>
-      prevImages.filter((_,i)=> i !== index)
-    );
-  }
-  const deleteDocumentImg = (index) =>{
+    setCarImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setCarFileImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+  const deleteDocumentImg = (index) => {
     URL.revokeObjectURL(carDocuments[index].url);
-    setCarDocuments((prevImages)=>
-      prevImages.filter((_,i)=> i !== index)
+    setCarDocuments((prevImages) => prevImages.filter((_, i) => i !== index));
+    setCarFileDocument((prevImages) =>
+      prevImages.filter((_, i) => i !== index)
     );
-    setCarFileDocument((prevImages)=>
-      prevImages.filter((_,i)=> i !== index)
-    );
-  }
+  };
 
   // //--------------submit
   const handleSubmit = async () => {
@@ -93,21 +88,40 @@ export const AddCar = () => {
     console.log("carImages:", carFileImages);
     console.log("carDocuments:", carFileDocument);
 
+    for (const key in carDetails) {
+      if (carDetails[key] === "") {
+        console.error(`Please fill out the ${key} field.`);
+        document.getElementById('my_modal_3').showModal()
+        return;
+      }
+    }
+
+    if (carFileImages.length !== 6) {
+      console.error("Please upload exactly 6 car images.");
+      document.getElementById('my_modal_1').showModal()
+      return;
+    }
+
+    if (carFileDocument.length <= 2) {
+      console.error("Please upload exactly 2 car document.");
+      document.getElementById('my_modal_2').showModal()
+      return;
+    }
+
     const formData = new FormData();
     formData.append("carDetails", JSON.stringify({ carDetails }));
 
-    carFileImages.forEach((file)=>{
-      formData.append('carImages',file);
-    })
-    carFileDocument.forEach((file)=>{
-      formData.append('documentImages',file);
-    })
+    carFileImages.forEach((file) => {
+      formData.append("carImages", file);
+    });
+    carFileDocument.forEach((file) => {
+      formData.append("documentImages", file);
+    });
 
     try {
       const response = await createCar(formData); // Call the createCar function from the service
       console.log("Car created successfully:", response);
-      navigate('/merchant/dashboard');
-      
+      navigate("/merchant/dashboard");
     } catch (error) {
       console.error("Error creating car:", error);
     }
@@ -136,6 +150,7 @@ export const AddCar = () => {
                 ชื่อรุ่นและปี
               </label>
               <input
+                required
                 type="text"
                 name="model"
                 id="model"
@@ -153,6 +168,7 @@ export const AddCar = () => {
                 ยี่ห้อ
               </label>
               <input
+                required
                 type="text"
                 name="make"
                 id="make"
@@ -170,6 +186,7 @@ export const AddCar = () => {
                 สี
               </label>
               <input
+                required
                 type="text"
                 name="color"
                 id="color"
@@ -188,6 +205,7 @@ export const AddCar = () => {
                 เชื้อเพลิง
               </label>
               <input
+                required
                 type="text"
                 name="fuel_type"
                 id="fuel_type"
@@ -206,7 +224,8 @@ export const AddCar = () => {
                 จำนวนที่นั่ง
               </label>
               <input
-                type="text"
+                required
+                type="number"
                 name="seat"
                 id="seat"
                 placeholder="จำนวนที่นั่ง"
@@ -224,6 +243,7 @@ export const AddCar = () => {
                 ประเภทเกียร์
               </label>
               <input
+                required
                 type="text"
                 name="transmission"
                 id="transmission"
@@ -241,7 +261,8 @@ export const AddCar = () => {
                 ราคา
               </label>
               <input
-                type="text"
+                required
+                type="number"
                 name="rentalRate"
                 id="rentalRate"
                 placeholder="ราคา"
@@ -258,6 +279,7 @@ export const AddCar = () => {
                 ที่ตั้ง
               </label>
               <input
+                required
                 type="text"
                 name="location"
                 id="location"
@@ -276,6 +298,7 @@ export const AddCar = () => {
                 ประเภทรถ
               </label>
               <select
+                required
                 name="type"
                 value={carDetails.type}
                 onChange={handleChange}
@@ -298,6 +321,7 @@ export const AddCar = () => {
                 ป้ายทะเบียน
               </label>
               <input
+                required
                 type="text"
                 name="plate"
                 id="plate"
@@ -316,6 +340,7 @@ export const AddCar = () => {
                 คำอธิบาย
               </label>
               <textarea
+                required
                 type="text"
                 name="description"
                 id="description"
@@ -334,6 +359,7 @@ export const AddCar = () => {
                 Car features
               </label>
               <textarea
+                required
                 type="text"
                 name="feature"
                 id="feature"
@@ -360,15 +386,17 @@ export const AddCar = () => {
                 onChange={handleImageUpload}
                 multiple
               />
-              {console.log('IMGFILE',carFileImages)}
+              {console.log("IMGFILE", carFileImages)}
               <div className="flex flex-wrap justify-start mt-6">
                 {carImages.map((images, index) => (
                   <div key={index} className="relative mr-6 mt-3">
-                    <span className="absolute top-0 right-0
+                    <span
+                      className="absolute top-0 right-0
                     hover:cursor-pointer"
-                    onClick={()=>deleteCarImg(index)}>
+                      onClick={() => deleteCarImg(index)}
+                    >
                       <box-icon name="x" size="md" color="red"></box-icon>
-                    </span> 
+                    </span>
                     <img
                       className="h-36 w-36 rounded-xl"
                       src={images.url}
@@ -395,13 +423,15 @@ export const AddCar = () => {
                 multiple
               />
               <div className="flex flex-wrap justify-start mt-6">
-              {carDocuments.map((images, index) => (
+                {carDocuments.map((images, index) => (
                   <div key={index} className="relative mr-6">
-                    <span className="absolute top-0 right-0
+                    <span
+                      className="absolute top-0 right-0
                     hover:cursor-pointer"
-                    onClick={()=>deleteDocumentImg(index)}>
+                      onClick={() => deleteDocumentImg(index)}
+                    >
                       <box-icon name="x" size="md" color="red"></box-icon>
-                    </span> 
+                    </span>
                     <img
                       className="h-36 w-36 rounded-xl"
                       src={images.url}
@@ -447,6 +477,49 @@ export const AddCar = () => {
           </div>
         </div>
       </div>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            กรูณาอัพโหลดรูปให้ครบ 6 ภาพ
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            กรูณาอัพโหลดเอกสารรถ อย่างน้อย 2 รูป
+            ประกอบด้วย เช่น ประกัน, ทะเบียนรถ, พ.ร.บ.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            กรูณากรอกแบบฟอร์มให้ครบทุกช่อง!
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

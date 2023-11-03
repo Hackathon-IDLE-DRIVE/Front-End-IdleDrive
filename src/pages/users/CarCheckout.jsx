@@ -42,8 +42,20 @@ export const CarCheckout = () => {
     }));
   };
 
-
   const onSubmit = async () => {
+    if (
+      !formData.fname ||
+      !formData.lname ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.idcardFile ||
+      !formData.licenseFile
+    ) {
+      console.error("Please fill in all required fields.");
+      document.getElementById('my_modal_3').showModal();
+      return;
+    }
+
     const Rentals = {
       car_idcar: id,
       RentalStartDate: pickupDate,
@@ -62,9 +74,9 @@ export const CarCheckout = () => {
     formPost.append("phone", formData.phone);
     formPost.append("Document", formData.idcardFile);
     formPost.append("Document", formData.licenseFile);
-    
-    const Driver = await updateDriverInformation(user.id,formPost);
-    console.log('Driver',Driver);
+
+    const Driver = await updateDriverInformation(user.id, formPost);
+    console.log("Driver", Driver);
 
     const booking = await bookRental(Rentals);
 
@@ -141,9 +153,17 @@ export const CarCheckout = () => {
               </div>
             </div>
             <div className="mt-14">
-              <p className="mb-4 font-bold text-xl ml-2"><span className="text-red-500">สำคัญ</span> กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span></p>
+              <p className="mb-4 font-bold text-xl ml-2">
+                <span className="text-red-500">สำคัญ</span>{" "}
+                กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span>
+              </p>
               <CollapseForm title={"Driver Information"}>
-                <DriverInfomationForm form={formData} handleChange={handleInputChange} setForm={setFormData} userID={user.id}/>
+                <DriverInfomationForm
+                  form={formData}
+                  handleChange={handleInputChange}
+                  setForm={setFormData}
+                  userID={user.id}
+                />
               </CollapseForm>
               <CollapseForm title={"Payment Information"}>
                 <p>Form for driver</p>
@@ -185,6 +205,20 @@ export const CarCheckout = () => {
           </div>
         </div>
       )}
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            กรุณากรอกรายละเอียดให้ครบ!
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

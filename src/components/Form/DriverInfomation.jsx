@@ -7,21 +7,49 @@ export default function DriverInfomationhtmlForm({
   setForm,
   userID,
 }) {
+  const [driverDoc, setDriverDoc] = useState();
+  const [previewImage, setPreviewImage] = useState({
+    idcardFile: null,
+    licenseFile: null,
+  });
+
   const handleFileChange = (e) => {
     const { id, files } = e.target;
+    const file = files[0];
+
+    if (!file.type.startsWith("image/")) {
+      console.error("Invalid file type. Please select an image.");
+      document.getElementById("my_modal_1").showModal();
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      console.error("File size exceeds 5MB limit.");
+      document.getElementById("my_modal_2").showModal();
+      return;
+    }
+
     setForm((prevData) => ({
       ...prevData,
-      [id]: files[0],
+      [id]: file,
     }));
-  };
 
-  const [driverDoc, setDriverDoc] = useState();
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const previewImageSrc = e.target.result;
+      setPreviewImage((prevImages) => ({
+        ...prevImages,
+        [id]: previewImageSrc,
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
 
   useEffect(() => {
     const fetchDetailUser = async () => {
       const res = await getDriverInformation(userID);
       console.log(res);
-      setDriverDoc(res.driverDocuments)
+      setDriverDoc(res.driverDocuments);
 
       setForm({
         fname: res?.user?.FirstName || "",
@@ -129,7 +157,8 @@ export default function DriverInfomationhtmlForm({
                     htmlFor="idcard"
                     className=" block text-base font-medium text-gray-500"
                   >
-                    ภาพถ่ายบัตรประชาชน<span className="text-red-500"> *</span>
+                    ภาพถ่ายสำเนาบัตรประชาชน
+                    <span className="text-red-500"> *</span>
                   </label>
                   <input
                     type="file"
@@ -138,6 +167,14 @@ export default function DriverInfomationhtmlForm({
                     id="idcardFile"
                     className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:text-gray-600 file:rounded-lg file:border-blue-700 file:border-opacity-50 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
                   />
+                  {previewImage.idcardFile && (
+                    <img
+                      src={previewImage.idcardFile}
+                      alt="ID Card Preview"
+                      className="mt-2 rounded-md shadow-md"
+                      style={{ maxWidth: "100%", height: "auto" }}
+                    />
+                  )}
                 </div>
               </div>
               <div className="w-full px-3 sm:w-1/2">
@@ -146,7 +183,7 @@ export default function DriverInfomationhtmlForm({
                     htmlFor="license"
                     className=" block text-base font-medium text-gray-500"
                   >
-                    ภาพถ่ายใบขับขี่<span className="text-red-500"> *</span>
+                    ภาพถ่ายสำเนาใบขับขี่<span className="text-red-500"> *</span>
                   </label>
                   <input
                     type="file"
@@ -155,12 +192,46 @@ export default function DriverInfomationhtmlForm({
                     onChange={handleFileChange}
                     className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:text-gray-600 file:rounded-lg file:border-blue-700 file:border-opacity-50 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
                   />
+                  {previewImage.licenseFile && (
+                    <img
+                      src={previewImage.licenseFile}
+                      alt="License Preview"
+                      className="mt-2 rounded-md shadow-md"
+                      style={{ maxWidth: "100%", height: "auto" }}
+                    />
+                  )}
                 </div>
               </div>
             </>
           )}
         </div>
       </div>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            ประเภทไฟล์ไม่ถูกต้อง กรุณาเลือกรูปภาพใหม่อีกครั้ง
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">ขนาดไฟล์เกินขีดจำกัด 5MB</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }
