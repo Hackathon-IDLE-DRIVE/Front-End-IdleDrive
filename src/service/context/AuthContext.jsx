@@ -2,7 +2,7 @@
 import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem("user"))||null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   loading: false,
   error: null,
 };
@@ -17,12 +17,14 @@ const AuthReducer = (state, action) => {
         loading: true,
         error: null,
       };
-    case "LOGIN_SUCCESS":
+    case "LOGIN_SUCCESS": {
+      const { password, ...userWithoutPassword } = action.payload;
       return {
-        user: {...action.payload, role :action.payload.role},
+        user: { ...userWithoutPassword, role: action.payload.role },
         loading: false,
         error: null,
       };
+    }
     case "LOGIN_FAILURE":
       return {
         user: null,
@@ -42,14 +44,19 @@ const AuthReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
-  
-  useEffect(()=>{
-    localStorage.setItem("user",JSON.stringify(state.user));
-  },[state.user])
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.user]);
 
   return (
     <AuthContext.Provider
-      value={{ user: state.user, loading: state.loading, error: state.error, dispatch }}
+      value={{
+        user: state.user,
+        loading: state.loading,
+        error: state.error,
+        dispatch,
+      }}
     >
       {children}
     </AuthContext.Provider>
