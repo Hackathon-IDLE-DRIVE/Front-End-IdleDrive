@@ -30,8 +30,7 @@ export const updateCar = async (carID, carDetails) => {
   try {
     const response = await axios.put(
       `${BASE_URL}/car/${carID}`,
-      carDetails,
-      {}
+      carDetails
     );
     return response.data;
   } catch (error) {

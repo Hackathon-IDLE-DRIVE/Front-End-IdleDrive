@@ -1,9 +1,10 @@
-import {useState,useEffect} from 'react'
-import { useParams } from "react-router-dom";
-import { getDetailCar,updateCar } from '../../service/cars';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getDetailCar, updateCar } from "../../service/cars";
 export const EditCar = () => {
-  const [image, setImage] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [carData, setCarData] = useState();
   const [carDetails, setCarDetails] = useState({
     model: "",
     make: "",
@@ -22,47 +23,83 @@ export const EditCar = () => {
   });
   // Fetch car details when the component mounts
   useEffect(() => {
-   
     // Fetch car details using the id
     const fetchCarDetails = async () => {
       try {
-        console.log('car id '+id);
+        console.log("car id " + id);
         const carData = await getDetailCar(id);
         setCarDetails(carData.car);
+        setCarData(carData);
         console.log(carData);
       } catch (error) {
-        console.error('Error fetching car details:', error);
+        console.error("Error fetching car details:", error);
       }
     };
 
     fetchCarDetails();
   }, [id]);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  const handleFileUpload = (
+    e,
+    fileState,
+    setFileState,
+    setFileUpload,
+    maxSizeMB
+  ) => {
+    const files = e.target.files;
 
-    if (file) {
-      // Read the selected image file as a data URL ก็อป GPT มา
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImage(event.target.result);
-      };
-      reader.readAsDataURL(file);
+    if (files.length === 0) return;
+
+    for (let i = 0; i < files.length; i++) {
+      const isImage = files[i].type.split("/")[0] === "image";
+
+      const isFileExist = fileState.some((e) => e.name === files[i].name);
+      const isSizeValid = files[i].size <= maxSizeMB * 1024 * 1024;
+
+      if (isImage && !isFileExist && isSizeValid) {
+        const fileUrl = URL.createObjectURL(files[i]);
+        setFileState((prevFiles) => [
+          ...prevFiles,
+          {
+            name: files[i].name,
+            url: fileUrl,
+          },
+        ]);
+
+        setFileUpload((prevFile) => [...prevFile, files[i]]);
+      }
     }
   };
-  // const [carImages, setCarImages] = useState([]);
-  // const [carDocuments, setCarDocuments] = useState([]);
-  // const [carFileImages, setCarFileImages] = useState([]);
-  // const [carFileDocument, setCarFileDocument] = useState([]);
 
+  const handleImageUpload = (e) => {
+    handleFileUpload(e, carImages, setCarImages, setCarFileImages, 6);
+  };
+
+
+  const deleteCarImg = (index) => {
+    URL.revokeObjectURL(carImages[index].url);
+    setCarImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setCarFileImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const [carImages, setCarImages] = useState([]);
+  const [carFileImages, setCarFileImages] = useState([]);
 
   const handleSubmit = async () => {
-    console.log('Updated car details:', carDetails);
+    const formData = new FormData();
+    formData.append("carDetails", JSON.stringify(carDetails));
+    
+    carFileImages.forEach((file) => {
+      formData.append("carImages", file);
+    });
+
+    console.log("Updated car details:", formData);
     try {
-      const response = await updateCar(id, carDetails);
-      console.log('Car updated successfully:', response);
+      const response = await updateCar(id, formData);
+      console.log("Car updated successfully:", response);
+      navigate('/merchant/dashboard');
     } catch (error) {
-      console.error('Error updating car:', error);
+      console.error("Error updating car:", error);
     }
   };
 
@@ -298,7 +335,7 @@ export const EditCar = () => {
               />
             </div>
           </div>
-          {/* <div className="flex w-1/2 flex-wrap justify-around p-10">
+          <div className="flex w-1/2 flex-wrap justify-around p-10">
             <div className="w-full">
               <label
                 htmlFor="Features"
@@ -314,15 +351,31 @@ export const EditCar = () => {
                 onChange={handleImageUpload}
                 multiple
               />
-              {console.log('IMGFILE',carFileImages)}
+
               <div className="flex flex-wrap justify-start mt-6">
+                
+                {carImages.length === 0 &&
+                  carData &&
+                  carData.listImage &&
+                  carData.listImage.map((images, index) => (
+                    <div key={index} className="relative mr-6 mt-3">
+                      <img
+                        className="h-36 w-36 rounded-xl"
+                        src={`http://localhost:3000/api/v1/idledrive/images/${images.imageURL}`}
+                        alt="Uploaded"
+                      />
+                    </div>
+                  ))}
+
                 {carImages.map((images, index) => (
                   <div key={index} className="relative mr-6 mt-3">
-                    <span className="absolute top-0 right-0
+                    <span
+                      className="absolute top-0 right-0
                     hover:cursor-pointer"
-                    onClick={()=>deleteCarImg(index)}>
+                      onClick={() => deleteCarImg(index)}
+                    >
                       <box-icon name="x" size="md" color="red"></box-icon>
-                    </span> 
+                    </span>
                     <img
                       className="h-36 w-36 rounded-xl"
                       src={images.url}
@@ -332,40 +385,7 @@ export const EditCar = () => {
                 ))}
               </div>
             </div>
-
-            <div className="w-full">
-              <label
-                htmlFor="Features"
-                className="mb-3 block text-base font-medium"
-              >
-                เอกสารเกี่ยวกับรถ
-              </label>
-
-              <input
-                className="file-input border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none"
-                type="file"
-                accept="image/*"
-                onChange={handleDocumentUpload}
-                multiple
-              />
-              <div className="flex flex-wrap justify-start mt-6">
-              {carDocuments.map((images, index) => (
-                  <div key={index} className="relative mr-6">
-                    <span className="absolute top-0 right-0
-                    hover:cursor-pointer"
-                    onClick={()=>deleteDocumentImg(index)}>
-                      <box-icon name="x" size="md" color="red"></box-icon>
-                    </span> 
-                    <img
-                      className="h-36 w-36 rounded-xl"
-                      src={images.url}
-                      alt="Uploaded"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div> */}
+          </div>
 
           <div className="flex w-full justify-around">
             <div className="flex flex-col w-1/3 p-10">
