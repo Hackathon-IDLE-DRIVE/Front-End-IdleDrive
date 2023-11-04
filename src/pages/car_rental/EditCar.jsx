@@ -86,6 +86,13 @@ export const EditCar = () => {
   const [carFileImages, setCarFileImages] = useState([]);
 
   const handleSubmit = async () => {
+
+    if (carFileImages.length !== 6 && carFileImages.length >= 1) {
+      console.error("Please upload exactly 6 car images.");
+      document.getElementById('my_modal_1').showModal()
+      return;
+    }
+
     const formData = new FormData();
     formData.append("carDetails", JSON.stringify(carDetails));
     
@@ -421,6 +428,21 @@ export const EditCar = () => {
           </div>
         </div>
       </div>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">
+            กรูณาอัพโหลดรูปให้ครบ 6 ภาพ หรือ ใช้รูปเดิม
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
     </>
   );
 };
