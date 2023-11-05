@@ -1,25 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RouteCardList from "../../components/Card/RouteCardList";
+import { getAllRoutes } from "../../service/route";
 
 const RouteList = () => {
+  const [routeList, setRouteList] = useState();
+
+  useEffect(() => {
+    const fetchAllRoute = async () => {
+      const res = await getAllRoutes();
+      setRouteList(res);
+      console.log(res);
+    };
+
+    fetchAllRoute();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col items-center">
         <div>
           <div className="flex flex-wrap justify-evenly w-full">
-            <RouteCardList/>
-            <RouteCardList/>
-            <RouteCardList/>
-            <RouteCardList/>
-          </div>
-          <div className="flex flex-wrap justify-evenly mt-12">
-            <RouteCardList/>
-            <RouteCardList/>
-            <RouteCardList/>
-            <RouteCardList/>
+            {routeList ? (
+              routeList.map((route,index)=>(
+                <RouteCardList route={route} key={index} />
+              ))
+            ) : (
+              <span className="loading loading-ring loading-lg text-primary"></span>
+            )}
           </div>
         </div>
-        <div className="font-bold mt-16 text-2xl text-primary">พื้นที่ตั้งแคมป์ชุมชน</div>
+        <div className="font-bold mt-16 text-2xl text-primary">
+          พื้นที่ตั้งแคมป์ชุมชน
+        </div>
         <iframe
           className="mt-3 border-none"
           src="https://www.google.com/maps/d/embed?mid=1rhNqCUE-iLDwcxtRIrKsXa-jMqVgSXIs&ehbc=2E312F"
