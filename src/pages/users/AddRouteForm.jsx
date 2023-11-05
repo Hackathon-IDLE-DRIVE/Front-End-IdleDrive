@@ -26,34 +26,69 @@ export default function AddRouteForm() {
   };
 
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [imageCount, setImageCount] = useState(0); 
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+//   const handleImageUpload = (e) => {
+//     const file = e.target.files[0];
 
-    if (file && uploadedImages.length < 6) {
 
-      const reader = new FileReader();
+//     if (file && uploadedImages.length < 6) {
 
-      reader.onload = (event) => {
-        const uploadedImage = {
-          src: event.target.result,
-          file: file,
+//       const reader = new FileReader();
+
+//       reader.onload = (event) => {
+//         const uploadedImage = {
+//           src: event.target.result,
+//           file: file,
+//         };
+
+//         setUploadedImages((prevImages) => [...prevImages, uploadedImage]);
+//       };
+
+//       reader.readAsDataURL(file);
+//     } else {
+//       setShowError(true);
+//       console.log(showError + ' : image is more than 6 :<');
+//     }
+//   };
+
+const handleImageUpload = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+  
+
+    const newImages = selectedFiles.map((file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+  
+        reader.onload = (event) => {
+          resolve({
+            src: event.target.result,
+            file: file,
+          });
         };
-
-        setUploadedImages((prevImages) => [...prevImages, uploadedImage]);
-      };
-
-      reader.readAsDataURL(file);
-    } else {
-      setShowError(true);
-      console.log(showError + ' : image is more than 6 :<');
-    }
+  
+        reader.onerror = reject;
+  
+        reader.readAsDataURL(file);
+      });
+    });
+  
+    Promise.all(newImages)
+      .then((imageData) => {
+        setUploadedImages((prevImages) => [...prevImages, ...imageData]);
+        setImageCount((prevCount) => prevCount + selectedFiles.length); 
+      })
+      .catch((error) => {
+        console.error('ข้อผิดพลาดในการอัปโหลดรูปภาพ:', error);
+      });
   };
+  
 
   const handleRemoveImage = (index) => {
     const updatedImages = [...uploadedImages];
     updatedImages.splice(index, 1);
     setUploadedImages(updatedImages);
+    setImageCount((prevCount) => prevCount - 1);
   };
   
   const handleSubmit = async (e) => {
@@ -63,6 +98,20 @@ export default function AddRouteForm() {
     uploadedImages.forEach((file) => {
         formData.append("routeImages", file.file);
     });
+
+    // console.log(imageCount + ': รูป');
+
+    if (uploadedImages.length > 6) {
+        // console.log('รูป : ' + uploadedImages.length)
+        document.getElementById('my_modal_4').showModal()
+        return;
+      }
+    if (uploadedImages.length < 6) {
+        // console.log('รูป : ' + uploadedImages.length)
+        document.getElementById('my_modal_5').showModal()
+        return;
+    }
+
 
     try {
         const response = await addRoutes(1,formData);
@@ -75,6 +124,7 @@ export default function AddRouteForm() {
 
   return (
     <>
+
       <div className="text-center font-bold text-3xl text-primary my-10">
         สร้างเส้นทาง
       </div>
@@ -213,7 +263,7 @@ export default function AddRouteForm() {
             />
             <label
               for="content"
-              className="ml-5 px-1 text-primary peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-40 bg-white  origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:bg-white peer-focus:z-30"
+              className="ml-5 px-1 text-primary peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 z-40 bg-white  origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:bg-white peer-focus:z-30"
             >
               ข้อมูลเพิ้มเติม<span className="text-red-500"> *</span>
             </label>
@@ -243,12 +293,12 @@ export default function AddRouteForm() {
                     alt={`Uploaded Image ${index}`}
                     className=" object-cover"
                   />
-                  <button
+                  <div
                     onClick={() => handleRemoveImage(index)}
                     className="absolute right-0 top-0 text-red-600 p-2 rounded-full cursor-pointer bg-none text-bold"
                   >
                     X
-                  </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -264,6 +314,31 @@ export default function AddRouteForm() {
           </div>
         </form>
       </div>
+
+
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box w-5/12 max-w-5xl">
+            <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
+            <p className="py-4 font-bold">รูปภาพของท่านมี <span className="font-bold text-red-500 underline">มากเกิน</span> 6 รูป</p>
+            <div className="modal-action">
+            <form method="dialog">
+                <button className="btn bg-blue-700 text-white hover:bg-blue-800">รับทราบ</button>
+            </form>
+            </div>
+        </div>
+        </dialog>
+
+        <dialog id="my_modal_5" className="modal">
+        <div className="modal-box w-5/12 max-w-5xl">
+            <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
+            <p className="py-4 font-bold">รูปภาพของท่าน <span className="font-bold text-red-500 underline">ไม่ครบ</span> 6 รูป</p>
+            <div className="modal-action">
+            <form method="dialog">
+                <button className="btn bg-blue-700 text-white hover:bg-blue-800">รับทราบ</button>
+            </form>
+            </div>
+        </div>
+        </dialog>
     </>
   );
 }
