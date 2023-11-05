@@ -11,23 +11,23 @@ export const getAllRoutes = async () => {
   }
 };
 
-export const getDetailRoutes = async (routeID) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/routes/${routeID}`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+  export const getDetailRoutes = async (routeID) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/routes/${routeID}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-export const addRoutes = async (userID, routeData) => {
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/routes/${userID}`,
-      routeData
-    );
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+  export const addRoutes = async (userID, routeData) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/users/routes/${userID}`,
+        routeData
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
