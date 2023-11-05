@@ -46,7 +46,7 @@ const RouteDetail = () => {
               </ul>
             </div>
 
-            <p className="text-center mt-10">
+            <p className="text-center mt-10 whitespace-pre-line">
               {routeDetail.content}
             </p>
           </div>

@@ -1,50 +1,74 @@
-import React from 'react'
-import Mapbutton from '../../components/mapbutton'
+import React, { useState, useEffect } from "react";
+import Mapbutton from "../../components/mapbutton";
+import { useParams } from "react-router-dom";
+import { getDetailEvents } from "../../service/event";
+import SanitizeHTML from "../../components/SanitizeHTML";
 
 export default function EventDetail() {
+  const { id } = useParams();
+  const [eventDetail, setEventDetail] = useState();
+  const imgURL = "http://localhost:3000/api/v1/idledrive/images";
+
+  useEffect(() => {
+    const fetchDetailEvent = async () => {
+      const res = await getDetailEvents(id);
+      console.log(res);
+      setEventDetail(res);
+    };
+
+    fetchDetailEvent();
+  }, [id]);
+
   return (
     <>
-        <div className='text-center m-10 text-4xl font-bold text-primary'>Event</div>
-        <div className='w-full flex flex-col justify-center items-center'>
-            <img src='https://cdn.zipeventapp.com/images/events/8D7D55A7-262C-4FF2-BD96-3F12C77EE5F3/55861DC1-7E4B-42FD-A2B8-B219173C6FD9.jpg' alt='camp'
-                className='w-1/3 h-60 object-cover rounded-lg'
+      {eventDetail ? (
+        <>
+          <div className="text-center m-10 text-4xl font-bold text-primary">
+            Event
+          </div>
+          <div className="w-full flex flex-col justify-center items-center">
+            <img
+              src={`${imgURL}/${eventDetail.EventImages[0].imageURL}`}
+              alt="camp"
+              className="w-1/3 h-60 object-cover rounded-lg"
             />
-            <div className='w-1/2 flex justify-around items-center mt-10'>
-                <div>
-                    <div className='text-2xl font-bold text-primary'>แคมป์ใต้แสงจันทร์</div>
-                    <div className='text-base font-semibold'>18 ต.ค. 2023 | 18:30 น.</div>
+            <div className="w-1/2 flex justify-around items-center mt-10">
+              <div>
+                <div className="text-2xl font-bold text-primary">
+                  {eventDetail.eventName}
                 </div>
-                <div className='text-sm'>🗺️ ดอยอินทนนท์ จ.เชียงใหม่</div>
+                <div className="text-base font-semibold">
+                  {eventDetail.eventDate} | {eventDetail.eventTime} น.
+                </div>
+              </div>
+              <div className="text-sm">🗺️ {eventDetail.locationName}</div>
             </div>
-            <div className='w-1/2 mt-10 indent-10'>ยามเย็นใต้แสงจันทร์ ดาวสวยสดงดงามอะร่ามแท้แรตะลึก มีไม่กี่ที่ที่จะเห็นดาวได้ชัดเจน จนคุณไม่อยากจะเชื่อว่าจะสวยงามเยี่ยงนี้ ทั้งนี้ทั้งนั้น เรามารำวงกันเถินหนา ชวนเพื่อนๆพี่ๆน้องมาชมความสวยงามที่น้อยที่จะมีกันดีกว่า พร้อมกับการตั้งแคมป์ ที่สุดแสนจะวิเศษพร้อมบรรยากาศที่สดชื่น</div>
-            
-            <div className='text-center mt-10 mb-3 text-3xl font-bold text-primary'>สถานที่</div>
+            <div className="w-1/2 mt-10 indent-10 whitespace-pre-line">{eventDetail.content}</div>
 
-            <div className='relative'>
-                <iframe
-                    className="mt-3"
-                    src="https://www.google.com/maps/d/embed?mid=1rhNqCUE-iLDwcxtRIrKsXa-jMqVgSXIs&ehbc=2E312F"
-                    width="640"
-                    height="480"
-                ></iframe>
-                <div className='absolute right-5 bottom-5'>
-                    <Mapbutton/>
-                </div>
+            <div className="text-center mt-10 mb-3 text-3xl font-bold text-primary">
+              สถานที่
             </div>
 
-            <div className='text-center mt-10 mb-3 text-2xl font-bold text-primary'>สิ่งอำนวยความสะดวก</div>
-            <label className='input input-bordered p-3'>
-                - Free Wifi
-                - Toilet
-                - Free Camping 
-                - Free Parking
-                - Food Festival
+            <div className="relative">
+              <SanitizeHTML html={eventDetail.embedLink} />
+              <div className="absolute right-5 bottom-5">
+                <Mapbutton href={eventDetail.locationLink} />
+              </div>
+            </div>
+
+            <div className="text-center mt-10 mb-3 text-2xl font-bold text-primary">
+              สิ่งอำนวยความสะดวก
+            </div>
+            <label className="input input-bordered p-3">
+              {eventDetail.feature}
             </label>
-            
-
-
+          </div>
+        </>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <span className="loading loading-dots loading-lg text-primary"></span>
         </div>
-
+      )}
     </>
-  )
+  );
 }

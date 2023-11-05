@@ -102,10 +102,10 @@ export const CarDetail = () => {
               </div>
             </Section>
             <Section title={"คำอธิบาย"}>
-              <p>{carDetail.car.description}</p>
+              <p className="whitespace-pre-line">{carDetail.car.description}</p>
             </Section>
             <Section title={"คุณสมบัติ"}>
-              <p>{carDetail.car.feature}</p>
+              <p className="whitespace-pre-line">{carDetail.car.feature}</p>
             </Section>
             <div className="w-full border-2 my-4"></div>
             <Section title={"Review"}>

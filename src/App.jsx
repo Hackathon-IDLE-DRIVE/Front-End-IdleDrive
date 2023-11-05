@@ -112,7 +112,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="eventdetail" element={<EventDetail/>} />
+          <Route path="event/:id" element={<EventDetail/>} />
           <Route path="editprofile/:id" element={<UserEdit/>}/>
           <Route path="event" element={<EventList/>}/>
         </Routes>

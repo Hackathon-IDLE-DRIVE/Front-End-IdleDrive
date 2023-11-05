@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EventListCard from '../../components/Card/eventCardlistUser'
+import { getAllEvents } from '../../service/event'
 
 export default function EventList() {
 
+    const [listEvents, setListEvents] = useState();
+
+    useEffect(()=>{
+        const fetchAllEvents = async()=>{
+            const res = await getAllEvents();
+            setListEvents(res);
+            console.log(res);
+        }
+        fetchAllEvents();
+    },[])
     
   return (
     <>
@@ -35,16 +46,13 @@ export default function EventList() {
 
 
         <div className='flex flex-wrap mx-auto w-10/12 gap-5'>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-            <EventListCard/>
-
+        {listEvents ? (
+              listEvents.map((event,index)=>(
+                <EventListCard event={event} key={index} />
+              ))
+            ) : (
+              <span className="loading loading-ring loading-lg text-primary"></span>
+            )}
         </div>
 
 
