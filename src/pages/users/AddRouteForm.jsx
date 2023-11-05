@@ -10,10 +10,10 @@ export default function AddRouteForm() {
     name: "",
     price: "",
     time: "",
-    lenght: "",
+    length: "",
     content: "",
     link: "",
-    embedlink: "",
+    embedLink: "",
   });
 
   const [showError, setShowError] = useState(false);
@@ -59,7 +59,7 @@ export default function AddRouteForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('routeData',routeDetails);
+    formData.append('routeData',JSON.stringify(routeDetails));
     uploadedImages.forEach((file) => {
         formData.append("routeImages", file.file);
     });
@@ -108,7 +108,7 @@ export default function AddRouteForm() {
                 type="number"
                 onChange={handleChange}
                 value={routeDetails.length}
-                name="lenght"
+                name="length"
                 id="lenght"
                 className="pl-5 text-black block py-2.5 px-0 w-full text-sm bg-transparent border-2 rounded-xl border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -184,8 +184,8 @@ export default function AddRouteForm() {
             <input
               type="text"
               onChange={handleChange}
-              value={routeDetails.embedlink}
-              name="embedlink"
+              value={routeDetails.embedLink}
+              name="embedLink"
               id="embedlink"
               className="pl-5 text-black block py-2.5 px-0 w-full text-sm bg-transparent border-2 rounded-xl border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
