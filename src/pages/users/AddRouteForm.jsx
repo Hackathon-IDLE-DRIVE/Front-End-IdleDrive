@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { addRoutes } from "../../service/route";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AddRouteForm() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [routeDetails, setRouteDetails] = useState({
     name: "",
@@ -186,7 +187,7 @@ const handleImageUpload = (e) => {
                 for="price"
                 className="ml-5 px-1 text-primary peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 z-40 bg-white  origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:bg-white peer-focus:z-30"
               >
-                ราคา ( ฿ )<span className="text-red-500"> *</span>
+                ค่าใช้จ่ายโดยประมาณ ( ฿ )<span className="text-red-500"> *</span>
               </label>
             </div>
           </div>
@@ -225,7 +226,7 @@ const handleImageUpload = (e) => {
                 for="link_google"
                 className="ml-5 px-1 text-primary peer-focus:font-medium absolute text-400 duration-300 transform -translate-y-6 scale-75 top-3 z-40 bg-white  origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:bg-white peer-focus:z-30"
               >
-                Link Google<span className="text-red-500"> *</span>
+                Link GoogleMap<span className="text-red-500"> *</span>
               </label>
             </div>
           </div>
@@ -245,7 +246,7 @@ const handleImageUpload = (e) => {
               for="embedlink"
               className="ml-5 px-1 text-primary peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 z-40 bg-white origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:bg-white peer-focus:z-30"
             >
-              ฝังแผนที่<span className="text-red-500"> *</span>
+              Link ฝังแผนที่ GoogleMap<span className="text-red-500"> *</span>
             </label>
           </div>
 
