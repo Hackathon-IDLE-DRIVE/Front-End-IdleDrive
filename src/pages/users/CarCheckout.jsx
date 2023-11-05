@@ -12,6 +12,7 @@ import { getDetailCar } from "../../service/cars";
 import { format, eachDayOfInterval } from "date-fns";
 import DriverInfomationForm from "../../components/Form/DriverInfomation";
 import { updateDriverInformation } from "../../service/users";
+import ProtectionOption from "../../components/Form/ProtectionOption";
 
 export const CarCheckout = () => {
   const navigate = useNavigate();
@@ -161,7 +162,7 @@ export const CarCheckout = () => {
                 <p>Form for driver</p>
               </CollapseForm>
               <CollapseForm title={"Protection options ( เอกสารที่ต้องเตรียม )"}>
-                <p>Form for driver</p>
+                <ProtectionOption title={carDetail.car.type} />
               </CollapseForm>
             </div>
           </div>
