@@ -102,7 +102,7 @@ export const AddCar = () => {
       return;
     }
 
-    if (carFileDocument.length <= 2) {
+    if (carFileDocument.length <= 2 && carFileDocument.length > 5) {
       console.error("Please upload exactly 2 car document.");
       document.getElementById('my_modal_2').showModal()
       return;
