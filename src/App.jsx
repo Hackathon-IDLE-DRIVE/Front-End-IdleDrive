@@ -15,14 +15,14 @@ import { CarRentalList } from "./pages/car_rental/CarRentalList";
 import { Dashboard } from "./pages/car_rental/Dashboard";
 import { AddCar } from "./pages/car_rental/AddCar";
 import { EditCar } from "./pages/car_rental/EditCar";
-import LoginOwner from './pages/car_rental/Login';
+import LoginOwner from "./pages/car_rental/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EventList from "./pages/users/EventList";
 import TrackingBook from "./pages/car_rental/TrackingBook";
-import { History } from './pages/car_rental/History';
-import { BookHistory } from './pages/users/BookingHistory';
-import { TrackingHistory } from './pages/users/TrackingHistory';
-import RouteList from './pages/users/RouteList';
+import { History } from "./pages/car_rental/History";
+import { BookHistory } from "./pages/users/BookingHistory";
+import { TrackingHistory } from "./pages/users/TrackingHistory";
+import RouteList from "./pages/users/RouteList";
 import UserEdit from "./pages/edit_Profile/UserEdit";
 import MerChantUserEdit from "./pages/edit_Profile/Merchant";
 import RouteDetail from "./pages/users/RouteDetail";
@@ -39,21 +39,17 @@ function App() {
           <Route path="/car-list/*" element={<CarList />} />
           <Route path="/motorhome/:id/*" element={<CarDetail />} />
           <Route path="/motorhome/:id/checkout/*" element={<CarCheckout />} />
-          <Route
-            path="/tracking/user/:bookingId"
-            element={<Tracking />}
-          />
-          <Route
-            path="/history/:bookingId"
-            element={<TrackingHistory />}
-          />
-          <Route path="/history" element={<BookHistory/>}/>
+          <Route path="/tracking/user/:bookingId" element={<Tracking />} />
+          <Route path="/addroute" element={<AddRouteForm />} />
+
+          <Route path="/history/:bookingId" element={<TrackingHistory />} />
+          <Route path="/history" element={<BookHistory />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<UserRegister />} />
-          <Route path="/event" element={<EventList/>}/>
-          <Route path="/route" element={<RouteList/>}/>
-          <Route path="/route/:id" element={<RouteDetail/>}/>
-          
+          <Route path="/event" element={<EventList />} />
+          <Route path="/route" element={<RouteList />} />
+          <Route path="/route/:id" element={<RouteDetail />} />
+
           <Route path="/merchant/" element={<LoginOwner />} />
           <Route path="/merchant/register" element={<BackOfficeRegister />} />
           <Route
@@ -92,7 +88,7 @@ function App() {
             path="/merchant/tracking/:bookingId"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
-                <TrackingBook/>
+                <TrackingBook />
               </ProtectedRoute>
             }
           />
@@ -100,7 +96,7 @@ function App() {
             path="/merchant/history"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
-                <History/>
+                <History />
               </ProtectedRoute>
             }
           />
@@ -109,14 +105,13 @@ function App() {
             path="/merchant/editprofile/:id"
             element={
               <ProtectedRoute role={"carRentalOwner"}>
-                <MerChantUserEdit/>
+                <MerChantUserEdit />
               </ProtectedRoute>
             }
           />
-          <Route path="eventdetail" element={<EventDetail/>} />
-          <Route path="editprofile/:id" element={<UserEdit/>}/>
-          <Route path="event" element={<EventList/>}/>
-          <Route path="addroute" element={<AddRouteForm/>} />
+          <Route path="eventdetail" element={<EventDetail />} />
+          <Route path="editprofile/:id" element={<UserEdit />} />
+          <Route path="event" element={<EventList />} />
         </Routes>
       </ContentContainer>
       <Footer />

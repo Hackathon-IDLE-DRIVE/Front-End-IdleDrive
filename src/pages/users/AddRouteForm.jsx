@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 export default function AddRouteForm() {
   const [routeDetails, setRouteDetails] = useState({
@@ -26,6 +26,7 @@ export default function AddRouteForm() {
     const file = e.target.files[0];
 
     if (file && uploadedImages.length < 6) {
+
       const reader = new FileReader();
 
       reader.onload = (event) => {
@@ -49,6 +50,12 @@ export default function AddRouteForm() {
     updatedImages.splice(index, 1);
     setUploadedImages(updatedImages);
   };
+  
+  // const formData = new FormData();
+  // formData.append('routeData',routeDetails);
+  // uploadedImages.forEach((file) => {
+  //   formData.append("routeImages", file.file);
+  // });
 
   return (
     <>
