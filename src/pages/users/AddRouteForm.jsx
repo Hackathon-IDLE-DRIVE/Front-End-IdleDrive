@@ -1,6 +1,11 @@
 import React, { useContext, useState } from "react";
+import { addRoutes } from "../../service/route";
+import { useNavigate } from "react-router-dom";
 
 export default function AddRouteForm() {
+
+    const navigate = useNavigate();
+
   const [routeDetails, setRouteDetails] = useState({
     name: "",
     price: "",
@@ -51,11 +56,22 @@ export default function AddRouteForm() {
     setUploadedImages(updatedImages);
   };
   
-  // const formData = new FormData();
-  // formData.append('routeData',routeDetails);
-  // uploadedImages.forEach((file) => {
-  //   formData.append("routeImages", file.file);
-  // });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('routeData',routeDetails);
+    uploadedImages.forEach((file) => {
+        formData.append("routeImages", file.file);
+    });
+
+    try {
+        const response = await addRoutes(1,formData);
+        console.log("Route create succesful :", response);
+        // navigate("/route");
+      } catch (error) {
+        console.error("Error create mai dai :", error);
+      }
+    };
 
   return (
     <>
@@ -64,13 +80,14 @@ export default function AddRouteForm() {
       </div>
 
       <div className="w-full flex justify-center">
-        <form className="w-2/4 p-10 mb-10 rounded-xl shadow-xl border-[#D9D9D9] border-2">
+        <form onSubmit={handleSubmit}
+         className="w-2/4 p-10 mb-10 rounded-xl shadow-xl border-[#D9D9D9] border-2">
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="text"
               onChange={handleChange}
               value={routeDetails.name}
-              name="nameRoute"
+              name="name"
               id="nameRoute"
               maxLength={255}
               className="pl-5 text-black block py-2.5 px-0 w-full text-sm bg-transparent border-2 rounded-xl border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -147,7 +164,7 @@ export default function AddRouteForm() {
                 type="text"
                 onChange={handleChange}
                 value={routeDetails.link}
-                name="link_google"
+                name="link"
                 id="link_google"
                 maxLength={255}
                 className="pl-5 text-black block py-2.5 px-0 w-full text-sm bg-transparent border-2 rounded-xl border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -211,6 +228,7 @@ export default function AddRouteForm() {
               name="imageUpload"
               id="imageUpload"
               accept="image/*"
+              multiple
               onChange={handleImageUpload}
               className="file-input file:text-blue-700 cursor-pointer file:bg-white pl-5 file:border-none text-black block py-2.5 px-0 w-full text-sm bg-transparent border-2 rounded-xl border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer "
             />

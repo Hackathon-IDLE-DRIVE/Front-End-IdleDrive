@@ -23,7 +23,7 @@ export const getAllRoutes = async () => {
   export const addRoutes = async (userID, routeData) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}/routes/${userID}`,
+        `${BASE_URL}/users/routes/${userID}`,
         routeData
       );
       return response.data;
