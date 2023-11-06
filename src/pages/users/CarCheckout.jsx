@@ -26,6 +26,7 @@ export const CarCheckout = () => {
   const [dateRange, setDateRange] = useState([]);
   const [carDetail, setCarDetail] = useState();
   const { rental_range, total_rate, rental_id } = useLocation().state;
+  const [driverDoc, setDriverDoc] = useState();
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -50,8 +51,7 @@ export const CarCheckout = () => {
       !formData.lname ||
       !formData.email ||
       !formData.phone ||
-      !formData.idcardFile ||
-      !formData.licenseFile
+      (!driverDoc && (!formData.idcardFile || !formData.licenseFile))
     ) {
       console.error("Please fill in all required fields.");
       document.getElementById('my_modal_3').showModal();
@@ -157,7 +157,7 @@ export const CarCheckout = () => {
             <div className="mt-14">
               <p className="mb-4 font-bold text-xl ml-2"><span className="text-red-500">สำคัญ</span> กรุณาอ่านด้านล่างให้ครบ <span className="text-red-500">*</span></p>
               <CollapseForm title={"Driver Information ( ข้อมูลผู้ขับขี่ )"}>
-                <DriverInfomationForm form={formData} handleChange={handleInputChange} setForm={setFormData} userID={user.id}/>
+                <DriverInfomationForm form={formData} handleChange={handleInputChange} setForm={setFormData} userID={user.id} driverDoc={driverDoc} setDriverDoc={setDriverDoc}/>
               </CollapseForm>
               <CollapseForm title={"Payment Information ( ช่องทางการชำระเงิน )"}>
               <PaymentInfomation/>

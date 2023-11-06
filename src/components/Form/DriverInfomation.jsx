@@ -6,8 +6,9 @@ export default function DriverInfomationhtmlForm({
   handleChange,
   setForm,
   userID,
+  driverDoc,
+  setDriverDoc
 }) {
-  const [driverDoc, setDriverDoc] = useState();
   const [previewImage, setPreviewImage] = useState({
     idcardFile: null,
     licenseFile: null,
