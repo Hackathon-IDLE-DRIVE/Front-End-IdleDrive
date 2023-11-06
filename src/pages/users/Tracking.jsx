@@ -9,6 +9,7 @@ import { format, isValid } from "date-fns";
 import socketIOClient from "socket.io-client";
 import { getBookingDetails, getBookingHistory } from "../../service/rentals";
 import { AuthContext } from '../../service/context/AuthContext'
+import backgroundImageUrl from '../../images/bgcar.gif';
 
 export const Tracking = () => {
   const { user } = useContext(AuthContext);
@@ -67,6 +68,13 @@ export const Tracking = () => {
 
   }, [bookingId]);
 
+
+  const containerStyle = {
+    backgroundImage: `url(${backgroundImageUrl})`,
+    backgroundSize: 'cover', 
+    backgroundPositionY: `bottom`,
+  };
+
   return (
     <>
       {detailBooking && (
@@ -107,9 +115,9 @@ export const Tracking = () => {
                 </div>
               </div>
             </div>
-            <div className=" border-gray-200 border-2 rounded-lg w-[700px] relative p-4">
+            <div className=" border-gray-200 border-2 rounded-lg w-[700px] relative p-4" style={containerStyle}>
               <div className="bg-white border-2 border-gray-50 shadow-lg w-fit px-6 py-4 flex flex-col justify-start
-              absolute right-6 top-9">
+              absolute right-6 top-9"  >
                   <span className="text-sm text-gray-400 font-semibold">ขั้นตอนต่อไป</span>
                   <span className="text-2xl font-extrabold">{getStatusNext(status)[0]}</span>
                   <span className="text-xs text-gray-400 font-semibold">{getStatusNext(status)[1]}</span>
