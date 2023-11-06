@@ -44,7 +44,7 @@ export const History = () => {
                 <a onClick={() => handleSortByType(null)}>All</a>
               </li>
               <li>
-                <a onClick={() => handleSortByType(null)}>Wait for Confirm</a>
+                <a onClick={() => handleSortByType("Wait for Confirm")}>Wait for Confirm</a>
               </li>
               <li>
                 <a onClick={() => handleSortByType("Confirm order")}>Confirm order</a>
