@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getDetailCar } from '../../service/cars';
 import {getDetailCarRental} from '../../service/cars_rental';
+import BASE_URL from '../../service/baseURL'
 
 export default function RecentCard({ bookingData }) {
     const [car, setCar] = useState();
@@ -26,7 +27,7 @@ export default function RecentCard({ bookingData }) {
             </h2>
 
             <div className='flex justify-between mt-3'>
-                <img className='w-32 h-28 object-cover bg-center rounded-xl' src={`http://localhost:3000/api/v1/idledrive/images/${car.listImage[0].imageURL}`} alt='motorhome' />
+                <img className='w-32 h-28 object-cover bg-center rounded-xl' src={`${BASE_URL}/api/v1/idledrive/images/${car.listImage[0].imageURL}`} alt='motorhome' />
                 
                 <div className='flex-col ml-2'>
                     <p className='font-bold text-xl line-clamp-1'>{car.car.make} {car.car.model}</p>
@@ -41,7 +42,7 @@ export default function RecentCard({ bookingData }) {
             <div className='w-full border-b my-1.5'/>
             <div className='flex justify-start'>
                 <div className='flex'>
-                    <img className='h-12 w-12 rounded mr-2 ' src={`http://localhost:3000/api/v1/idledrive/images/${car.rental.rentalDetail.profileURL}`} alt='idle'/>
+                    <img className='h-12 w-12 rounded mr-2 ' src={`${BASE_URL}/api/v1/idledrive/images/${car.rental.rentalDetail.profileURL}`} alt='idle'/>
                     
                     <div className='flex-col'>
                         <p className='text-sm font-bold text-black'>{car.rental.rentalDetail.rental_name}</p>

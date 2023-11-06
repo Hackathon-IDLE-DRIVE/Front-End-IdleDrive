@@ -1,11 +1,12 @@
 import axios from "axios";
+import BASE_URL from "./baseURL";
 
-const BASE_URL = "http://localhost:3000/api/v1/idledrive/users";
+const BASE_URL_API = `${BASE_URL}/api/v1/idledrive/users`;
 
 //Service สำหรับ get user by id
 export const getUserById = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${userId}`);
+    const response = await axios.get(`${BASE_URL_API}/${userId}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -15,7 +16,7 @@ export const getUserById = async (userId) => {
 //Service สำหรับสร้าง  user
 export const createUser = async (userData) => {
   try {
-    const response = await axios.post(`${BASE_URL}`, userData);
+    const response = await axios.post(`${BASE_URL_API}`, userData);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -23,14 +24,14 @@ export const createUser = async (userData) => {
 };
 
 export const loginUser = async (credentials) => {
-    const response = await axios.post(`${BASE_URL}/auth/login`,credentials);
+    const response = await axios.post(`${BASE_URL_API}/auth/login`,credentials);
     return response;
 };
 
 //Service สำหรับแก้ไข user
 export const updateUser = async (userId, userData) => {
   try {
-    const response = await axios.put(`${BASE_URL}/${userId}`, userData);
+    const response = await axios.put(`${BASE_URL_API}/${userId}`, userData);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -40,7 +41,7 @@ export const updateUser = async (userId, userData) => {
 //Service สำหรับลบ user
 export const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/${userId}`);
+    const response = await axios.delete(`${BASE_URL_API}/${userId}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -49,7 +50,7 @@ export const deleteUser = async (userId) => {
 
 export const getDriverInformation = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/driver/${userId}`);
+    const response = await axios.get(`${BASE_URL_API}/driver/${userId}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -58,7 +59,7 @@ export const getDriverInformation = async (userId) => {
 
 export const updateDriverInformation = async (userId,formData) => {
   try {
-    const response = await axios.put(`${BASE_URL}/driver/${userId}`,formData);
+    const response = await axios.put(`${BASE_URL_API}/driver/${userId}`,formData);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -69,7 +70,7 @@ export const updateDriverInformation = async (userId,formData) => {
 export const createDriverDocument = async (userId, documentData) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/${userId}/driver-documents`,
+      `${BASE_URL_API}/${userId}/driver-documents`,
       documentData
     );
     return response.data;

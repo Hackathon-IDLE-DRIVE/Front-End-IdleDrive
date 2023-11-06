@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { getDetailCar } from "../../service/cars";
 import { useNavigate } from "react-router-dom";
+import BASE_URL from "../../service/baseURL";
 
 export default function HistoryCard(data) {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ export default function HistoryCard(data) {
         <div className="card-body w-full h-70 flex flex-row">
           <img
             className="h-52 w-80 border-2 rounded-[20px] object-cover"
-            src={`http://localhost:3000/api/v1/idledrive/images/${car.listImage[0].imageURL}`}
+            src={`${BASE_URL}/api/v1/idledrive/images/${car.listImage[0].imageURL}`}
             alt="Album"
           />
           <div className="w-3/4 ml-5">

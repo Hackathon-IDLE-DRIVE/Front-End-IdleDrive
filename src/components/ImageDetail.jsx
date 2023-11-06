@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import BASE_URL from '../service/baseURL';
 
 function ImageDetailShow({ imgList }) {
   const [image, setImage] = useState(1);
-  const imgURL = 'http://localhost:3000/api/v1/idledrive/images/';
+  const imgURL = `${BASE_URL}/api/v1/idledrive/images/`;
 
   return (
     <div>

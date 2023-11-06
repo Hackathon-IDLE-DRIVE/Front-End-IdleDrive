@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { navbarUserData, navbarRentalData } from "./navbarData";
 import Logo from "../../images/idle-w-light.png";
 import { AuthContext } from "../../service/context/AuthContext";
+import BASE_URL from '../../service/baseURL'
 
 export const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -111,7 +112,7 @@ export const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <img src={`http://localhost:3000/api/v1/idledrive/images/${user.profileURL}`} />
+                  <img src={`${BASE_URL}/api/v1/idledrive/images/${user.profileURL}`} />
                 </div>
               </label>
               <ul

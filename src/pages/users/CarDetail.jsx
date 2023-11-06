@@ -6,6 +6,7 @@ import CommentReviewCar from "../../components/Comment/commentCar";
 import { getDetailCar } from "../../service/cars";
 import { format, eachDayOfInterval } from "date-fns";
 import { AuthContext } from "../../service/context/AuthContext";
+import BASE_URL from "../../service/baseURL";
 
 export const CarDetail = () => {
   const [searchParams] = useSearchParams();
@@ -78,7 +79,7 @@ export const CarDetail = () => {
                 <div className="avatar mr-4">
                   <div className=" w-20 rounded-full">
                     <img
-                      src={`http://localhost:3000/api/v1/idledrive/images/${carDetail.rental.rentalDetail.profileURL}`}
+                      src={`${BASE_URL}/api/v1/idledrive/images/${carDetail.rental.rentalDetail.profileURL}`}
                     />
                   </div>
                 </div>

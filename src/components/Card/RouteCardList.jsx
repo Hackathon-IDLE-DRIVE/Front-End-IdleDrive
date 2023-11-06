@@ -1,10 +1,10 @@
-import { ro } from 'date-fns/locale';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import BASE_URL from '../../service/baseURL';
 
 const RouteCardList = ({ route }) => {
   const navigate = useNavigate();
-  const imageURL = 'http://localhost:3000/api/v1/idledrive/images/'
+  const imageURL = `${BASE_URL}/api/v1/idledrive/images/`
   return (
     <>
         <div className='container w-64 shadow-lg rounded-md mt-3 mr-6

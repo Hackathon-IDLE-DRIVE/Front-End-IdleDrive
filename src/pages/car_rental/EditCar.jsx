@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDetailCar, updateCar } from "../../service/cars";
+import BASE_URL from "../../service/baseURL";
 export const EditCar = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -368,7 +369,7 @@ export const EditCar = () => {
                     <div key={index} className="relative mr-6 mt-3">
                       <img
                         className="h-36 w-36 rounded-xl"
-                        src={`http://localhost:3000/api/v1/idledrive/images/${images.imageURL}`}
+                        src={`${BASE_URL}/api/v1/idledrive/images/${images.imageURL}`}
                         alt="Uploaded"
                       />
                     </div>

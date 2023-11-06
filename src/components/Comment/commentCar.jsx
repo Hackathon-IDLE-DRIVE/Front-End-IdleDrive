@@ -1,4 +1,5 @@
 import React from 'react'
+import BASE_URL from '../../service/baseURL'
 
 export default function CommentReviewCar({ review }) {
 
@@ -8,7 +9,7 @@ export default function CommentReviewCar({ review }) {
     <>
     <div className='w-full border-b my-9'/>
         <div className='review_Container flex'>
-            <img className='rounded-full h-12 w-12' src={`http://localhost:3000/api/v1/idledrive/images/${review.user.profileURL}`} alt='konror'/>
+            <img className='rounded-full h-12 w-12' src={`${BASE_URL}/api/v1/idledrive/images/${review.user.profileURL}`} alt='konror'/>
 
             <div className='mx-5'>
                 <div className='text-lg font-bold text-black'>{review.user.username}</div>

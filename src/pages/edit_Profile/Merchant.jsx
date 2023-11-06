@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../service/context/AuthContext";
 import { updateCarRental } from "../../service/cars_rental";
+import BASE_URL from "../../service/baseURL";
 export default function MerChantUserEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -112,7 +113,7 @@ export default function MerChantUserEdit() {
                 className=" rounded-full h-60 w-60 object-cover border-4  shadow-xl hover:border-blue-700 hover:shadow-lg"
                 src={
                   formData.profileImage ||
-                  `http://localhost:3000/api/v1/idledrive/images/${user.profileURL}`
+                  `${BASE_URL}/api/v1/idledrive/images/${user.profileURL}`
                 }
                 alt="profile"
               />

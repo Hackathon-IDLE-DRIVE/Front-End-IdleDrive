@@ -1,8 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import BASE_URL from '../../service/baseURL'
 export default function EventListCard({ event }) {
   
-    const imgURL = 'http://localhost:3000/api/v1/idledrive/images'
+    const imgURL = `${BASE_URL}/api/v1/idledrive/images`;
     const navigate = useNavigate();
   
     return (

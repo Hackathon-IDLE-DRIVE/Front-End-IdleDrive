@@ -7,12 +7,13 @@ import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 import Status from "../../components/Status";
 import { getDetailDriver } from "../../service/cars_rental";
+import BASE_URL from "../../service/baseURL";
 
 const TrackingBook = () => {
   const { bookingId } = useParams();
   const [detailBooking, setDetailBooking] = useState();
   const [userDetail, setUserDetail] = useState();
-  const imageURL = "http://localhost:3000/api/v1/idledrive/images";
+  const imageURL = `${BASE_URL}/api/v1/idledrive/images`;
 
   const getStatusNext = (status) => {
     switch (status) {

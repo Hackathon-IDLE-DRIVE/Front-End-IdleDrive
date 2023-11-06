@@ -14,6 +14,7 @@ import DriverInfomationForm from "../../components/Form/DriverInfomation";
 import { updateDriverInformation } from "../../service/users";
 import ProtectionOption from "../../components/Form/ProtectionOption";
 import PaymentInfomation from "../../components/Form/PaymentInfomation";
+import BASE_URL from "../../service/baseURL";
 
 export const CarCheckout = () => {
   const navigate = useNavigate();
@@ -116,7 +117,7 @@ export const CarCheckout = () => {
               <figure className="w-2/5">
                 <img
                   className="h-full object-cover"
-                  src={`http://localhost:3000/api/v1/idledrive/images/${carDetail.listImage[0].imageURL}`}
+                  src={`${BASE_URL}/api/v1/idledrive/images/${carDetail.listImage[0].imageURL}`}
                   alt="Car"
                 />
               </figure>
@@ -135,7 +136,7 @@ export const CarCheckout = () => {
                   <div className="avatar">
                     <div className="w-12 rounded-full">
                       <img
-                        src={`http://localhost:3000/api/v1/idledrive/images/${carDetail.rental.rentalDetail.profileURL}`}
+                        src={`${BASE_URL}/api/v1/idledrive/images/${carDetail.rental.rentalDetail.profileURL}`}
                       />
                     </div>
                   </div>

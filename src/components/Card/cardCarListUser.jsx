@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import BASE_URL from '../../service/baseURL'
 
 export default function CarlistCard({ carData, queryParams }) {
     const { pickup_date, return_date, location_input } = queryParams;
@@ -12,14 +13,14 @@ export default function CarlistCard({ carData, queryParams }) {
         <div className="card w-[350px] bg-base-100 shadow-lg mt-5 z-0
         hover:cursor-pointer hover:shadow-xl"
         onClick={()=>navigate(`/motorhome/${car_id}?pick-up=${pickup_date}&return=${return_date}&location=${location_input}`)}>
-            <figure><img className='h-[255px]' src={`http://localhost:3000/api/v1/idledrive/images/${CarImages[0].imageURL}`} alt="Car"/></figure>
+            <figure><img className='h-[255px]' src={`${BASE_URL}/api/v1/idledrive/images/${CarImages[0].imageURL}`} alt="Car"/></figure>
             <div className="card-body">
                 <h2 className="card-title text-2xl font-semibold">{`${make} ${model}`}</h2>
                 <p className='text-gray-400 line-clamp-1'>{description}</p>
 
                 <div className='flex justify-between mt-5'>
                     <div className='text-left flex items-center'>
-                        <img className='h-6 w-6 rounded mr-2 ' src={`http://localhost:3000/api/v1/idledrive/images/${CarRental.profileURL}`} alt='idle'/>
+                        <img className='h-6 w-6 rounded mr-2 ' src={`${BASE_URL}/api/v1/idledrive/images/${CarRental.profileURL}`} alt='idle'/>
                         <span className='text-sm font-bold text-gray-400'>{CarRental.rental_name}</span>
                     </div>
     

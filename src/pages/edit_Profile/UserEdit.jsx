@@ -2,6 +2,7 @@ import React, { useEffect, useState,useContext } from "react";
 import { createUser, getUserById, updateUser } from "../../service/users";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from '../../service/context/AuthContext'
+import BASE_URL from "../../service/baseURL";
 
 export default function UserEdit() {
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ export default function UserEdit() {
                 className=" rounded-full h-60 w-60 object-cover border-4  shadow-xl hover:border-blue-700 hover:shadow-lg"
                 src={
                   formData.profileImage ||
-                  `http://localhost:3000/api/v1/idledrive/images/${userDetail.profileURL}`
+                  `${BASE_URL}/api/v1/idledrive/images/${userDetail.profileURL}`
                 }
                 alt="profile"
               />

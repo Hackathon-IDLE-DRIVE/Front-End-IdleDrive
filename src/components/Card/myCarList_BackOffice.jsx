@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import Idle from '../../components/MyCarStatus/idle'
 import Activate from '../../components/MyCarStatus/activate'
 import { useNavigate } from "react-router-dom";
+import BASE_URL from '../../service/baseURL'
 
 export default function Back_myCarList({ data, carData }) {
 
@@ -26,7 +27,7 @@ export default function Back_myCarList({ data, carData }) {
           <figure className="w-1/3">
             <img
             className="h-52"
-              src={`http://localhost:3000/api/v1/idledrive/images/${carData.CarImages[0].imageURL}`}
+              src={`${BASE_URL}/api/v1/idledrive/images/${carData.CarImages[0].imageURL}`}
               alt="Album"
             />
           </figure>

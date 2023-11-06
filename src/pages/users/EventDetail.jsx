@@ -3,11 +3,12 @@ import Mapbutton from "../../components/mapbutton";
 import { useParams } from "react-router-dom";
 import { getDetailEvents } from "../../service/event";
 import SanitizeHTML from "../../components/SanitizeHTML";
+import BASE_URL from "../../service/baseURL";
 
 export default function EventDetail() {
   const { id } = useParams();
   const [eventDetail, setEventDetail] = useState();
-  const imgURL = "http://localhost:3000/api/v1/idledrive/images";
+  const imgURL = `${BASE_URL}/api/v1/idledrive/images`;
 
   useEffect(() => {
     const fetchDetailEvent = async () => {
