@@ -5,6 +5,7 @@ import BASE_URL from "../../service/baseURL";
 export const EditCar = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(true);
   const [carData, setCarData] = useState();
   const [carDetails, setCarDetails] = useState({
     model: "",
@@ -23,12 +24,12 @@ export const EditCar = () => {
     location: "",
   });
   useEffect(() => {
-
     const fetchCarDetails = async () => {
       try {
         console.log("car id " + id);
         const carData = await getDetailCar(id);
         setCarDetails(carData.car);
+        setIsChecked(carData.car.status);
         setCarData(carData);
         console.log(carData);
       } catch (error) {
@@ -38,6 +39,14 @@ export const EditCar = () => {
 
     fetchCarDetails();
   }, [id]);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    setCarDetails({
+      ...carDetails,
+      status: !isChecked,
+    });
+  };
 
   const handleFileUpload = (
     e,
@@ -75,10 +84,15 @@ export const EditCar = () => {
     handleFileUpload(e, carImages, setCarImages, setCarFileImages, 6);
   };
 
-  const handleDocumentUpload = (e)=>{
-    handleFileUpload(e, documentImages, setDocumentImages, setDocumentFileImages, 6);
-  }
-
+  const handleDocumentUpload = (e) => {
+    handleFileUpload(
+      e,
+      documentImages,
+      setDocumentImages,
+      setDocumentFileImages,
+      6
+    );
+  };
 
   const deleteCarImg = (index) => {
     URL.revokeObjectURL(carImages[index].url);
@@ -89,7 +103,9 @@ export const EditCar = () => {
   const deleteDocumentImg = (index) => {
     URL.revokeObjectURL(documentImages[index].url);
     setDocumentImages((prevImages) => prevImages.filter((_, i) => i !== index));
-    setDocumentFileImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setDocumentFileImages((prevImages) =>
+      prevImages.filter((_, i) => i !== index)
+    );
   };
 
   const [carImages, setCarImages] = useState([]);
@@ -98,16 +114,15 @@ export const EditCar = () => {
   const [documentFileImages, setDocumentFileImages] = useState([]);
 
   const handleSubmit = async () => {
-
     if (carFileImages.length !== 6 && carFileImages.length >= 1) {
       console.error("Please upload exactly 6 car images.");
-      document.getElementById('my_modal_1').showModal()
+      document.getElementById("my_modal_1").showModal();
       return;
     }
 
     const formData = new FormData();
     formData.append("carDetails", JSON.stringify(carDetails));
-    
+
     carFileImages.forEach((file) => {
       formData.append("carImages", file);
     });
@@ -120,7 +135,7 @@ export const EditCar = () => {
     try {
       const response = await updateCar(id, formData);
       console.log("Car updated successfully:", response);
-      navigate('/merchant/dashboard');
+      navigate("/merchant/dashboard");
     } catch (error) {
       console.error("Error updating car:", error);
     }
@@ -376,7 +391,6 @@ export const EditCar = () => {
               />
 
               <div className="flex flex-wrap justify-start mt-6">
-                
                 {carImages.length === 0 &&
                   carData &&
                   carData.listImage &&
@@ -409,7 +423,6 @@ export const EditCar = () => {
               </div>
             </div>
 
-
             <div className="w-full">
               <label
                 htmlFor="Features"
@@ -427,7 +440,6 @@ export const EditCar = () => {
               />
 
               <div className="flex flex-wrap justify-start mt-6">
-                
                 {documentImages.length === 0 &&
                   carData &&
                   carData.documentImage &&
@@ -459,9 +471,17 @@ export const EditCar = () => {
                 ))}
               </div>
             </div>
-          </div>
 
-          
+            <div>
+              <span>เปิด-ปิด ให้เช่ารถ</span>
+              <input
+                type="checkbox"
+                className="toggle toggle-lg toggle-success"
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+              />
+            </div>
+          </div>
 
           <div className="flex w-full justify-around">
             <div className="flex flex-col w-1/3 p-10">
@@ -501,9 +521,7 @@ export const EditCar = () => {
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
-          <p className="py-4">
-            กรูณาอัพโหลดรูปให้ครบ 6 ภาพ หรือ ใช้รูปเดิม
-          </p>
+          <p className="py-4">กรูณาอัพโหลดรูปให้ครบ 6 ภาพ หรือ ใช้รูปเดิม</p>
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>
@@ -511,7 +529,6 @@ export const EditCar = () => {
           </div>
         </div>
       </dialog>
-
     </>
   );
 };

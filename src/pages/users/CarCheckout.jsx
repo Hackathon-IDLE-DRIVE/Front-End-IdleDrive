@@ -64,7 +64,7 @@ export const CarCheckout = () => {
       RentalStartDate: pickupDate,
       RentalEndDate: returnDate,
       user_id: user.id,
-      address: location,
+      address: location, //เอามาใส่ตรงนี้
       TotalCost: total_rate + 5000,
       carRental_id: rental_id,
     };
