@@ -22,9 +22,8 @@ export const EditCar = () => {
     type: "",
     location: "",
   });
-  // Fetch car details when the component mounts
   useEffect(() => {
-    // Fetch car details using the id
+
     const fetchCarDetails = async () => {
       try {
         console.log("car id " + id);
@@ -76,6 +75,10 @@ export const EditCar = () => {
     handleFileUpload(e, carImages, setCarImages, setCarFileImages, 6);
   };
 
+  const handleDocumentUpload = (e)=>{
+    handleFileUpload(e, documentImages, setDocumentImages, setDocumentFileImages, 6);
+  }
+
 
   const deleteCarImg = (index) => {
     URL.revokeObjectURL(carImages[index].url);
@@ -83,8 +86,16 @@ export const EditCar = () => {
     setCarFileImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+  const deleteDocumentImg = (index) => {
+    URL.revokeObjectURL(documentImages[index].url);
+    setDocumentImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setDocumentFileImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
   const [carImages, setCarImages] = useState([]);
   const [carFileImages, setCarFileImages] = useState([]);
+  const [documentImages, setDocumentImages] = useState([]);
+  const [documentFileImages, setDocumentFileImages] = useState([]);
 
   const handleSubmit = async () => {
 
@@ -99,6 +110,10 @@ export const EditCar = () => {
     
     carFileImages.forEach((file) => {
       formData.append("carImages", file);
+    });
+
+    documentFileImages.forEach((file) => {
+      formData.append("documentImages", file);
     });
 
     console.log("Updated car details:", formData);
@@ -393,7 +408,60 @@ export const EditCar = () => {
                 ))}
               </div>
             </div>
+
+
+            <div className="w-full">
+              <label
+                htmlFor="Features"
+                className="mb-3 block text-base font-medium"
+              >
+                รูป : เอกสารของรถ
+              </label>
+
+              <input
+                className="file-input border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none "
+                type="file"
+                accept="image/*"
+                onChange={handleDocumentUpload}
+                multiple
+              />
+
+              <div className="flex flex-wrap justify-start mt-6">
+                
+                {documentImages.length === 0 &&
+                  carData &&
+                  carData.documentImage &&
+                  carData.documentImage.map((images, index) => (
+                    <div key={index} className="relative mr-6 mt-3">
+                      <img
+                        className="h-36 w-36 rounded-xl"
+                        src={`${BASE_URL}/api/v1/idledrive/images/${images.ImageURL}`}
+                        alt="Uploaded"
+                      />
+                    </div>
+                  ))}
+
+                {documentImages.map((images, index) => (
+                  <div key={index} className="relative mr-6 mt-3">
+                    <span
+                      className="absolute top-0 right-0
+                    hover:cursor-pointer"
+                      onClick={() => deleteDocumentImg(index)}
+                    >
+                      <box-icon name="x" size="md" color="red"></box-icon>
+                    </span>
+                    <img
+                      className="h-36 w-36 rounded-xl"
+                      src={images.url}
+                      alt="Uploaded"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+
+          
 
           <div className="flex w-full justify-around">
             <div className="flex flex-col w-1/3 p-10">
