@@ -149,7 +149,7 @@ export default function DriverInfomationhtmlForm({
           </label>
         </div>
 
-        <div className="relative">
+        {/* <div className="relative">
           <input
             value={form.phone}
             onChange={handleChange}
@@ -165,7 +165,7 @@ export default function DriverInfomationhtmlForm({
           >
             สถานที่ที่ต้องการรับรถ<span className="text-red-500"> *</span>
           </label>
-        </div>
+        </div> */}
 
         <div className="-mx-3 flex flex-wrap">
           {driverDoc && driverDoc.length > 0 ? null : (

@@ -60,7 +60,6 @@ export const Tracking = () => {
     const fetchHistoryBooking = async () => {
       const res = await getBookingHistory(user.id);
       setHistoryBooking(res);
-      console.log(res);
     };
 
     fetchDetailBooking();
@@ -112,6 +111,13 @@ export const Tracking = () => {
                 <div className="text-gray-400 font-bold mt-6">ที่อยู่ :</div>
                 <div className="font-bold">
                   168, 24th Bangkhen Bangkok 10220
+                </div>
+              </div>
+
+              <div>
+                <div className="text-gray-400 font-bold mt-6">เบอร์ติดต่อ (ผู้ให้เช่า) :</div>
+                <div className="font-bold">
+                  {detailBooking.carRental.phone}
                 </div>
               </div>
             </div>

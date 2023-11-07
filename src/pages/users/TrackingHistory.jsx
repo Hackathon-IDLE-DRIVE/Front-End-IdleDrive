@@ -98,6 +98,12 @@ export const TrackingHistory = () => {
                   168, 24th Bangkhen Bangkok 10220
                 </div>
               </div>
+              <div>
+                <div className="text-gray-400 font-bold mt-6">เบอร์ติดต่อ (ผู้ให้เช่า) :</div>
+                <div className="font-bold">
+                  {detailBooking.carRental.phone}
+                </div>
+              </div>
             </div>
             <div className=" border-gray-200 border-2 rounded-lg w-[700px] relative p-4">
               <div className="bg-white border-2 border-gray-50 shadow-lg w-fit px-6 py-4 flex flex-col justify-start
