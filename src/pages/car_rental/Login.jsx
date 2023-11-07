@@ -35,7 +35,7 @@ export default function LoginOwner() {
       </div>
 
       <div className="login_Container my-5 flex justify-center content-center items-center flex-col w-full h-full">
-        <div className="my-10 py-16 bg-white w-1/2 h-full flex flex-col items-center drop-shadow-lg shadow-lg rounded-lg">
+        <div className="my-10 py-16 bg-white w-1/2 h-full flex flex-col items-center drop-shadow-lg shadow-lg rounded-lg border-2">
           <div className="text-2xl font-bold mb-5 text-blue-700">ล็อกอิน</div>
 
           <div className="form-control w-full">
@@ -52,7 +52,7 @@ export default function LoginOwner() {
               type="text"
               id="email"
               placeholder="Type here"
-              className="input input-bordered w-full max-w-md mx-auto"
+              className="input input-bordered w-full max-w-md mx-auto focus:border-blue-700 focus:outline-none"
               onChange={handleChange}
             />
           </div>
@@ -65,7 +65,7 @@ export default function LoginOwner() {
               type="password"
               placeholder="Type here"
               id="password"
-              className="input input-bordered w-full max-w-md mx-auto"
+              className="input input-bordered w-full max-w-md mx-auto focus:border-blue-700 focus:outline-none"
               onChange={handleChange}
             />
           </div>
