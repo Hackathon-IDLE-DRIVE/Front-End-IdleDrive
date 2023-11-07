@@ -226,7 +226,7 @@ const TrackingBook = () => {
 
             <div className="container bg-white shadow-lg mt-10 w-3/4 flex flex-col items-center justify-center p-10 rounded-2xl border-2 border-[#D9D9D9]">
               <div className="text-center text-2xl font-bold mb-3 text-primary">ข้อมูลลูกค้า</div>
-              <div className="text-left border-2 p-5 rounded-lg text-primary">
+              <div className="text-left border-2 p-5 rounded-lg text-primary shadow-md">
                 <div className="font-semibold">
                   <span className="font-normal text-black">ชื่อ : </span>
                   {userDetail.user.FirstName} {userDetail.user.LastName}

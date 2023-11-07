@@ -14,14 +14,14 @@ export default function Transaction_BackOff({ rentData }) {
       <>
         <div 
         onClick={()=> navigate(`/merchant/tracking/${rentData.rental.RentalID}`)}
-        className='my-6 w-full h-36 px-10 py-5 shadow-xl drop-shadow-xl flex justify-between rounded-xl border-[#D9D9D9] border-2
-        hover:cursor-pointer hover:shadow-2xl'> 
+        className='my-3 w-full h-36 px-10 py-5 shadow-md flex justify-between rounded-xl border-[#D9D9D9] border-2
+        hover:cursor-pointer hover:shadow-xl hover:border-blue-700'> 
             <div className='flex items-center'>
                 <img className='h-24 w-24 rounded-full object-cover' src={`${BASE_URL}/api/v1/idledrive/images/${rentData.car.CarImages[0].imageURL}`} alt='carPic'/>
                 <div className='flex flex-col justify-center ml-5'>
                     <div className='text-xl font-bold'>{rentData.car.plate}</div>
                     <div className='text-base font-semibold'>{rentData.car.model} {rentData.car.make}</div>
-                    <div className='text-base font-semibold'>{rentData.rental.RentalStatus}</div>
+                    <div className='text-base font-bold text-blue-700'>{rentData.rental.RentalStatus}</div>
                 </div>
             </div>
             <div className='flex flex-col items-center justify-center'>
