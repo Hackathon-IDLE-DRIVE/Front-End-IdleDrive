@@ -126,7 +126,7 @@ export const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to={"/history"}>ประวัติ</Link>
+                  <Link to={`${user.id ? `/history` : `/merchant/history`}`}>ประวัติ</Link>
                 </li>
            
                 <li>
