@@ -3,7 +3,6 @@ import BASE_URL from '../../service/baseURL'
 
 export default function CommentReviewCar({ review }) {
 
-    
 
   return (
     <>
@@ -17,7 +16,7 @@ export default function CommentReviewCar({ review }) {
 
             <div className='mx-5'>
                 <div className='flex'>
-                    <div className='star'>⭐⭐⭐⭐⭐ </div>
+                    <StarRating rating={review.rating} />
                     <span className='text-base font-bold ml-5'>24-10-2023</span>
                 </div>
                 <div className='w-96'>{review.comment}</div>
@@ -26,3 +25,24 @@ export default function CommentReviewCar({ review }) {
     </>
   )
 }
+
+const StarRating = ({ rating }) => {
+    const maxRating = 5;
+  
+    const stars = [];
+
+    for (let i = 0; i < maxRating; i++) {
+        stars.push(
+          <box-icon
+            key={i}
+            name='star'
+            type='solid'
+            color={i < rating ? '#ffec00' : '#cccccc'}
+            size='24px'
+          >
+            </box-icon>
+        );
+      }
+  
+    return <div className="star-rating">{stars}</div>;
+};
