@@ -65,11 +65,16 @@ export const Navbar = () => {
           )}
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className=" menu-horizontal px-1">
             {isLoggedIn && userType === "carRentalOwner"
               ? navbarRentalData.map((menu, index) => (
                   <li key={index}>
-                    <NavLink to={menu.path}>{menu.title}</NavLink>
+                    <NavLink to={menu.path}
+                    className={({ isActive }) =>
+                        isActive
+                          ? "w-full p-3 font-extrabold text-base text-[#1D4FB1] hover:text-[#1D4FB1]  border-b-2 rounded-none border-blue-700 hover:bg-white  "
+                          : "w-full p-3 font-extrabold text-base text-black"
+                      }>{menu.title}</NavLink>
                   </li>
                 ))
               : navbarUserData.map((menu, index) => (
@@ -78,8 +83,8 @@ export const Navbar = () => {
                       to={menu.path}
                       className={({ isActive }) =>
                         isActive
-                          ? "font-extrabold text-base text-[#1D4FB1] hover:text-[#1D4FB1]"
-                          : "font-extrabold text-base text-black"
+                          ? "w-full p-3 font-extrabold text-base text-[#1D4FB1] hover:text-[#1D4FB1]  border-b-2 rounded-none border-blue-700 hover:bg-white"
+                          : "w-full p-3 font-extrabold text-base text-black"
                       }
                     >
                       {menu.title}
