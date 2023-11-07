@@ -61,6 +61,9 @@ export const History = () => {
               <li>
                 <a onClick={() => handleSortByType("Complete")}>Complete</a>
               </li>
+              <li>
+                <a onClick={() => handleSortByType("Cancel")}>Cancel</a>
+              </li>
             </ul>
           </details>
       </div>

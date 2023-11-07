@@ -287,61 +287,6 @@ export default function MerChantUserEdit() {
             </div>
           </div>
 
-          <div className="flex justify-center items-center my-5 max-w-lg">
-            <span className="w-44 border border-gray-400"></span>
-            <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
-              User & password
-            </span>
-            <span className="w-44 border border-gray-400"></span>
-          </div>
-
-          <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  htmlFor="password"
-                  className="mb-3 block text-base font-medium"
-                >
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Password"
-                    className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
-           
-                </div>
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  htmlFor="Confirm-Password"
-                  className="mb-3 block text-base font-medium"
-                >
-                  Confirm-Password
-                </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="Confirm-Password"
-                    className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  />
-
-                </div>
-              </div>
-            </div>
-          </div>
-
           <button
             type="submit"
             className="btn btn-primary mt-8 bg-blue-700 text-white w-full max-w-lg mx-auto hover:bg-sky-400"
