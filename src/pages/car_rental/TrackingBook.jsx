@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Status from "../../components/Status";
 import { getDetailDriver } from "../../service/cars_rental";
 import BASE_URL from "../../service/baseURL";
+import backgroundImageUrl from '../../images/bgcar.gif';
 
 const TrackingBook = () => {
   const { bookingId } = useParams();
@@ -87,11 +88,17 @@ const TrackingBook = () => {
     fetchUserData();
   }, [detailBooking]);
 
+  const containerStyle = {
+    backgroundImage: `url(${backgroundImageUrl})`,
+    backgroundSize: 'cover', 
+    backgroundPositionY: `bottom`,
+  };
+
   return (
     <>
       {detailBooking && userDetail && (
-        <div>
-          <div className="container shadow-lg bg-white py-10 px-16 rounded-2xl flex justify-between">
+        <div className="my-10">
+          <div className="container shadow-lg bg-white py-10 px-16 rounded-2xl flex justify-between border-2 border-[#D9D9D9]">
             <div>
               <div>
                 <div className="text-gray-400 font-bold">รายการ :</div>
@@ -122,7 +129,7 @@ const TrackingBook = () => {
                 </div>
               </div>
             </div>
-            <div className=" border-gray-200 border-2 rounded-lg w-[700px] relative p-4">
+            <div className=" border-gray-200 border-2 rounded-lg w-[700px] relative p-4" style={containerStyle}>
               <div
                 className="bg-white border-2 border-gray-50 shadow-lg w-fit px-6 py-4 flex flex-col justify-start
       absolute right-6 top-9"
@@ -217,26 +224,28 @@ const TrackingBook = () => {
               </ul>
             </div>
 
-            <div className="container bg-white shadow-lg mt-10 w-3/4 flex flex-col items-center justify-center p-10">
-              <div className="text-center text-xl font-bold">ข้อมูลลูกค้า</div>
-              <div>
-                <span>NAME : </span>
-                {userDetail.user.FirstName} {userDetail.user.LastName}
+            <div className="container bg-white shadow-lg mt-10 w-3/4 flex flex-col items-center justify-center p-10 rounded-2xl border-2 border-[#D9D9D9]">
+              <div className="text-center text-2xl font-bold mb-3 text-primary">ข้อมูลลูกค้า</div>
+              <div className="text-left border-2 p-5 rounded-lg text-primary">
+                <div className="font-semibold">
+                  <span className="font-normal text-black">ชื่อ : </span>
+                  {userDetail.user.FirstName} {userDetail.user.LastName}
+                </div>
+                <div className="font-semibold">
+                  <span className="font-normal text-black">เบอร์โทรศัพท์ : </span>
+                  {userDetail.user.phone}
+                </div>
+                <div className="font-semibold">
+                  <span className="font-normal text-black">เริ่มวันที่ : </span>
+                  {detailBooking.rental.RentalStartDate}
+                </div>
+                <div className="font-semibold">
+                  <span className="font-normal text-black">เสร็จสิ้นวันที่ : </span>
+                  {detailBooking.rental.RentalEndDate}
+                </div>
               </div>
-              <div>
-                <span>Phone : </span>
-                {userDetail.user.phone}
-              </div>
-              <div>
-                <span>START DATE : </span>
-                {detailBooking.rental.RentalStartDate}
-              </div>
-              <div>
-                <span>END DATE : </span>
-                {detailBooking.rental.RentalEndDate}
-              </div>
-              <div className="text-center text-xl font-bold mt-4">Document</div>
-              <div className="flex my-3">
+              <div className="text-center text-xl font-bold mt-5 ">เอกสารเพิ่มเติม</div>
+              <div className="flex mt-3 mb-10">
                 <div className="mr-4">
                   <img
                     className="h-32"
@@ -251,9 +260,24 @@ const TrackingBook = () => {
                 </div>
               </div>
               <div className="flex justify-center items-center w-2/4">
+                
+                {getStatusNext(detailBooking.rental.RentalStatus)[3] && (
+                  <button
+                    className="btn btn-error text-error w-2/4 ml-2 border-error border-2 bg-white hover:text-white hover:bg-error"
+                    onClick={() => {
+                      updateStatus(
+                        bookingId,
+                        getStatusNext(detailBooking.rental.RentalStatus)[3]
+                      );
+                    }}
+                  >
+                    {getStatusNext(detailBooking.rental.RentalStatus)[3]}
+                  </button>
+                )}
+
                 {getStatusNext(detailBooking.rental.RentalStatus)[2] && (
                   <button
-                    className="btn btn-primary text-white w-2/4"
+                    className="btn btn-primary text-white w-2/4 ml-2 hover:bg-blue-600"
                     onClick={() => {
                       updateStatus(
                         bookingId,
@@ -265,19 +289,6 @@ const TrackingBook = () => {
                   </button>
                 )}
 
-                {getStatusNext(detailBooking.rental.RentalStatus)[3] && (
-                  <button
-                    className="btn btn-error text-white w-2/4 ml-2"
-                    onClick={() => {
-                      updateStatus(
-                        bookingId,
-                        getStatusNext(detailBooking.rental.RentalStatus)[3]
-                      );
-                    }}
-                  >
-                    {getStatusNext(detailBooking.rental.RentalStatus)[3]}
-                  </button>
-                )}
               </div>
             </div>
           </div>
