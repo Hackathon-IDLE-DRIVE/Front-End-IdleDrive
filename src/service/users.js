@@ -66,6 +66,15 @@ export const updateDriverInformation = async (userId,formData) => {
   }
 };
 
+export const updateDriverDocument = async (userId,formData) => {
+  try {
+    const response = await axios.put(`${BASE_URL_API}/driver/document/${userId}`,formData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Service สำหรับสร้าง driver doc
 export const createDriverDocument = async (userId, documentData) => {
   try {

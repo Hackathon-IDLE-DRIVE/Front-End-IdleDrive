@@ -1,7 +1,11 @@
-import React, { useEffect, useState,useContext } from "react";
-import { createUser, getUserById, updateUser } from "../../service/users";
+import React, { useEffect, useState, useContext } from "react";
+import {
+  getUserById,
+  updateUser,
+  updateDriverDocument,
+} from "../../service/users";
 import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from '../../service/context/AuthContext'
+import { AuthContext } from "../../service/context/AuthContext";
 import BASE_URL from "../../service/baseURL";
 
 export default function UserEdit() {
@@ -10,6 +14,59 @@ export default function UserEdit() {
   const { id } = useParams();
   const [profileImg, setProfileImg] = useState();
   const { dispatch } = useContext(AuthContext);
+  const [previewImage, setPreviewImage] = useState({
+    idcardFile: null,
+    licenseFile: null,
+  });
+
+  const [documentFile, setDocumentFile] = useState({
+    idcardFile: null,
+    licenseFile: null,
+  });
+
+  const handleDeletePreview = (id) => {
+    setPreviewImage((prevImages) => ({
+      ...prevImages,
+      [id]: null,
+    }));
+
+    setDocumentFile((prevData) => ({
+      ...prevData,
+      [id]: null,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const { id, files } = e.target;
+    const file = files[0];
+
+    if (!file.type.startsWith("image/")) {
+      console.error("Invalid file type. Please select an image.");
+      document.getElementById("my_modal_1").showModal();
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      console.error("File size exceeds 5MB limit.");
+      document.getElementById("my_modal_2").showModal();
+      return;
+    }
+
+    setDocumentFile((prevData) => ({
+      ...prevData,
+      [id]: file,
+    }));
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const previewImageSrc = e.target.result;
+      setPreviewImage((prevImages) => ({
+        ...prevImages,
+        [id]: previewImageSrc,
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -25,22 +82,22 @@ export default function UserEdit() {
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-  
+
     if (type === "file" && name === "profileImage") {
       const file = files[0];
-  
-      if (!file.type.startsWith('image/')) {
-        console.error('Invalid file type. Please select an image.');
-        document.getElementById('my_modal_1').showModal()
+
+      if (!file.type.startsWith("image/")) {
+        console.error("Invalid file type. Please select an image.");
+        document.getElementById("my_modal_1").showModal();
         return;
       }
-  
+
       if (file.size > 3 * 1024 * 1024) {
-        console.error('File size exceeds 3MB limit.');
-        document.getElementById('my_modal_2').showModal()
+        console.error("File size exceeds 3MB limit.");
+        document.getElementById("my_modal_2").showModal();
         return;
       }
-  
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setFormData((prevData) => ({
@@ -48,7 +105,7 @@ export default function UserEdit() {
           profileImage: reader.result,
         }));
       };
-  
+
       if (file) {
         setProfileImg(file);
         reader.readAsDataURL(file);
@@ -60,7 +117,6 @@ export default function UserEdit() {
       }));
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +127,18 @@ export default function UserEdit() {
     formPost.append("Birth", formData.age);
     formPost.append("phone", formData.phone);
     formPost.append("profileImage", profileImg);
+
+    if (documentFile.idcardFile || documentFile.licenseFile) {
+      const updateDocument = new FormData();
+      if (documentFile.idcardFile) {
+        updateDocument.append("IdCardDocument", documentFile.idcardFile);
+      }
+      if (documentFile.licenseFile) {
+        updateDocument.append("LicenseDocument", documentFile.licenseFile);
+      }
+      const res = await updateDriverDocument(id, updateDocument);
+      console.log(res);
+    }
 
     const res = await updateUser(id, formPost);
     console.log("Form submitted:", formData);
@@ -89,14 +157,13 @@ export default function UserEdit() {
     const fetchUser = async () => {
       const res = await getUserById(id);
       setUserDetail(res);
-      console.log(res);
 
       setFormData({
-        fname: res.FirstName || "",
-        lname: res.LastName || "",
-        phone: res.phone || "",
-        email: res.email || "",
-        age: res.Birth || "",
+        fname: res.user.FirstName || "",
+        lname: res.user.LastName || "",
+        phone: res.user.phone || "",
+        email: res.user.email || "",
+        age: res.user.Birth || "",
         profileImage: null,
         password: "",
         confirmPassword: "",
@@ -124,7 +191,7 @@ export default function UserEdit() {
                 className=" rounded-full h-60 w-60 object-cover border-4  shadow-xl hover:border-blue-700 hover:shadow-lg"
                 src={
                   formData.profileImage ||
-                  `${BASE_URL}/api/v1/idledrive/images/${userDetail.profileURL}`
+                  `${BASE_URL}/api/v1/idledrive/images/${userDetail.user.profileURL}`
                 }
                 alt="profile"
               />
@@ -166,7 +233,6 @@ export default function UserEdit() {
                     value={formData.fname}
                     onChange={handleChange}
                   />
-    
                 </div>
               </div>
             </div>
@@ -189,7 +255,6 @@ export default function UserEdit() {
                     value={formData.lname}
                     onChange={handleChange}
                   />
-
                 </div>
               </div>
             </div>
@@ -217,7 +282,6 @@ export default function UserEdit() {
                     value={formData.phone}
                     onChange={handleChange}
                   />
-
                 </div>
               </div>
             </div>
@@ -240,7 +304,6 @@ export default function UserEdit() {
                     value={formData.email}
                     onChange={handleChange}
                   />
-  
                 </div>
               </div>
             </div>
@@ -269,9 +332,87 @@ export default function UserEdit() {
                     value={formData.age}
                     onChange={handleChange}
                   />
-     
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="-mx-3 flex flex-wrap">
+            <div className="form-control w-2/3 max-w-xs">
+              <label className="label">
+                <span className="label-text">เลือกไฟล์</span>
+                <span className="label-text-alt">สำเนาบัตรประชาชน</span>
+              </label>
+              <input
+                type="file"
+                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                accept="image/*"
+                onChange={handleFileChange}
+                id="idcardFile"
+              />
+              {previewImage.idcardFile === null &&
+                userDetail &&
+                userDetail.driverDocuments[0] && (
+                  <img
+                    src={`${BASE_URL}/api/v1/idledrive/images/${userDetail.driverDocuments[0].ImageURL}`}
+                    alt="ID Card Preview"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                )}
+
+              {previewImage.idcardFile && (
+                <div className="relative">
+                  <img
+                    src={previewImage.idcardFile}
+                    alt="ID Card Preview"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                  <button
+                    className="absolute text-red-500 top-0 right-0 font-extrabold text-xl"
+                    onClick={() => handleDeletePreview("idcardFile")}
+                  >
+                    X
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="form-control w-2/3 max-w-xs">
+              <label className="label">
+                <span className="label-text">เลือกไฟล์</span>
+                <span className="label-text-alt">สำเนาใบขับขี่</span>
+              </label>
+              <input
+                type="file"
+                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                accept="image/*"
+                onChange={handleFileChange}
+                id="licenseFile"
+              />
+
+              {previewImage.licenseFile === null &&
+                userDetail &&
+                userDetail.driverDocuments[1] && (
+                  <img
+                    src={`${BASE_URL}/api/v1/idledrive/images/${userDetail.driverDocuments[1].ImageURL}`}
+                    alt="ID Card Preview"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                )}
+
+              {previewImage.licenseFile && (
+                <div className="relative">
+                  <img
+                    src={previewImage.licenseFile}
+                    alt="ID Card Preview"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                  <button
+                    className="absolute text-red-500 top-0 right-0 font-extrabold text-xl"
+                    onClick={() => handleDeletePreview("licenseFile")}
+                  >
+                    X
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -283,7 +424,6 @@ export default function UserEdit() {
           </button>
         </form>
       </div>
-
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
