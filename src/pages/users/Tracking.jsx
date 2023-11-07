@@ -111,7 +111,7 @@ export const Tracking = () => {
               <div>
                 <div className="text-gray-400 font-bold mt-6">ที่อยู่ :</div>
                 <div className="font-bold">
-                  168, 24th Bangkhen Bangkok 10220
+                {detailBooking.rental.address}
                 </div>
               </div>
             </div>

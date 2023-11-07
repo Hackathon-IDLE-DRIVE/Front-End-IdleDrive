@@ -23,7 +23,7 @@ export const CarCheckout = () => {
   const { user } = useContext(AuthContext);
   const pickupDate = searchParams.get("pick-up");
   const returnDate = searchParams.get("return");
-  const location = searchParams.get("location");
+  const location = searchParams.get("location");// รับค่า location จาก URL parameters
   const [dateRange, setDateRange] = useState([]);
   const [carDetail, setCarDetail] = useState();
   const { rental_range, total_rate, rental_id } = useLocation().state;
@@ -34,6 +34,7 @@ export const CarCheckout = () => {
     lname: "",
     email: "",
     phone: "",
+    location:location,
     idcardFile: null,
     licenseFile: null,
   });
@@ -52,6 +53,7 @@ export const CarCheckout = () => {
       !formData.lname ||
       !formData.email ||
       !formData.phone ||
+      !formData.location ||
       (!driverDoc && (!formData.idcardFile || !formData.licenseFile))
     ) {
       console.error("Please fill in all required fields.");
@@ -64,7 +66,7 @@ export const CarCheckout = () => {
       RentalStartDate: pickupDate,
       RentalEndDate: returnDate,
       user_id: user.id,
-      address: location, //เอามาใส่ตรงนี้
+      address: formData.location, //เอามาใส่ตรงนี้
       TotalCost: total_rate + 5000,
       carRental_id: rental_id,
     };

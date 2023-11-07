@@ -151,16 +151,16 @@ export default function DriverInfomationhtmlForm({
 
         <div className="relative">
           <input
-            value={form.phone}
+            value={form.location}
             onChange={handleChange}
             type="text"
             required
-            id="phone"
+            id="location"
             placeholder=""
             className="peer w-full h-10 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           />
           <label
-            htmlFor="phone"
+            htmlFor="location"
             className="absolute font-medium text-base py-2 px-4 opacity-75 text-[#6B7280] duration-300 transhtmlForm -translate-y-5 scale-75 bg-white  top-0 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:bg-opacity-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5 peer-focus:text-sm peer-focus:bg-white peer-focus:opacity-100"
           >
             สถานที่ที่ต้องการรับรถ<span className="text-red-500"> *</span>
