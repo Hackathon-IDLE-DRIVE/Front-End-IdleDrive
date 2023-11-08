@@ -27,20 +27,30 @@ export default function BackOfficeRegister() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
-      rental_name: formData.rentalname,
-      FirstName: formData.fname,
-      LastName: formData.lname,
-      phone: formData.phone,
-      email: formData.email,
-      location: formData.deployCar,
-      username: formData.username,
-      password: formData.password,
-    };
-    const res = await registerUser(user);
-    console.log("Form Data:", formData);
-    console.log(res);
-    navigate("/merchant");
+    if (formData.password !== formData.confirmPassword) {
+      document.getElementById("my_modal_1").showModal();
+    } else {
+      const user = {
+        rental_name: formData.rentalname,
+        FirstName: formData.fname,
+        LastName: formData.lname,
+        phone: formData.phone,
+        email: formData.email,
+        location: formData.deployCar,
+        username: formData.username,
+        password: formData.password,
+      };
+      const res = await registerUser(user);
+      console.log("Form Data:", formData);
+      console.log(res);
+
+      document.getElementById("my_modal_4").showModal();
+
+      setTimeout(() => {
+        document.getElementById("my_modal_4").close();
+        navigate("/merchant");
+      }, 3000);
+    }
   };
 
   return (
@@ -186,7 +196,6 @@ export default function BackOfficeRegister() {
             </div>
           </div>
 
-
           <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
             <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
@@ -270,6 +279,39 @@ export default function BackOfficeRegister() {
           </button>
         </div>
       </form>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">รหัสผ่านไม่ตรงกัน กรุณาลองใหม่อีกครั้ง</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box w-96 max-w-5xl">
+          <h3 className="font-extrabold text-xl text-primary text-center">
+            สมัครเสร็จสิ้น!
+          </h3>
+          <p className="py-4 text-lg flex flex-col justify-center items-center">
+            <span>
+              รอเจ้าหน้าที่ติดต่อกลับ{" "}
+              <span className="text-red-500 font-extrabold">7-15</span> วันทำการ
+            </span>
+            ขอบคุณที่ร่วมเดินทางกับเรา
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn" onClick={() => navigate("/merchant")}>
+                รับทราบ
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }

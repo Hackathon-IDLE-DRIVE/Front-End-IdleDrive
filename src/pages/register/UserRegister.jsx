@@ -30,19 +30,28 @@ export default function UserRegister() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-      FirstName: formData.fname,
-      LastName: formData.lname,
-      Birth: formData.age,
-      phone: formData.phone,
-    };
-    const res = await createUser(user);
-    console.log("Form submitted:", user);
-    console.log(res);
-    navigate("/");
+
+    if (formData.password !== formData.confirmPassword) {
+      document.getElementById("my_modal_1").showModal();
+    } else {
+      const user = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        FirstName: formData.fname,
+        LastName: formData.lname,
+        Birth: formData.age,
+        phone: formData.phone,
+      };
+
+      try {
+        const res = await createUser(user);
+        console.log("Form submitted:", user);
+        navigate("/");
+      } catch (error) {
+        document.getElementById("my_modal_2").showModal();
+      }
+    }
   };
 
   return (
@@ -176,9 +185,6 @@ export default function UserRegister() {
             </div>
           </div>
 
-          
-
-
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
               <div className="mb-5">
@@ -241,7 +247,7 @@ export default function UserRegister() {
           <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
             <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
-            User & password
+              User & password
             </span>
             <span className="w-44 border border-gray-400"></span>
           </div>
@@ -361,6 +367,30 @@ export default function UserRegister() {
           </button>
         </form>
       </div>
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">รหัสผ่านไม่ตรงกัน กรุณาลองใหม่อีกครั้ง</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง!</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }
