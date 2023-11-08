@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function ProtectionOption(prop) {
+export default function ProtectionOption({ title, setIsCheck, isCheck }) {
 
     let content = '';
-    let carType = prop.title;
+    const carType = title;
     console.log(carType + '============')
 
     if (carType === 'campercar' || carType === 'Campervan' || carType === 'Campercar') {
@@ -115,7 +115,10 @@ export default function ProtectionOption(prop) {
 
             <div className="htmlForm-control">
                 <label className="label cursor-pointer justify-start">
-                <input type="checkbox" required className="checkbox-md " />
+                <input type="checkbox" required className="checkbox-md "
+                  checked={isCheck}
+                  onChange={(e) => setIsCheck(e.target.checked)}
+                   />
                 <span className="label-text pl-5">
                     ยืนยันว่าข้าพเจ้ารับทราบแล้ว{" "}
                     <span className="text-red-600">*</span>
