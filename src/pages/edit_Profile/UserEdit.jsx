@@ -284,6 +284,40 @@ export default function UserEdit() {
             </div>
           </div>
 
+          <div className="-mx-10 w-9/12">
+            <div className="w-full flex  ">
+              <div className="mb-5 w-1/2">
+                <label
+                  htmlFor="idcard"
+                  className="mb-3 block text-base font-medium"
+                >
+                  ภาพถ่ายบัตรประชาชน
+                </label>
+                <input
+                  type="file"
+                  name="idcard"
+                    id="idcard"
+                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:text-primary file:bg-white file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
+                />
+              </div>
+
+              <div className="mb-5 w-1/2 ml-3">
+                <label
+                  htmlFor="license"
+                  className="mb-3 block text-base font-medium"
+                >
+                  ใบขับขี่
+                </label>
+                <input
+                  type="file"
+                  name="license"
+                    id="license"
+                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:text-primary file:bg-white file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
             <span className="px-4 w-44 bg-white text-center uppercase text-sm text-primary">
