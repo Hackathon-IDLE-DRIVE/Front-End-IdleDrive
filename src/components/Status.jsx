@@ -21,7 +21,7 @@ const Status = ({ status }) => {
   const backgroundColor = getStatusColor(status);
 
   return (
-    <div className={`p-3 text-center text-white font-bold rounded-xl ${backgroundColor}`}>
+    <div className={`p-3 text-center text-white font-bold rounded-xl ${backgroundColor} px-20`}>
       <p>{status}</p>
     </div>
   );

@@ -26,9 +26,9 @@ const TrackingBook = () => {
           "Cancel",
         ];
       case "Confirm order":
-        return ["จัดส่งรถ", "กรุณาติดต่อกับลูกค้า", "On-delivery"];
+        return ["จัดส่งรถ", "กรุณาติดต่อกับลูกค้า", "On-delivery","Cancel"];
       case "On-delivery":
-        return ["ส่งมอบและ เซ็นสัญญา", "เตรียมเอกสารให้พร้อม!", "Pick-up"];
+        return ["ส่งมอบและ เซ็นสัญญา", "เตรียมเอกสารให้พร้อม!", "Pick-up","Cancel"];
       case "Pick-up":
         return [
           "รอลูกค้าส่งมอบรถคืน",
