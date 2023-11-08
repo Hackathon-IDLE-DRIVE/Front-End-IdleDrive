@@ -9,11 +9,11 @@ export default function Back_myCarList({ data, carData }) {
     const status = data;
     const navigate = useNavigate();
 
-    function showStatus(){
-        if(status === 'idle'){
+    function showStatus(status){
+        if(status === false){
             return <Idle/>
         }
-        else if(status === 'activate'){
+        else if(status === true){
             return <Activate/>
         }
     }
@@ -38,7 +38,7 @@ export default function Back_myCarList({ data, carData }) {
                 <p className="w-11/12 font-semibold text-[#908D8D] line-clamp-3">{carData.description}</p>
             </div>
         
-            {showStatus()}
+            {showStatus(carData.status)}
   
           </div>
         </div>

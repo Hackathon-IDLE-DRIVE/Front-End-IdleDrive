@@ -25,6 +25,7 @@ export const Home = () => {
 
   const navigate = useNavigate();
 
+
   const handleBookingClick = () => {
     if (!location.trim()) {
       document.getElementById('my_modal_1').showModal();
@@ -53,13 +54,25 @@ export const Home = () => {
           md:w-[768px]
           max-[640px]:w-full"
         >
-          <input
+
+          <select 
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required className="input w-full max-w-xs my-4 px-3 bg-gray-100 border-none focus:outline-blue-700">
+              <option value='' disabled selected>สถานที่</option>
+              <option value="airport">ท่าอากาศยานเชียงใหม่</option>
+              <option value="tar-pare">ประตูท่าแพ</option>
+              <option value="cmu">มหาวิทยาลัยเชียงใหม่</option>
+              <option value="maya">MAYA เมย่า</option>
+              <option value="central-airport">เซ็นทรัลเชียงใหม่ แอร์พอร์ต</option>
+          </select>
+          {/* <input
             type="text"
             placeholder="สถานที่"
             className="input w-full max-w-xs my-4 bg-gray-100 border-none"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-          />
+          /> */}
           <div
             className="flex flex-row rounded-lg border-2 border-stone-400 p-4 w-[600px] relative
           max-[640px]:flex-col max-[640px]:w-full"

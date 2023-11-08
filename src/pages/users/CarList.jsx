@@ -129,13 +129,24 @@ export const CarList = () => {
       <div className="flex flex-col w-full border-b-2 p-5 items-center md:flex-row">
         <div>
           สถานที่
-          <input
+          <select 
+            value={locationInput}
+            onChange={(e) => setLocationInput(e.target.value)}
+            required className="input input-bordered w-full max-w-xs my-4 px-3 bg-white border-2 focus:outline-blue-700">
+              <option value='' disabled selected>สถานที่</option>
+              <option value="airport">ท่าอากาศยานเชียงใหม่</option>
+              <option value="tar-pare">ประตูท่าแพ</option>
+              <option value="cmu">มหาวิทยาลัยเชียงใหม่</option>
+              <option value="maya">MAYA เมย่า</option>
+              <option value="central-airport">เซ็นทรัลเชียงใหม่ แอร์พอร์ต</option>
+          </select>
+          {/* <input
             type="text"
             placeholder="โปรดระบุสถานที่ของท่าน"
             className="input input-bordered w-full max-w-xs my-4"
             value={locationInput}
             onChange={(e) => setLocationInput(e.target.value)}
-          />
+          /> */}
         </div>
         <div className="md:ml-10">
           วันเดือนปี
