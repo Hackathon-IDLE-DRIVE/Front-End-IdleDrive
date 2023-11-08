@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { addRoutes } from "../../service/route";
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../../service/context/AuthContext";
 
 export default function AddRouteForm() {
-
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const [routeDetails, setRouteDetails] = useState({
     name: "",
@@ -25,65 +25,65 @@ export default function AddRouteForm() {
       [name]: value,
     }));
   };
-
+  const googleMapsLinkRegex = /^https:\/\/maps\.app\.goo\.gl\/[^\s]+$/;
+  const isGoogleMapsLink = (input) => {
+    return googleMapsLinkRegex.test(input);
+  };
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [imageCount, setImageCount] = useState(0); 
+  const [imageCount, setImageCount] = useState(0);
 
-//   const handleImageUpload = (e) => {
-//     const file = e.target.files[0];
+  //   const handleImageUpload = (e) => {
+  //     const file = e.target.files[0];
 
+  //     if (file && uploadedImages.length < 6) {
 
-//     if (file && uploadedImages.length < 6) {
+  //       const reader = new FileReader();
 
-//       const reader = new FileReader();
+  //       reader.onload = (event) => {
+  //         const uploadedImage = {
+  //           src: event.target.result,
+  //           file: file,
+  //         };
 
-//       reader.onload = (event) => {
-//         const uploadedImage = {
-//           src: event.target.result,
-//           file: file,
-//         };
+  //         setUploadedImages((prevImages) => [...prevImages, uploadedImage]);
+  //       };
 
-//         setUploadedImages((prevImages) => [...prevImages, uploadedImage]);
-//       };
+  //       reader.readAsDataURL(file);
+  //     } else {
+  //       setShowError(true);
+  //       console.log(showError + ' : image is more than 6 :<');
+  //     }
+  //   };
 
-//       reader.readAsDataURL(file);
-//     } else {
-//       setShowError(true);
-//       console.log(showError + ' : image is more than 6 :<');
-//     }
-//   };
-
-const handleImageUpload = (e) => {
+  const handleImageUpload = (e) => {
     const selectedFiles = Array.from(e.target.files);
-  
 
     const newImages = selectedFiles.map((file) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-  
+
         reader.onload = (event) => {
           resolve({
             src: event.target.result,
             file: file,
           });
         };
-  
+
         reader.onerror = reject;
-  
+
         reader.readAsDataURL(file);
       });
     });
-  
+
     Promise.all(newImages)
       .then((imageData) => {
         setUploadedImages((prevImages) => [...prevImages, ...imageData]);
-        setImageCount((prevCount) => prevCount + selectedFiles.length); 
+        setImageCount((prevCount) => prevCount + selectedFiles.length);
       })
       .catch((error) => {
-        console.error('ข้อผิดพลาดในการอัปโหลดรูปภาพ:', error);
+        console.error("ข้อผิดพลาดในการอัปโหลดรูปภาพ:", error);
       });
   };
-  
 
   const handleRemoveImage = (index) => {
     const updatedImages = [...uploadedImages];
@@ -91,48 +91,54 @@ const handleImageUpload = (e) => {
     setUploadedImages(updatedImages);
     setImageCount((prevCount) => prevCount - 1);
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isGoogleMapsLink(routeDetails.link)) {
+      document.getElementById("my_modal_6").showModal();
+      return;
+    }
+
     const formData = new FormData();
-    formData.append('routeData',JSON.stringify(routeDetails));
+    formData.append("routeData", JSON.stringify(routeDetails));
     uploadedImages.forEach((file) => {
-        formData.append("routeImages", file.file);
+      formData.append("routeImages", file.file);
     });
 
     // console.log(imageCount + ': รูป');
 
     if (uploadedImages.length > 6) {
-        // console.log('รูป : ' + uploadedImages.length)
-        document.getElementById('my_modal_4').showModal()
-        return;
-      }
+      // console.log('รูป : ' + uploadedImages.length)
+      document.getElementById("my_modal_4").showModal();
+      return;
+    }
     if (uploadedImages.length < 6) {
-        // console.log('รูป : ' + uploadedImages.length)
-        document.getElementById('my_modal_5').showModal()
-        return;
+      // console.log('รูป : ' + uploadedImages.length)
+      document.getElementById("my_modal_5").showModal();
+      return;
     }
 
-
     try {
-        const response = await addRoutes(1,formData);
-        console.log("Route create succesful :", response);
-        // navigate("/route");
-      } catch (error) {
-        console.error("Error create mai dai :", error);
-      }
-    };
+      const response = await addRoutes(user.id, formData);
+      console.log("Route create succesful :", response);
+      navigate("/route");
+    } catch (error) {
+      console.error("Error create mai dai :", error);
+    }
+  };
 
   return (
     <>
-
       <div className="text-center font-bold text-3xl text-primary my-10">
         สร้างเส้นทาง
       </div>
 
       <div className="w-full flex justify-center">
-        <form onSubmit={handleSubmit}
-         className="w-2/4 p-10 mb-10 rounded-xl shadow-xl border-[#D9D9D9] border-2">
+        <form
+          onSubmit={handleSubmit}
+          className="w-2/4 p-10 mb-10 rounded-xl shadow-xl border-[#D9D9D9] border-2"
+        >
           <div className="relative z-0 w-full mb-6 group">
             <input
               type="text"
@@ -187,7 +193,8 @@ const handleImageUpload = (e) => {
                 for="price"
                 className="ml-5 px-1 text-primary peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 z-40 bg-white  origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:bg-white peer-focus:z-30"
               >
-                ค่าใช้จ่ายโดยประมาณ ( ฿ )<span className="text-red-500"> *</span>
+                ค่าใช้จ่ายโดยประมาณ ( ฿ )
+                <span className="text-red-500"> *</span>
               </label>
             </div>
           </div>
@@ -249,7 +256,6 @@ const handleImageUpload = (e) => {
               Link ฝังแผนที่ GoogleMap<span className="text-red-500"> *</span>
             </label>
           </div>
-
 
           <div className="relative z-0 w-full mb-6 group">
             <textarea
@@ -316,30 +322,59 @@ const handleImageUpload = (e) => {
         </form>
       </div>
 
-
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-5/12 max-w-5xl">
-            <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
-            <p className="py-4 font-bold">รูปภาพของท่านมี <span className="font-bold text-red-500 underline">มากเกิน</span> 6 รูป</p>
-            <div className="modal-action">
+          <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4 font-bold">
+            รูปภาพของท่านมี{" "}
+            <span className="font-bold text-red-500 underline">มากเกิน</span> 6
+            รูป
+          </p>
+          <div className="modal-action">
             <form method="dialog">
-                <button className="btn bg-blue-700 text-white hover:bg-blue-800">รับทราบ</button>
+              <button className="btn bg-blue-700 text-white hover:bg-blue-800">
+                รับทราบ
+              </button>
             </form>
-            </div>
+          </div>
         </div>
-        </dialog>
+      </dialog>
 
-        <dialog id="my_modal_5" className="modal">
+      <dialog id="my_modal_5" className="modal">
         <div className="modal-box w-5/12 max-w-5xl">
-            <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
-            <p className="py-4 font-bold">รูปภาพของท่าน <span className="font-bold text-red-500 underline">ไม่ครบ</span> 6 รูป</p>
-            <div className="modal-action">
+          <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4 font-bold">
+            รูปภาพของท่าน{" "}
+            <span className="font-bold text-red-500 underline">ไม่ครบ</span> 6
+            รูป
+          </p>
+          <div className="modal-action">
             <form method="dialog">
-                <button className="btn bg-blue-700 text-white hover:bg-blue-800">รับทราบ</button>
+              <button className="btn bg-blue-700 text-white hover:bg-blue-800">
+                รับทราบ
+              </button>
             </form>
-            </div>
+          </div>
         </div>
-        </dialog>
+      </dialog>
+
+      <dialog id="my_modal_6" className="modal">
+        <div className="modal-box w-5/12 max-w-5xl">
+          <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4 font-bold">
+            ลิ้งค์ของท่าน{" "}
+            <span className="font-bold text-red-500 underline">ไม่ใช่</span>{" "}
+            Google Map
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn bg-blue-700 text-white hover:bg-blue-800">
+                รับทราบ
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }
