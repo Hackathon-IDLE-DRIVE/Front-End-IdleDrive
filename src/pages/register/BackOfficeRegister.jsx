@@ -143,7 +143,10 @@ export default function BackOfficeRegister() {
                   required
                   value={formData.phone}
                   onChange={handleInputChange}
-                  type="text"
+                  type="tel"
+                  maxLength={10}
+                  minLength={9}
+                  pattern="[0-9]{9,10}"
                   name="phone"
                   id="phone"
                   placeholder="Phone"

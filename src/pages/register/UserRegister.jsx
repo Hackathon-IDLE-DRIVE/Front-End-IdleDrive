@@ -136,9 +136,10 @@ export default function UserRegister() {
                 <div className="relative">
                   <input
                     required
-                    type="text"
+                    type="tel"
                     maxLength={10}
                     minLength={10}
+                    pattern="[0-9]{9,10}"
                     name="phone"
                     id="phone"
                     placeholder=""
