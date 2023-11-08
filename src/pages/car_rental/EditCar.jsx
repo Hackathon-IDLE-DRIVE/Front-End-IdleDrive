@@ -472,14 +472,20 @@ export const EditCar = () => {
               </div>
             </div>
 
-            <div>
-              <span>เปิด-ปิด ให้เช่ารถ</span>
+            <div className="mt-5 w-full flex flex-col">
+              <p className="font-bold text-sm ">เปิด-ปิด ให้เช่ารถ</p>
               <input
                 type="checkbox"
-                className="toggle toggle-lg toggle-success"
+                className="toggle toggle-lg toggle-success mt-3"
                 onChange={handleCheckboxChange}
                 checked={isChecked}
               />
+              <div className="mt-3">
+                <ul className="list-disc ml-5">
+                  <li className="text-gray-500"><span className="text-success">สีเขียว</span> = <span className="text-success underline">เปิด</span>ให้บริการ</li>
+                  <li className="text-gray-500">สีเทา = <span className="text-red-500 underline">ปิด</span>ให้บริการ</li>
+                </ul>
+              </div>
             </div>
           </div>
 

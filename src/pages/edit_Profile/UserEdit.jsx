@@ -187,7 +187,7 @@ export default function UserEdit() {
         ข้อมูล | คุณ{" "}
         {userDetail && (
           <span className="text-4xl font-medium text-blue-700 underline underline-offset-8" >
-            {userDetail.FirstName}
+            {userDetail.user.FirstName}
           </span>
         )}
       </div>
@@ -345,7 +345,9 @@ export default function UserEdit() {
               </div>
             </div>
           </div>
-          <div className="-mx-3 flex flex-wrap">
+
+
+          <div className="-mx-3 w-full flex flex-col flex-wrap items-center">
             <div className="form-control w-2/3 max-w-xs">
               <label className="label">
                 <span className="label-text">เลือกไฟล์</span>
@@ -353,7 +355,7 @@ export default function UserEdit() {
               </label>
               <input
                 type="file"
-                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                className="file-input file-input-bordered w-full h-10 mb-3 max-w-xs border-[#D9D9D9] file:rounded-lg  file:text-primary file:bg-white file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
                 accept="image/*"
                 onChange={handleFileChange}
                 id="idcardFile"
@@ -364,7 +366,7 @@ export default function UserEdit() {
                   <img
                     src={`${BASE_URL}/api/v1/idledrive/images/${userDetail.driverDocuments[0].ImageURL}`}
                     alt="ID Card Preview"
-                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                    style={{ maxWidth: "100%", maxHeight: "200px" , borderRadius: "12px"}}
                   />
                 )}
 
@@ -373,25 +375,25 @@ export default function UserEdit() {
                   <img
                     src={previewImage.idcardFile}
                     alt="ID Card Preview"
-                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                    style={{ maxWidth: "100%", Width: "100%" , maxHeight: "200px" , borderRadius: "12px"}}
                   />
-                  <button
-                    className="absolute text-red-500 top-0 right-0 font-extrabold text-xl"
+                  <span
+                    className="absolute text-red-500 top-1 right-6 font-extrabold text-xl cursor-pointer"
                     onClick={() => handleDeletePreview("idcardFile")}
                   >
                     X
-                  </button>
+                  </span>
                 </div>
               )}
             </div>
-            <div className="form-control w-2/3 max-w-xs">
+            <div className="form-control w-2/3 max-w-xs  mt-5">
               <label className="label">
                 <span className="label-text">เลือกไฟล์</span>
                 <span className="label-text-alt">สำเนาใบขับขี่</span>
               </label>
               <input
                 type="file"
-                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                className="file-input file-input-bordered w-full h-10 mb-3 max-w-xs border-[#D9D9D9] file:rounded-lg  file:text-primary file:bg-white file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
                 accept="image/*"
                 onChange={handleFileChange}
                 id="licenseFile"
@@ -403,7 +405,7 @@ export default function UserEdit() {
                   <img
                     src={`${BASE_URL}/api/v1/idledrive/images/${userDetail.driverDocuments[1].ImageURL}`}
                     alt="ID Card Preview"
-                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                    style={{ maxWidth: "100%", maxHeight: "200px" , borderRadius: "12px"}}
                   />
                 )}
 
@@ -412,14 +414,14 @@ export default function UserEdit() {
                   <img
                     src={previewImage.licenseFile}
                     alt="ID Card Preview"
-                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                    style={{ maxWidth: "100%", Width: "100%" , maxHeight: "200px" , borderRadius: "12px"}}
                   />
-                  <button
-                    className="absolute text-red-500 top-0 right-0 font-extrabold text-xl"
+                  <span
+                    className="absolute text-red-500 top-1 right-6 font-extrabold text-xl cursor-pointer"
                     onClick={() => handleDeletePreview("licenseFile")}
                   >
                     X
-                  </button>
+                  </span>
                 </div>
               )}
             </div>

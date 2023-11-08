@@ -186,7 +186,7 @@ export default function BackOfficeRegister() {
             </div>
           </div>
 
-          <div className="-mx-10 w-9/12">
+          <div className="-mx-10 w-9/12 ">
             <div className="w-full ">
               <div className="mb-5">
                 <label
@@ -197,7 +197,7 @@ export default function BackOfficeRegister() {
                 </label>
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
+                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9]  file:text-primary file:bg-white file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
                 />
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function BackOfficeRegister() {
                 </label>
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
+                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg  file:text-primary file:bg-white file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
                 />
               </div>
             </div>

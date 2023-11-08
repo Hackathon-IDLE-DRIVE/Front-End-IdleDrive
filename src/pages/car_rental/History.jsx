@@ -62,7 +62,7 @@ export const History = () => {
                 <a onClick={() => handleSortByType("Complete")} className='hover:bg-blue-700 hover:text-white'>Complete</a>
               </li>
               <li>
-                <a onClick={() => handleSortByType("Cancel")}>Cancel</a>
+                <a onClick={() => handleSortByType("Cancel")} className='hover:bg-error hover:text-white'>Cancel</a>
               </li>
             </ul>
           </details>
