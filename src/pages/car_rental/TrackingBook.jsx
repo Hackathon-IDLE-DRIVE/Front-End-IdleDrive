@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getBookingDetails, updateBookingStatus } from "../../service/rentals";
-import { format, isValid } from "date-fns";
+import { format } from "date-fns";
 import Car from "../../images/MotorCar2.png";
 import BG from "../../images/BG-Tracking.png";
 import { motion } from "framer-motion";
@@ -119,13 +119,13 @@ const TrackingBook = () => {
                   <Status status={`${detailBooking.rental.RentalStatus}`} />
                 </div>
                 <div className="font-bold text-sm mt-1">
-                  {detailBooking.rental.updatedAt}
+                  {format(new Date(detailBooking.rental.updatedAt), "dd-MM-yyyy hh:mm a")}
                 </div>
               </div>
               <div>
                 <div className="text-gray-400 font-bold mt-6">ที่อยู่ :</div>
                 <div className="font-bold">
-                  168, 24th Bangkhen Bangkok 10220
+                {detailBooking.rental.address}
                 </div>
               </div>
             </div>

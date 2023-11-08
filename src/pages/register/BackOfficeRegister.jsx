@@ -186,39 +186,6 @@ export default function BackOfficeRegister() {
             </div>
           </div>
 
-          <div className="-mx-10 w-9/12 ">
-            <div className="w-full ">
-              <div className="mb-5">
-                <label
-                  htmlFor="bankbook"
-                  className="mb-3 block text-base font-medium"
-                >
-                  ภาพถ่ายบัตรประชาชน (ตรงกับด้านบน)
-                </label>
-                <input
-                  type="file"
-                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9]  file:text-primary file:bg-white file:rounded-lg file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="-mx-10 w-9/12">
-            <div className="w-full ">
-              <div className="mb-5">
-                <label
-                  htmlFor="idcard"
-                  className="mb-3 block text-base font-medium"
-                >
-                  ภาพถ่ายหน้าบัญชี (สำหรับโอนรายได้)
-                </label>
-                <input
-                  type="file"
-                  className="file-input file-input-bordered w-full h-10 max-w-xs border-[#D9D9D9] file:rounded-lg  file:text-primary file:bg-white file:border-blue-700 file:hover:bg-blue-700 hover:border-blue-700 file:hover:text-white focus:outline-none cursor-pointer"
-                />
-              </div>
-            </div>
-          </div>
 
           <div className="flex justify-center items-center my-5 max-w-lg">
             <span className="w-44 border border-gray-400"></span>
