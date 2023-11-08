@@ -7,6 +7,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../service/context/AuthContext";
 import BASE_URL from "../../service/baseURL";
+import backgroundImageUrl from '../../images/mounbg.gif';
+
 
 export default function UserEdit() {
   const navigate = useNavigate();
@@ -173,19 +175,26 @@ export default function UserEdit() {
     fetchUser();
   }, [id]);
 
+  const containerStyle = {
+    backgroundImage: `url(${backgroundImageUrl})`,
+    backgroundSize: 'cover', 
+    backgroundPositionY: `center`,
+  };
+
   return (
     <>
-      <div className="text-4xl font-medium text-center mt-5">
+      <div className="text-4xl font-medium text-center mt-5 mb-10" >
         ข้อมูล | คุณ{" "}
         {userDetail && (
-          <span className="text-4xl font-medium text-blue-700 underline underline-offset-8">
+          <span className="text-4xl font-medium text-blue-700 underline underline-offset-8" >
             {userDetail.FirstName}
           </span>
         )}
       </div>
+      <div className="p-5 rounded-2xl mb-10" style={containerStyle}>
       {userDetail && (
-        <div className="w-full my-10">
-          <div className="mx-auto flex justify-center  indicator relative ">
+        <div className="w-full my-10" >
+          <div className="mx-auto flex justify-center  indicator relative " >
             <label htmlFor="drop-file">
               <img
                 className=" rounded-full h-60 w-60 object-cover border-4  shadow-xl hover:border-blue-700 hover:shadow-lg"
@@ -208,10 +217,10 @@ export default function UserEdit() {
         </div>
       )}
 
-      <div className="w-full">
+      <div className="w-full" >
         <form
           onSubmit={handleSubmit}
-          className="w-1/2 mx-auto my-10 py-10 px-5 bg-white border-[#D9D9D9] border-2 shadow-xl flex flex-col items-center rounded-xl drop-shadow-lg"
+          className="w-1/2 mx-auto my-10 mb-20 py-10 px-5 bg-white border-blue-700 border-2 shadow-xl flex flex-col items-center rounded-xl drop-shadow-lg"
         >
           <div className="-mx-3 flex flex-wrap">
             <div className="w-full px-3 sm:w-1/2">
@@ -450,6 +459,7 @@ export default function UserEdit() {
           </div>
         </div>
       </dialog>
+      </div>
     </>
   );
 }

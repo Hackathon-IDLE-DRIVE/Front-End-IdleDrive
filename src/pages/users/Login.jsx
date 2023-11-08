@@ -52,7 +52,7 @@ export default function Login() {
               type="text"
               id="email"
               placeholder="Type here"
-              className="input input-bordered w-full max-w-md mx-auto"
+              className="input input-bordered w-full max-w-md mx-auto focus:border-blue-700 focus:outline-none"
               onChange={handleChange}
             />
           </div>
@@ -65,7 +65,7 @@ export default function Login() {
               type="password"
               placeholder="Type here"
               id="password"
-              className="input input-bordered w-full max-w-md mx-auto"
+              className="input input-bordered w-full max-w-md mx-auto focus:border-blue-700 focus:outline-none"
               onChange={handleChange}
             />
           </div>
