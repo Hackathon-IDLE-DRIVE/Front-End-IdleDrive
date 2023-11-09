@@ -23,6 +23,17 @@ export const EditCar = () => {
     type: "",
     location: "",
   });
+  const [confirmCar, setConfirmCar] = useState(true);
+  const [agreement, setAgreement] = useState(true);
+
+  const handleConfirmCarChange = () => {
+    setConfirmCar(!confirmCar);
+  };
+
+  const handleAgreementChange = () => {
+    setAgreement(!agreement);
+  };
+
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
@@ -120,6 +131,33 @@ export const EditCar = () => {
       return;
     }
 
+    const requiredFields = [
+      "model",
+      "make",
+      "color",
+      "fuel_type",
+      "seat",
+      "plate",
+      "transmission",
+      "description",
+      "feature",
+      "rentalRate",
+      "car_rental_id_rental",
+      "type",
+      "location",
+    ];
+    const missingFields = requiredFields.filter((field) => !carDetails[field]);
+
+    if (missingFields.length > 0) {
+      document.getElementById("my_modal_2").showModal();
+      return;
+    }
+
+    if (!confirmCar || !agreement) {
+      document.getElementById("my_modal_3").showModal();
+      return;
+    }
+
     const formData = new FormData();
     formData.append("carDetails", JSON.stringify(carDetails));
 
@@ -135,7 +173,7 @@ export const EditCar = () => {
     try {
       const response = await updateCar(id, formData);
       console.log("Car updated successfully:", response);
-      navigate("/merchant/dashboard");
+      navigate("/merchant/mycar");
     } catch (error) {
       console.error("Error updating car:", error);
     }
@@ -156,7 +194,7 @@ export const EditCar = () => {
       </div>
       <div className="w-11/12 mx-auto">
         <div className="w-full flex flex-wrap rounded-xl shadow-xl drop-shadow-xl p-10 border-2 border-[#D9D9D9]">
-          <div className="flex w-1/2 flex-wrap justify-around p-5">
+          <form className="flex w-1/2 flex-wrap justify-around p-5">
             <div className="mb-5">
               <label
                 htmlFor="model"
@@ -165,6 +203,7 @@ export const EditCar = () => {
                 ชื่อรุ่นและปี
               </label>
               <input
+                required
                 type="text"
                 name="model"
                 id="model"
@@ -182,6 +221,7 @@ export const EditCar = () => {
                 ยี่ห้อ
               </label>
               <input
+                required
                 type="text"
                 name="make"
                 id="make"
@@ -199,6 +239,7 @@ export const EditCar = () => {
                 สี
               </label>
               <input
+                required
                 type="text"
                 name="color"
                 id="color"
@@ -217,6 +258,7 @@ export const EditCar = () => {
                 เชื้อเพลิง
               </label>
               <input
+                required
                 type="text"
                 name="fuel_type"
                 id="fuel_type"
@@ -235,6 +277,7 @@ export const EditCar = () => {
                 จำนวนที่นั่ง
               </label>
               <input
+                required
                 type="text"
                 name="seat"
                 id="seat"
@@ -253,6 +296,7 @@ export const EditCar = () => {
                 ประเภทเกียร์
               </label>
               <input
+                required
                 type="text"
                 name="transmission"
                 id="transmission"
@@ -270,7 +314,8 @@ export const EditCar = () => {
                 ราคา
               </label>
               <input
-                type="text"
+                required
+                type="number"
                 name="rentalRate"
                 id="rentalRate"
                 placeholder="ราคา"
@@ -287,6 +332,7 @@ export const EditCar = () => {
                 ที่ตั้ง
               </label>
               <input
+                required
                 type="text"
                 name="location"
                 id="location"
@@ -305,6 +351,7 @@ export const EditCar = () => {
                 ประเภทรถ
               </label>
               <select
+                required
                 name="type"
                 value={carDetails.type}
                 onChange={handleChange}
@@ -327,6 +374,7 @@ export const EditCar = () => {
                 ป้ายทะเบียน
               </label>
               <input
+                required
                 type="text"
                 name="plate"
                 id="plate"
@@ -345,6 +393,7 @@ export const EditCar = () => {
                 คำอธิบาย
               </label>
               <textarea
+                required
                 type="text"
                 name="description"
                 id="description"
@@ -363,6 +412,7 @@ export const EditCar = () => {
                 Car features
               </label>
               <textarea
+                required
                 type="text"
                 name="feature"
                 id="feature"
@@ -372,7 +422,7 @@ export const EditCar = () => {
                 className="w-full h-36 rounded-md border border-[#D9D9D9] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
             </div>
-          </div>
+          </form>
           <div className="flex w-1/2 flex-wrap justify-around p-10">
             <div className="w-full">
               <label
@@ -482,8 +532,15 @@ export const EditCar = () => {
               />
               <div className="mt-3">
                 <ul className="list-disc ml-5">
-                  <li className="text-gray-500"><span className="text-success">สีเขียว</span> = <span className="text-success underline">เปิด</span>ให้บริการ</li>
-                  <li className="text-gray-500">สีเทา = <span className="text-red-500 underline">ปิด</span>ให้บริการ</li>
+                  <li className="text-gray-500">
+                    <span className="text-success">สีเขียว</span> ={" "}
+                    <span className="text-success underline">เปิด</span>
+                    ให้บริการ
+                  </li>
+                  <li className="text-gray-500">
+                    สีเทา = <span className="text-red-500 underline">ปิด</span>
+                    ให้บริการ
+                  </li>
                 </ul>
               </div>
             </div>
@@ -493,7 +550,13 @@ export const EditCar = () => {
             <div className="flex flex-col w-1/3 p-10">
               <div className="htmlForm-control">
                 <label className="label cursor-pointer justify-start">
-                  <input type="checkbox" className="checkbox-md " />
+                  <input
+                    type="checkbox"
+                    className="checkbox-md "
+                    id="confirmCar"
+                    checked={confirmCar}
+                    onChange={handleConfirmCarChange}
+                  />
                   <span className="label-text pl-5">
                     ยืนยันว่าข้าพเจ้าเป็นเจ้าของรถ{" "}
                     <span className="text-red-600">*</span>
@@ -502,7 +565,13 @@ export const EditCar = () => {
               </div>
               <div className="htmlForm-control">
                 <label className="label cursor-pointer justify-start">
-                  <input type="checkbox" className="checkbox-md " />
+                  <input
+                    type="checkbox"
+                    className="checkbox-md "
+                    id="agreement"
+                    checked={agreement}
+                    onChange={handleAgreementChange}
+                  />
                   <span className="label-text pl-5">
                     ยืนยันข้อตกลงของทางเรา{" "}
                     <span className="text-red-600">*</span>
@@ -512,9 +581,9 @@ export const EditCar = () => {
             </div>
             <div className="w-1/3 flex justify-center items-end">
               <button
+                onClick={handleSubmit}
                 className="btn bg-blue-700 hover:bg-blue-800 rounded-full h-10 w-48 border-[#D9D9D9] shadow-lg drop-shadow-lg
                  text-white"
-                onClick={handleSubmit}
               >
                 ยืนยันการส่งข้อมูล
               </button>
@@ -528,6 +597,30 @@ export const EditCar = () => {
         <div className="modal-box">
           <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
           <p className="py-4">กรูณาอัพโหลดรูปให้ครบ 6 ภาพ หรือ ใช้รูปเดิม</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">กรูณาใส่ข้อมูลให้ครบทุกช่อง !</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4">กรูณายอมรับข้อตกลง !</p>
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>
