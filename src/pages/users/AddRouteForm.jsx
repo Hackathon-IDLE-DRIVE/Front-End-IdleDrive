@@ -63,10 +63,16 @@ export default function AddRouteForm() {
         const reader = new FileReader();
 
         reader.onload = (event) => {
-          resolve({
-            src: event.target.result,
-            file: file,
-          });
+          const fileSize = file.size / 1024 / 1024;
+          if (fileSize <= 5) {
+            resolve({
+              src: event.target.result,
+              file: file,
+            });
+          } else {
+            reject(new Error("File size exceeds 5 MB limit."));
+            document.getElementById("my_modal_7").showModal();
+          }
         };
 
         reader.onerror = reject;
@@ -365,6 +371,24 @@ export default function AddRouteForm() {
             ลิ้งค์ของท่าน{" "}
             <span className="font-bold text-red-500 underline">ไม่ใช่</span>{" "}
             Google Map
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn bg-blue-700 text-white hover:bg-blue-800">
+                รับทราบ
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_7" className="modal">
+        <div className="modal-box w-5/12 max-w-5xl">
+          <h3 className="font-bold text-lg text-red-500">เกิดข้อผิดพลาด!</h3>
+          <p className="py-4 font-bold">
+            รูปภาพของท่าน{" "}
+            <span className="font-bold text-red-500 underline">มีขนาดเกิน</span> 5
+            MB กรุณาลองใหม่อีกครั้ง
           </p>
           <div className="modal-action">
             <form method="dialog">
