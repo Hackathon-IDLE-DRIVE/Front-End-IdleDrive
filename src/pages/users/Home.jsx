@@ -60,11 +60,11 @@ export const Home = () => {
             onChange={(e) => setLocation(e.target.value)}
             required className="input w-full max-w-xs my-4 px-3 bg-gray-100 border-none focus:outline-blue-700">
               <option value='' disabled selected>สถานที่</option>
-              <option value="airport">ท่าอากาศยานเชียงใหม่</option>
-              <option value="tar-pare">ประตูท่าแพ</option>
-              <option value="cmu">มหาวิทยาลัยเชียงใหม่</option>
-              <option value="maya">MAYA เมย่า</option>
-              <option value="central-airport">เซ็นทรัลเชียงใหม่ แอร์พอร์ต</option>
+              <option value="ท่าอากาศยานเชียงใหม่">ท่าอากาศยานเชียงใหม่</option>
+              <option value="ประตูท่าแพ">ประตูท่าแพ</option>
+              <option value="มหาวิทยาลัยเชียงใหม่">มหาวิทยาลัยเชียงใหม่</option>
+              <option value="MAYA เมย่า">MAYA เมย่า</option>
+              <option value="เซ็นทรัลเชียงใหม่ แอร์พอร์ต">เซ็นทรัลเชียงใหม่ แอร์พอร์ต</option>
           </select>
           {/* <input
             type="text"
